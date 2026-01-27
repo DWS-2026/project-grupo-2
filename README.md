@@ -5,7 +5,7 @@
 |:--- |:--- |:--- |
 | Carlos Moreno Cano | c.morenoc.2022@alumnos.urjc.es | roomtrash6 |
 | Lorena López Gallego-Casilda | l.lopezga.2023@alumnos.urjc.es | msbuns01 |
-| [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
+| Óscar Rodríguez Pérez | o.rodriguez.2022@alumnos.urjc.es | OscarRP15 |
 | [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
 
 ---
