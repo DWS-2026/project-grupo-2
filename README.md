@@ -13,20 +13,20 @@
 ## 🎭 **Preparación: Definición del Proyecto**
 
 ### **Descripción del Tema**
-[Escribe aquí una descripción breve y concisa de qué trata tu aplicación, el sector al que pertenece y qué valor aporta al usuario].
+es una aplicación web tipo foro para que los amantes de la música compartan sus opiniones y debatan con otros usuarios sobre nuevos lanzamientos, sus artistas favoritos, etc. El objetivo de la aplicación es crear un ambiente acogedor y respetuoso en el que los usuarios se sientan cómodos escribiendo sobre música.
 
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
 
-1. **[Entidad 1]**: [Ej: Usuario]
-2. **[Entidad 2]**: [Ej: Producto]
-3. **[Entidad 3]**: [Ej: Pedido]
-4. **[Entidad 4]**: [Ej: Categoría]
+1. **[Entidad 1]**: Usuario
+2. **[Entidad 2]**: Post
+3. **[Entidad 3]**: Comentario
+4. **[Entidad 4]**: Artista
 
 **Relaciones entre entidades:**
-- [Ej: Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)]
-- [Ej: Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)]
-- [Ej: Producto - Categoría: Un producto pertenece a una categoría (N:1)]
+- Usuario - Post: Un usuario puede tener múltiples posts (1:N)
+- Post - Comentario: Un post puede contener múltiples comentarios (1:N)
+- Post - Artista: Un post puede hablar sobre varios artistas y un artista puede ser mencionado en varios posts (N:M)
 - [Descripción de otras relaciones relevantes]
 
 ### **Permisos de los Usuarios**
