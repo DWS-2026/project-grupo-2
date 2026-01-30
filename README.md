@@ -6,14 +6,15 @@
 | Carlos Moreno Cano | c.morenoc.2022@alumnos.urjc.es | roomtrash6 |
 | Lorena López Gallego-Casilda | l.lopezga.2023@alumnos.urjc.es | msbuns01 |
 | Óscar Rodríguez Pérez | o.rodriguez.2022@alumnos.urjc.es | OscarRP15 |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
+
 
 ---
 
 ## 🎭 **Preparación: Definición del Proyecto**
 
 ### **Descripción del Tema**
-es una aplicación web tipo foro para que los amantes de la música compartan sus opiniones y debatan con otros usuarios sobre nuevos lanzamientos, sus artistas favoritos, etc. El objetivo de la aplicación es crear un ambiente acogedor y respetuoso en el que los usuarios se sientan cómodos escribiendo sobre música.
+Es una aplicación web tipo foro para que los amantes de la música compartan sus opiniones y debatan con otros usuarios sobre nuevos lanzamientos, sus artistas favoritos, etc... 
+El objetivo de la aplicación es crear un ambiente acogedor y respetuoso en el que los usuarios se sientan cómodos escribiendo sobre música.
 
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
@@ -22,34 +23,43 @@ Indicar las entidades principales que gestionará la aplicación y las relacione
 2. **[Entidad 2]**: Post
 3. **[Entidad 3]**: Comentario
 4. **[Entidad 4]**: Artista
+5. **[Entidad 5]**: Álbum
+6. **[Entidad 6]**: Canción
 
 **Relaciones entre entidades:**
-- Usuario - Post: Un usuario puede tener múltiples posts (1:N)
-- Post - Comentario: Un post puede contener múltiples comentarios (1:N)
+- Usuario - Post: Un usuario puede tener múltiples posts pero la autoría de un post no puede ser de varios usuarios simultáneamente (1:N).
+- Usuario - Comentario: Un usuario puede escribir varios comentarios pero un comentario no puede ser de varios usuarios (1:N).
+- Post - Comentario: Un post puede contener múltiples comentarios pero un comentario no puede pertenecer a más de un post (1:N).
 - Post - Artista: Un post puede hablar sobre varios artistas y un artista puede ser mencionado en varios posts (N:M)
-- [Descripción de otras relaciones relevantes]
+- Post - Canción: Un post puede hablar sobre varias canciones y una canción puede estar etiquetada en varios posts (N:M)
+- Post - Álbum: Un post puede tratar de varios álbumes y un álbum puede estar etiquetado en varios posts (N:M)
+- Álbum - Canción: Un álbum puede constar de varias canciones y tomaremos que una canción sólo puede pertenecer a un álbum (1:N).
+- Artista - Álbum: Un artista puede hacer varios álbumes y se tomará que la autoría de un álbum es sólo de un artista singular (1:N).
+- Artista - Canción: Un artista puede tener multitud de canciones y varios artistas pueden trabajar en una misma canción (N:M).
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
 
 * **Usuario Anónimo**: 
-  - Permisos: [Ej: Visualización de catálogo, búsqueda de productos, registro]
+  - Permisos: Visualización del contenido de otros usuarios.
   - No es dueño de ninguna entidad
 
 * **Usuario Registrado**: 
-  - Permisos: [Ej: Gestión de perfil, realizar pedidos, crear valoraciones]
-  - Es dueño de: [Ej: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones]
+  - Permisos: Creación de posts bajo su nombre, creación de comentarios bajo su nombre, valoración del contenido de otros usuarios, edición de su perfil público.
+  - Es dueño de: Sus posts y sus comentarios.
 
 * **Administrador**: 
-  - Permisos: [Ej: Gestión completa de productos (CRUD), visualización de estadísticas, moderación de contenido]
-  - Es dueño de: [Ej: Productos, Categorías, puede gestionar todos los Pedidos y Usuarios]
+  - Permisos: Tiene permisos de creación, edición, y borrado de todas las entidades de la web. Esto incluye todos los posts y comentarios de todos los usuarios, y todos los títulos de música que se pueden discutir en la página.
+  - Es dueño de: Es dueño de todas las entidades de la web.
 
 ### **Imágenes**
 Indicar qué entidades tendrán asociadas una o varias imágenes:
 
-- **[Entidad con imágenes 1]**: [Ej: Usuario - Una imagen de avatar por usuario]
-- **[Entidad con imágenes 2]**: [Ej: Producto - Múltiples imágenes por producto (galería)]
-- **[Entidad con imágenes 3]**: [Ej: Categoría - Una imagen representativa por categoría]
+- **[Entidad con imágenes 1]**: Usuario
+- **[Entidad con imágenes 2]**: Álbum
+- **[Entidad con imágenes 3]**: Post
+- **[Entidad con imágenes 4]**: Canción
+- **[Entidad con imágenes 5]**: Artista
 
 ---
 
