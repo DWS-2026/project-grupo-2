@@ -1,10 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>MusicForum - Post</title>
+
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
-<body>
-$END$
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="first.html">MusicForum</a>
+  </div>
+</nav>
+
+<!-- CONTENIDO DEL POST -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <!-- TÍTULO (se puede cambiar manualmente) -->
+      <h1 class="mb-3">
+        Título del post
+      </h1>
+
+      <!-- AUTOR -->
+      <p class="text-muted mb-4">
+        Publicado por <strong>NombreDelAutor</strong>
+      </p>
+
+      <!-- IMAGEN UNIVERSAL -->
+      <img
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Variety-va515.jpg"
+              class="img-fluid rounded mb-4"
+              alt="Imagen genérica del post">
+
+      <!-- DESCRIPCIÓN UNIVERSAL -->
+      <p>
+        Este es un post génerico de MusicForum donde los usuarios comparten
+        opiniones, música, vídeos y reflexiones relacionadas con
+        el mundo musical. El contenido puede incluir debates,
+        análisis personales o simplemente descubrimientos recientes. En el futuro cada post
+        tendrá su propio contenido escrito por su autor
+      </p>
+
+      <p>
+        Participa dejando tu opinión y respetando siempre al resto
+        de la comunidad.
+      </p>
+
+      <a href="post_listing.html" class="btn btn-outline-secondary mt-4">
+        ← Volver a posts
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white py-4 mt-auto">
+  <div class="container text-center">
+    <p class="mb-0">© 2026 MusicForum — Desarrollo Web Seguro</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
