@@ -23,19 +23,13 @@ Indicar las entidades principales que gestionará la aplicación y las relacione
 2. **[Entidad 2]**: Post
 3. **[Entidad 3]**: Comentario
 4. **[Entidad 4]**: Artista
-5. **[Entidad 5]**: Álbum
-6. **[Entidad 6]**: Canción
+
 
 **Relaciones entre entidades:**
 - Usuario - Post: Un usuario puede tener múltiples posts pero la autoría de un post no puede ser de varios usuarios simultáneamente (1:N).
 - Usuario - Comentario: Un usuario puede escribir varios comentarios pero un comentario no puede ser de varios usuarios (1:N).
 - Post - Comentario: Un post puede contener múltiples comentarios pero un comentario no puede pertenecer a más de un post (1:N).
-- Post - Artista: Un post puede hablar sobre varios artistas y un artista puede ser mencionado en varios posts (N:M)
-- Post - Canción: Un post puede hablar sobre varias canciones y una canción puede estar etiquetada en varios posts (N:M)
 - Post - Álbum: Un post puede tratar de varios álbumes y un álbum puede estar etiquetado en varios posts (N:M)
-- Álbum - Canción: Un álbum puede constar de varias canciones y tomaremos que una canción sólo puede pertenecer a un álbum (1:N).
-- Artista - Álbum: Un artista puede hacer varios álbumes y se tomará que la autoría de un álbum es sólo de un artista singular (1:N).
-- Artista - Canción: Un artista puede tener multitud de canciones y varios artistas pueden trabajar en una misma canción (N:M).
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
@@ -58,8 +52,7 @@ Indicar qué entidades tendrán asociadas una o varias imágenes:
 - **[Entidad con imágenes 1]**: Usuario
 - **[Entidad con imágenes 2]**: Álbum
 - **[Entidad con imágenes 3]**: Post
-- **[Entidad con imágenes 4]**: Canción
-- **[Entidad con imágenes 5]**: Artista
+
 
 ---
 
