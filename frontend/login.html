@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MusicForum - Registro</title>
+    <title>MusicForum - Login</title>
 
     <!-- Bootstrap CSS -->
     <link 
@@ -16,7 +16,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="pag_inicio.html">MusicForum</a>
+            <a class="navbar-brand fw-bold" href="first.html">MusicForum</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
                     data-bs-target="#navbarNav">
@@ -27,19 +27,23 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="pag_inicio.html">Inicio</a>
+                        <a class="nav-link" href="first.html">Inicio</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Álbumes</a>
+                        <a class="nav-link" href="album_listing.html">Álbumes</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="pag_login.html">Login</a>
+                        <a class="nav-link active" href="login.html">Login</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-primary ms-2 active" href="pag_registro.html">Registrarse</a>
+                        <a class="btn btn-primary ms-2" href="register.html">Registrarse</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="user_profile.html">Mi perfil</a> <!-- Este link solo aparece en la página de login -->
                     </li>
 
                 </ul>
@@ -47,20 +51,14 @@
         </div>
     </nav>
 
-    <!-- REGISTRO -->
+    <!-- LOGIN FORM -->
     <div class="container d-flex justify-content-center align-items-center" 
-         style="min-height: 80vh;">
+        style="min-height: 85vh;">
 
-        <div class="card shadow p-4" style="max-width: 480px; width: 100%;">
-            <h2 class="text-center mb-4 fw-bold">Crear cuenta</h2>
+        <div class="card shadow p-4" style="max-width: 420px; width: 100%;">
+            <h2 class="text-center mb-4 fw-bold">Iniciar sesión</h2>
 
             <form>
-
-                <!-- Nombre -->
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre de usuario</label>
-                    <input type="text" class="form-control" id="nombre" required>
-                </div>
 
                 <!-- Email -->
                 <div class="mb-3">
@@ -72,33 +70,17 @@
                 <!-- Password -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" 
-                            pattern=".{8,}" 
-                            title="La contraseña debe tener al menos 8 caracteres" required>
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="mb-3">
-                    <label for="password2" class="form-label">Repetir contraseña</label>
-                    <input type="password" class="form-control" id="password2" 
-                            pattern=".{8,}" 
-                            title="La contraseña debe tener al menos 8 caracteres" required>
-                </div>
-
-                <!-- Avatar -->
-                <div class="mb-3">
-                    <label for="avatar" class="form-label">Avatar (opcional)</label>
-                    <input type="file" class="form-control" id="avatar" accept="image/*">
+                    <input type="password" class="form-control" id="password" required>
                 </div>
 
                 <!-- Submit -->
-                <button type="submit" class="btn btn-dark w-100 mt-2">Crear cuenta</button>
+                <button type="submit" class="btn btn-dark w-100 mt-2">Entrar</button>
 
             </form>
 
             <p class="text-center mt-3 mb-0">
-                ¿Ya tienes cuenta? 
-                <a href="pag_login.html" class="text-decoration-none">Inicia sesión aquí</a>
+                ¿No tienes cuenta? 
+                <a href="register.html" class="text-decoration-none">Regístrate aquí</a>
             </p>
         </div>
 
