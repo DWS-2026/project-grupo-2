@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Publicar post - MusicForum</title>
+
+    <!-- Bootstrap CSS -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="first.html">MusicForum</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="first.html">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="album_listing.html">Álbumes</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="register.html">Registrarse</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="user_profile.html">Mi perfil</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<!-- CONTENT -->
+ <div class="container my-5" style="max-width: 700px;">
+    <h2 class="fw-bold mb-4 text-center">Crear un nuevo post</h2>
+    <div class="card shadow p-4">
+        <form>
+            <!-- TITLE -->
+             <div class="mb-3">
+                <label class="form-label fw-bold">Álbum</label>
+                <select class="form-select" requiered>
+                    <option value="">Selecciona un álbum</option>
+
+                        <option>Nadie Sabe Lo Que Va a Pasar Mañana - Bad Bunny</option>
+                        <option>Un Verano Sin Ti - Bad Bunny</option>
+
+                        <option>Cowboy Carter - Beyoncé</option>
+                        <option>Renaissance - Beyoncé</option>
+
+                        <option>Hit Me Hard and Soft - Billie Eilish</option>
+
+                        <option>Schlagenheim - Black Midi</option>
+
+                        <option>Proof - BTS</option>
+
+                        <option>Brat - Charli XCX</option>
+
+                        <option>U.U.F.O - Camellia</option>
+
+                        <option>Scarlet - Doja Cat</option>
+
+                        <option>Radical Optimism - Dua Lipa</option>
+
+                        <option>For All the Dogs - Drake</option>
+
+                        <option>Favourite Worst Nightmare - Artic Monkeys</option>
+
+                        <option>Getting killed - Geese</option>
+
+                        <option>Harry’s House - Harry Styles</option>
+
+                        <option>Unreal Unearth - Hozier</option>
+
+                        <option>Night Visions - Imagine Dragons</option>
+                        <option>Smoke + Mirrors - Imagine Dragons</option>
+                        <option>Evolve - Imagine Dragons</option>
+                        <option>Origins - Imagine Dragons</option>
+                        <option>Mercury - Act 1 - Imagine Dragons</option>
+                        <option>Mercury - Act 2 - Imagine Dragons</option>
+
+                        <option>Vultures 1 - Kanye West & Ty Dolla $ign</option>
+
+                        <option>Mañana Será Bonito - Karol G</option>
+
+                        <option>Las Mujeres Ya No Lloran - Shakira</option>
+
+                        <option>Guts - Olivia Rodrigo</option>
+
+                        <option>Héroes & Villanos - Metro Boomin</option>
+
+                        <option>Desahogo - Mora</option>
+
+                        <option>New Jeans - NewJeans</option>
+
+                        <option>Stick Season - Noah Kahan</option>
+
+                        <option>Lux - Rosalía</option>
+                        <option>Motomami - Rosalía</option>
+
+                        <option>The Tortured Poets Department - Taylor Swift</option>
+
+                        <option>UTOPIA - Travis Scott</option>
+
+                        <option>SOS - SZA</option>
+
+                        <option>El día que me olvides - Walls</option>
+
+                        <option>Room Under the Stairs - Zayn</option>
+
+                </select>    
+             </div>
+
+             <!-- POST CONTENT-->
+              <div class="mb-3"> 
+                <label class="form-label fw-bold">Contenido</label> 
+                <textarea class="form-control" rows="6" placeholder="Escribe aquí tu post..." required></textarea> 
+            </div>
+
+            <!-- IMAGE -->
+             <div class="mb-3"> 
+                <label class="form-label fw-bold">Imagen (opcional)</label> 
+                <input type="file" class="form-control"> 
+            </div>
+
+            <!-- BUTTON -->
+             <button type="submit" class="btn btn-dark w-100 mt-3"> Publicar post </button>
+
+        </form>
+    </div>
+ </div>
+
+     <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">© 2026 MusicForum — Desarrollo Web Seguro</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+</body>
+</html>
