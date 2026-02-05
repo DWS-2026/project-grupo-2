@@ -72,40 +72,40 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Inicio**
-![Página Principal](images\MusicForum_Inicio.png)
+![Página Principal](images/MusicForum_Inicio.png)
 
 > La página principal muestra los post más destacados del foro e incluye un botón para acceder al resto de los posts. Incluye barra de navegación, la cual da acceso a: inicio, álbumes, registro de usuario e inicio de sesión. Nota: esta barra de navegación está presente en todas las páginas.
 
 #### **2. Página Posts Publicados/ Listado de Posts**
-![Página Posts Publicados](images\MusicForum-Listado-de-Posts.png)
+![Página Posts Publicados](images/MusicForum-Listado-de-Posts.png)
 > Esta página muestra un listado de los post publicados. Incluye un botón para ver el post completo y sus comentarios.
 
 #### **3. Página Ver Post / Post**
-![Página Ver Post](images\MusicForum-Post.png)
+![Página Ver Post](images/MusicForum-Post.png)
 >Esta página es una página genérica para todos los posts, la cual incluye: el post completo, los comentarios ya publicados, un botón para volver a la página de posts publicados y un formulario para dejar una opinión.
 
 #### **4. Página Álbumes/ Listado de Álbumes**
-![Página Ábumes](images\MusicForum-Listado-de-Álbumes.png)
+![Página Ábumes](images/MusicForum-Listado-de-Albumes.png)
 > Esta página muestra una lista de los álbumes disponibles en el foro. Se incluye un botón para ver el listado de canciones de cada álbum.
 
 #### **5. Página Lista Canciones Álbum / Álbum**
-![Página Ver Posts](images\MusicForum-Álbum.png)
+![Página Ver Posts](images/MusicForum-Album.png)
 > Esta página muestra las canciones que componen el albúm seleccionado, además de la portada y un botón para volver a la lista de álbumes.
 
 #### **6. Página de Login / Login**
-![Página de Login](images\MusicForum-Login.png)
+![Página de Login](images/MusicForum-Login.png)
 > Esta página muestra un formulario para que cada usuario inicie sesión en su cuenta. En caso de no estar regstrado, se incluye un botón que le redirijirá a la página de registro. Como todavía no está implementada una funcionalidad real, se ha incluido en la barra de navegación un acceso a la página "Mi Perfil" para simular que, solo aquel usuario registrado, tiene acceso a esta.
 
 #### **7. Página de Registro/ Registro**
-![Página de Resgistro](images\MusicForum-Registro.png)
+![Página de Resgistro](images/MusicForum-Registro.png)
 > Esta página muestra un formulario para que cada usuario cree una cuenta en el foro. En caso de ya tener cuenta, se incluye un botó que le redirijirá a la página de login.
 
 #### **8. Página Perfil de Usuario / Mi perfil**
-![Página Perfil de Usuario](images\MusicForum-Mi-Perfil.png)
+![Página Perfil de Usuario](images/MusicForum-Mi-Perfil.png)
 > Esta página incluye la información del perfil de un usuario (nombre, apellidos, nombre de usuario, miembro desde:, avatar). Se incluyen botones para ver los post propios del usuario, publicar un post y editar el perfil.
 
 #### **9. Página Ver Mis Posts / Home**
-![Página Ver Mis Posts](images\MusicForum-Mis-posts.png)
+![Página Ver Mis Posts](images/MusicForum-Mis-posts.png)
 > Esta página incluye un lista de los post que ha publicado el usuario registrado. En cada post aparecen dos botones, uno para editar el post y otro para eliminarlo. También muestra un botón para volver a la página del perfil.
 
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
