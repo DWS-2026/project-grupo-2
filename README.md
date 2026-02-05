@@ -22,7 +22,7 @@ Indicar las entidades principales que gestionará la aplicación y las relacione
 1. **[Entidad 1]**: Usuario
 2. **[Entidad 2]**: Post
 3. **[Entidad 3]**: Comentario
-4. **[Entidad 4]**: Artista
+4. **[Entidad 4]**: Álbum
 
 
 **Relaciones entre entidades:**
@@ -141,11 +141,13 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [base spring boot project](https://github.com/DWS-2026/dws-2026-project-base/commit/6349ae93126f11e252194e108f988a737a92d18b)  | [backend/pom.xml](https://github.com/DWS-2026/dws-2026-project-base/commit/6349ae93126f11e252194e108f988a737a92d18b#diff-34049c3bc6deee4bbf269544338e0450399140da63fec684096d1ae0ce70b4bb)   |
+|2| [Re-edit de un par de cosas del README.md que no se guardaron y adición de un html para listar los álbumes de la página.](https://github.com/DWS-2026/dws-2026-project-base/commit/8013174948aa74f31f7c35f91c6f4d8805d68c0)  | [frontend/album_listing.html](https://github.com/DWS-2026/dws-2026-project-base/commit/8013174948aa74f31f7c35f91c6f4d8805d68c07#diff-e351d6d4fb741c2abf7cfb206875171f1f882a578a8a2ebb668b8d670b438446)   |
+|3| [new html file for post_listing and updated reference in the welcome page to it](https://github.com/DWS-2026/dws-2026-project-base/commit/a11e8d127f5ddbe71ca18388745fcb860973484d)  | [frontend/post_listing.html](https://github.com/DWS-2026/dws-2026-project-base/commit/a11e8d127f5ddbe71ca18388745fcb860973484d#diff-75e79d7dff23bd46c556b615c829d020f296b2239509e354df494a482ede3afc)   |
+|4| [added admin_panel and some new pages. Those are still essentially empty: they only have the footer and the navbar. Will finish all this after lunch](https://github.com/DWS-2026/dws-2026-project-base/commit/8e9ad4d322605c8eb5fbd995c91cea52526e8d3f)  | [frontend/admin_panel.html](https://github.com/DWS-2026/dws-2026-project-base/commit/8e9ad4d322605c8eb5fbd995c91cea52526e8d3f#diff-a99ee44ee16ae8644114c00056148b725cc57c686ba3df37a838b381a0ce963d)   |
+|5| [deleted a form because it wasn't needed. Improved the admin panel and user listing now works.](https://github.com/DWS-2026/dws-2026-project-base/commit/6b1d0763dd414e6269a978af40748fb689a2b578)  | [frontend/user_listing.html](https://github.com/DWS-2026/dws-2026-project-base/commit/6b1d0763dd414e6269a978af40748fb689a2b578#diff-67c12214d4fb8a3e0aafc2e40f622ab40600c9fa21e36f0f3881b77bae0ae67a)   |
+
+---
 
 ---
 
@@ -175,19 +177,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
 
 ## 🛠 **Práctica 2: Web con HTML generado en servidor**
 
