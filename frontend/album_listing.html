@@ -65,7 +65,7 @@
                             *El* álbum divertido de Arctic Monkeys. Mola sin más.
                         </p>
                         <a href="album_view.html?album=artic" class="btn btn-dark w-40 mt-3">Ver canciones</a>
-                        <button class="btn btn-dark w-40 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
+                        <button class="btn btn-dark w-40 mt-3 admin-only" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
                     </div>
                 </div>
                 <div class="d-flex gap-4 border-bottom pb-4 mb-4">
@@ -83,7 +83,7 @@
                             Clase de cosa que no gusta mucho al principio y luego te altera la química del cerebro y todo lo demás te aburre. Estamos acotando con esta descripción todo lo larga que puede ser una línea para que nos entendamos.
                         </p>
                         <a href="album_view.html?album=bm" class="btn btn-dark w-40 mt-3">Ver canciones</a>
-                        <button class="btn btn-dark w-40 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
+                        <button class="btn btn-dark w-40 mt-3 admin-only" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
                     </div>
                 </div>
                 <div class="d-flex gap-4 border-bottom pb-4 mb-4">
@@ -101,7 +101,7 @@
                             Qué caos. Mola pero dos horas de esto es pasarse.
                         </p>
                         <a href="album_view.html?album=uufo" class="btn btn-dark w-40 mt-3">Ver canciones</a>
-                        <button class="btn btn-dark w-40 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
+                        <button class="btn btn-dark w-40 mt-3 admin-only" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
                     </div>
                 </div>
                 <div class="d-flex gap-4 border-bottom pb-4 mb-4">
@@ -121,7 +121,7 @@
                             Billie en su versión más madura y atmosférica. Suena íntimo y enorme a la vez.
                         </p>
                         <a href="album_view.html?album=billie" class="btn btn-dark w-40 mt-3">Ver canciones</a>
-                        <button class="btn btn-dark w-40 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
+                        <button class="btn btn-dark w-40 mt-3 admin-only" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
                     </div>
                 </div>
                 <div class="d-flex gap-4 pb-4 mb-4">
@@ -142,16 +142,16 @@
                         </p>
 
                         <a href="album_view.html?album=bunny" class="btn btn-dark w-40 mt-3">Ver canciones</a>
-                        <button class="btn btn-dark w-40 mt-3" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
+                        <button class="btn btn-dark w-40 mt-3 admin-only" data-bs-toggle="modal" data-bs-target="#deleteModal">Eliminar álbum</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Botón Añadir Álbum -->
+
+    <!-- ADD AN ALBUM -->
     <div class="container text-center mb-5">
-        <button type="button" class="btn btn-success btn-lg shadow" data-bs-toggle="modal" data-bs-target="#addAlbumModal">
+        <button type="button" class="btn btn-success btn-lg shadow admin-only" data-bs-toggle="modal" data-bs-target="#addAlbumModal">
             + Añadir Nuevo Álbum
         </button>
     </div>
@@ -217,5 +217,8 @@
             </div>
         </div>
     </div>
+
+    <script src="js\admin-only.js"></script>
+
 </body>
 </html>
