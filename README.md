@@ -108,7 +108,30 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ![Página Ver Mis Posts](images/MusicForum-Mis-posts.png)
 > Esta página incluye un lista de los post que ha publicado el usuario registrado. En cada post aparecen dos botones, uno para editar el post y otro para eliminarlo. También muestra un botón para volver a la página del perfil.
 
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+#### **10. Página Ver Todos Los Usuarios / Listado de usuarios**
+![Página Ver Todos Los Usuarios](images\Listado-de-users.png)
+> Esta página sólo es accesible para el administrador de la página web. Desde ahí podrá ver los usuarios, editar sus perfiles, o borrarlos.
+
+#### **11. Página Panel de Administrador / Admin Panel**
+![Página Panel de Administrador](images\MusicForum-Panel-de-Administrador.png)
+> Esta página sólo es accesible para el administrador de la página web. Desde ahí tendrá acceso a la página de consultar la lista de usuarios pudiendo editar según considere, ver los posts de la página web para editar según considere, y podrá ver los álbumes registrados en la base de datos de la web, desde donde podrá potencialmente borrar o crear entradas nuevas.
+
+#### **12. Página Editar Perfil / Editar Perfil**
+![Página Editar Perfil](images\MusicForum-Editar-Perfil.png)
+> Formulario para editar un perfil. Accesible para usuarios registrados para aplicarse en los mismos y para el administrador para aplicarlo en cualquier usuario.
+
+#### **13. Página Editar Post / Editar Post**
+![Página Editar Post](images\MusicForum-Editar-post.png)
+> Formulario para editar un post. Accesible para el admin para todos los posts o para un usuario para sus posts.
+
+#### **14. Página Listado de Álbumes Admin View/ Listado de Álbumes Admin View**
+![Página Listado de Álbumes](images\MusicForum-Listado-De-Álbumes-Admin-View.png)
+> Esta página muestra los álbumes registrados en la página con la opción extra de añadir un álbum nuevo.
+
+#### **15. Página Ver Posts Admin View/ Ver Posts Admin View**
+![Página Ver Posts Admin View](images\MusicForum-Listado-De-Posts-Admin-View.png)
+> Esta página muestra los posts subidos a MusicForum. Se diferencia en el listado de usuarios anterior en que se tiene un botón para borrar los posts.
+
 
 ### **Participación de Miembros en la Práctica 1**
 
