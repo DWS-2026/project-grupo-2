@@ -104,7 +104,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ![Página Perfil de Usuario](images/MusicForum-Mi-Perfil.png)
 > Esta página incluye la información del perfil de un usuario (nombre, apellidos, nombre de usuario, miembro desde:, avatar). Se incluyen botones para ver los post propios del usuario, publicar un post y editar el perfil.
 
-#### **9. Página Ver Mis Posts / Home**
+#### **9. Página Ver Mis Posts / Mis Post**
 ![Página Ver Mis Posts](images/MusicForum-Mis-posts.png)
 > Esta página incluye un lista de los post que ha publicado el usuario registrado. En cada post aparecen dos botones, uno para editar el post y otro para eliminarlo. También muestra un botón para volver a la página del perfil.
 
