@@ -1,4 +1,4 @@
-# [Nombre de la Aplicación]
+# [MusicForum]
 
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
@@ -135,7 +135,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ### **Participación de Miembros en la Práctica 1**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Carlos Moreno Cano]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
