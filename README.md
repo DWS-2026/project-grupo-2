@@ -167,13 +167,13 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+| Nº    |                                                                     Commits                                                                      |                                                                                                                                                                                        Files                                                                                                                                                                                         |
+|:------------: |:------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|1|   [Creacion de vista genérica de album y de post](https://github.com/DWS-2026/project-grupo-2/commit/645338a7587c97da2c3f703187d66eebf146de70)   |    [album__view.html](https://github.com/DWS-2026/project-grupo-2/commit/645338a7587c97da2c3f703187d66eebf146de70#diff-48a3c797f16e91a20a8c2c5905b0e40f73126f5d75e3c0f6f186584791355de6)<br/>[post_view.html](https://github.com/DWS-2026/project-grupo-2/commit/645338a7587c97da2c3f703187d66eebf146de70#diff-c8ed244d96c172dc2fbc8b6d4e8026b019f9dfee10cd0dd0947c579bd908eefc)     |
+|2| [Creacion botones para ir a vista de album y post ](https://github.com/DWS-2026/project-grupo-2/commit/360297ac762c8e7fd750cf70dd6515e690ad54b6) | [album_listing.html](https://github.com/DWS-2026/project-grupo-2/commit/360297ac762c8e7fd750cf70dd6515e690ad54b6#diff-e351d6d4fb741c2abf7cfb206875171f1f882a578a8a2ebb668b8d670b438446) <br/> [post_listing.html](https://github.com/DWS-2026/project-grupo-2/commit/360297ac762c8e7fd750cf70dd6515e690ad54b6#diff-75e79d7dff23bd46c556b615c829d020f296b2239509e354df494a482ede3afc) |
+|3|            [Añadido comentarios en post](https://github.com/DWS-2026/project-grupo-2/commit/1ae8c99430ee915d7273f0af13c9be0665434e62)            |                                                                                                 [post_view.html](https://github.com/DWS-2026/project-grupo-2/commit/1ae8c99430ee915d7273f0af13c9be0665434e62#diff-c8ed244d96c172dc2fbc8b6d4e8026b019f9dfee10cd0dd0947c579bd908eefc)                                                                                                  |
+|4|          [Añadido directorios de CSS y JS](https://github.com/DWS-2026/project-grupo-2/commit/523cb33ef13880d972a7aa1c04f531ae2ad21791)          |              [CSS](https://github.com/DWS-2026/project-grupo-2/commit/523cb33ef13880d972a7aa1c04f531ae2ad21791#diff-56774e0e5ab1e847262c7a4fba42f12faec641b3a6aca7680bb0311fa283838d)    <br/> [JS](https://github.com/DWS-2026/project-grupo-2/commit/523cb33ef13880d972a7aa1c04f531ae2ad21791#diff-3dee7dcc2464eca4848acc79505d6b7ff0ef892537228ff35c65dc2cd021615c)               |
+|5|                                       [Realización de vídeo](https://www.youtube.com/watch?v=M-PBvYJEMNM)                                        |                                                                                                                                                                 [Vídeo](https://www.youtube.com/watch?v=M-PBvYJEMNM)                                                                                                                                                                 |
 
 ---
 
@@ -182,7 +182,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ## 🛠 **Práctica 2: Web con HTML generado en servidor**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=M-PBvYJEMNM)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Navegación y Capturas de Pantalla**
