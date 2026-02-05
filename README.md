@@ -149,19 +149,17 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Lorena López Gallego Casilda]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
+|1| [Creación de la primera página de la web](https://github.com/DWS-2026/project-grupo-2/commit/882d7339dc0055b355ea5fe2004fc1e4f01ab56d)  | [first.html](frontend\first.html)   |
+|2| [Creación página de registro y de login](https://github.com/DWS-2026/project-grupo-2/commit/525707113f232cb4544a3fc7ab17b779723df0c4)  | [login.htlm y register.html](frontend\login.html y frontend\register.html)   |
+|3| [Creación de las páginas de perfil de usuario y edición de ese perfil](https://github.com/DWS-2026/project-grupo-2/commit/0696a402720caaa5efa3d8651bcf25927291b5c4)  | [user_profile.html y edit_profile](frontend\user_profile.html y frontend\edit_profile.html)   |
+|4| [Posibilidad de "editar" los posts y de ver mis posts como usuario](https://github.com/DWS-2026/project-grupo-2/commit/5a633160d2c3ea7373aa83a84cfe078ed47f449f)  | [edit_post.html y user_posts](frontend/edit_post.html y frontend\user_posts.html)   |
+|5| [En las páginas de listado de posts y álbumes añadir botones especiales para el admin](https://github.com/DWS-2026/project-grupo-2/commit/50b478c1ed8a024232175f4b3b07ec61e704e09c)  | [post_listing.html y album_listing.html](frontend/post_listing.html y frontend/user_posts.html)   |
 
 #### **Alumno 3 - [Nombre Completo]**
 
