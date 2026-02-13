@@ -1,4 +1,4 @@
-# [Nombre de la Aplicación]
+# [MusicForum]
 
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
@@ -22,7 +22,7 @@ Indicar las entidades principales que gestionará la aplicación y las relacione
 1. **[Entidad 1]**: Usuario
 2. **[Entidad 2]**: Post
 3. **[Entidad 3]**: Comentario
-4. **[Entidad 4]**: Artista
+4. **[Entidad 4]**: Álbum
 
 
 **Relaciones entre entidades:**
@@ -59,87 +59,130 @@ Indicar qué entidades tendrán asociadas una o varias imágenes:
 ## 🛠 **Práctica 1: Maquetación de páginas con HTML y CSS**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=M-PBvYJEMNM)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Diagrama de Navegación**
 Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicación:
 
-![Diagrama de Navegación](images/navigation-diagram.png)
+![Diagrama de Navegación](images/Diagrama-navegacion-pantallas.jpg)
 
 > [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
-#### **1. Página Principal / Home**
-![Página Principal](images/home-page.png)
+#### **1. Página Principal / Inicio**
+![Página Principal](images/MusicForum_Inicio.png)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> La página principal muestra los post más destacados del foro e incluye un botón para acceder al resto de los posts. Incluye barra de navegación, la cual da acceso a: inicio, álbumes, registro de usuario e inicio de sesión. Nota: esta barra de navegación está presente en todas las páginas.
 
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+#### **2. Página Posts Publicados/ Listado de Posts**
+![Página Posts Publicados](images/MusicForum-Listado-de-Posts.png)
+> Esta página muestra un listado de los post publicados. Incluye un botón para ver el post completo y sus comentarios.
+
+#### **3. Página Ver Post / Post**
+![Página Ver Post](images/MusicForum-Post.png)
+>Esta página es una página genérica para todos los posts, la cual incluye: el post completo, los comentarios ya publicados, un botón para volver a la página de posts publicados y un formulario para dejar una opinión.
+
+#### **4. Página Álbumes/ Listado de Álbumes**
+![Página Ábumes](images/MusicForum-Listado-de-Albumes.png)
+> Esta página muestra una lista de los álbumes disponibles en el foro. Se incluye un botón para ver el listado de canciones de cada álbum.
+
+#### **5. Página Lista Canciones Álbum / Álbum**
+![Página Ver Posts](images/MusicForum-Album.png)
+> Esta página muestra las canciones que componen el albúm seleccionado, además de la portada y un botón para volver a la lista de álbumes.
+
+#### **6. Página de Login / Login**
+![Página de Login](images/MusicForum-Login.png)
+> Esta página muestra un formulario para que cada usuario inicie sesión en su cuenta. En caso de no estar regstrado, se incluye un botón que le redirijirá a la página de registro. Como todavía no está implementada una funcionalidad real, se ha incluido en la barra de navegación un acceso a la página "Mi Perfil" para simular que, solo aquel usuario registrado, tiene acceso a esta.
+
+#### **7. Página de Registro/ Registro**
+![Página de Resgistro](images/MusicForum-Registro.png)
+> Esta página muestra un formulario para que cada usuario cree una cuenta en el foro. En caso de ya tener cuenta, se incluye un botó que le redirijirá a la página de login.
+
+#### **8. Página Perfil de Usuario / Mi perfil**
+![Página Perfil de Usuario](images/MusicForum-Mi-Perfil.png)
+> Esta página incluye la información del perfil de un usuario (nombre, apellidos, nombre de usuario, miembro desde:, avatar). Se incluyen botones para ver los post propios del usuario, publicar un post y editar el perfil.
+
+#### **9. Página Ver Mis Posts / Mis Post**
+![Página Ver Mis Posts](images/MusicForum-Mis-posts.png)
+> Esta página incluye un lista de los post que ha publicado el usuario registrado. En cada post aparecen dos botones, uno para editar el post y otro para eliminarlo. También muestra un botón para volver a la página del perfil.
+
+#### **10. Página Ver Todos Los Usuarios / Listado de usuarios**
+![Página Ver Todos Los Usuarios](images/Listado-de-users.png)
+> Esta página sólo es accesible para el administrador de la página web. Desde ahí podrá ver los usuarios, editar sus perfiles, o borrarlos.
+
+#### **11. Página Panel de Administrador / Admin Panel**
+![Página Panel de Administrador](images/MusicForum-Panel-de-Administrador.png)
+> Esta página sólo es accesible para el administrador de la página web. Desde ahí tendrá acceso a la página de consultar la lista de usuarios pudiendo editar según considere, ver los posts de la página web para editar según considere, y podrá ver los álbumes registrados en la base de datos de la web, desde donde podrá potencialmente borrar o crear entradas nuevas.
+
+#### **12. Página Editar Perfil / Editar Perfil**
+![Página Editar Perfil](images/MusicForum-Editar-perfil.png)
+> Formulario para editar un perfil. Accesible para usuarios registrados para aplicarse en los mismos y para el administrador para aplicarlo en cualquier usuario.
+
+#### **13. Página Editar Post / Editar Post**
+![Página Editar Post](images/MusicForum-Editar-post.png)
+> Formulario para editar un post. Accesible para el admin para todos los posts o para un usuario para sus posts.
+
+#### **14. Página Listado de Álbumes Admin View/ Listado de Álbumes Admin View**
+![Página Listado de Álbumes](images/MusicForum-Listado-de-Albumes-Admin-View.png)
+> Esta página muestra los álbumes registrados en la página con la opción extra de añadir un álbum nuevo.
+
+#### **15. Página Ver Posts Admin View/ Ver Posts Admin View**
+![Página Ver Posts Admin View](images/MusicForum-Listado-de-Posts-Admin-View.png)
+> Esta página muestra los posts subidos a MusicForum. Se diferencia en el listado de usuarios anterior en que se tiene un botón para borrar los posts.
+
 
 ### **Participación de Miembros en la Práctica 1**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Carlos Moreno Cano]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [base spring boot project](https://github.com/DWS-2026/dws-2026-project-base/commit/6349ae93126f11e252194e108f988a737a92d18b)  | [backend/pom.xml](https://github.com/DWS-2026/dws-2026-project-base/commit/6349ae93126f11e252194e108f988a737a92d18b#diff-34049c3bc6deee4bbf269544338e0450399140da63fec684096d1ae0ce70b4bb)   |
+|2| [Re-edit de un par de cosas del README.md que no se guardaron y adición de un html para listar los álbumes de la página.](https://github.com/DWS-2026/dws-2026-project-base/commit/8013174948aa74f31f7c35f91c6f4d8805d68c0)  | [frontend/album_listing.html](https://github.com/DWS-2026/dws-2026-project-base/commit/8013174948aa74f31f7c35f91c6f4d8805d68c07#diff-e351d6d4fb741c2abf7cfb206875171f1f882a578a8a2ebb668b8d670b438446)   |
+|3| [new html file for post_listing and updated reference in the welcome page to it](https://github.com/DWS-2026/dws-2026-project-base/commit/a11e8d127f5ddbe71ca18388745fcb860973484d)  | [frontend/post_listing.html](https://github.com/DWS-2026/dws-2026-project-base/commit/a11e8d127f5ddbe71ca18388745fcb860973484d#diff-75e79d7dff23bd46c556b615c829d020f296b2239509e354df494a482ede3afc)   |
+|4| [added admin_panel and some new pages. Those are still essentially empty: they only have the footer and the navbar. Will finish all this after lunch](https://github.com/DWS-2026/dws-2026-project-base/commit/8e9ad4d322605c8eb5fbd995c91cea52526e8d3f)  | [frontend/admin_panel.html](https://github.com/DWS-2026/dws-2026-project-base/commit/8e9ad4d322605c8eb5fbd995c91cea52526e8d3f#diff-a99ee44ee16ae8644114c00056148b725cc57c686ba3df37a838b381a0ce963d)   |
+|5| [deleted a form because it wasn't needed. Improved the admin panel and user listing now works.](https://github.com/DWS-2026/dws-2026-project-base/commit/6b1d0763dd414e6269a978af40748fb689a2b578)  | [frontend/user_listing.html](https://github.com/DWS-2026/dws-2026-project-base/commit/6b1d0763dd414e6269a978af40748fb689a2b578#diff-67c12214d4fb8a3e0aafc2e40f622ab40600c9fa21e36f0f3881b77bae0ae67a)   |
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+---
+
+#### **Alumno 2 - [Lorena López Gallego Casilda]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
+|1| [Creación de la primera página de la web](https://github.com/DWS-2026/project-grupo-2/commit/882d7339dc0055b355ea5fe2004fc1e4f01ab56d)  | [first.html](frontend/first.html)   |
+|2| [Creación página de registro y de login](https://github.com/DWS-2026/project-grupo-2/commit/525707113f232cb4544a3fc7ab17b779723df0c4)  | [register.html](frontend/register.html) [login.html](frontend/login.html)   |
+|3| [Creación de las páginas de perfil de usuario y edición de ese perfil](https://github.com/DWS-2026/project-grupo-2/commit/0696a402720caaa5efa3d8651bcf25927291b5c4)  | [user_profile.html](frontend/user_profile.html) [edit_profile.html](frontend/edit_profile.html)   |
+|4| [Posibilidad de "editar" los posts y de ver mis posts como usuario](https://github.com/DWS-2026/project-grupo-2/commit/5a633160d2c3ea7373aa83a84cfe078ed47f449f)  | [edit_post.html](frontend/edit_post.html) [user_posts.html](frontend/user_posts.html)   |
+|5| [En las páginas de listado de posts y álbumes añadir botones especiales para el admin](https://github.com/DWS-2026/project-grupo-2/commit/50b478c1ed8a024232175f4b3b07ec61e704e09c)  | [album_listing.html](frontend/user_posts.html) [post_listing.html](frontend/post_listing.html)   |
 
 #### **Alumno 3 - [Nombre Completo]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+| Nº    |                                                                     Commits                                                                      |                                                                                                                                                                                        Files                                                                                                                                                                                         |
+|:------------: |:------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|1|   [Creacion de vista genérica de album y de post](https://github.com/DWS-2026/project-grupo-2/commit/645338a7587c97da2c3f703187d66eebf146de70)   |    [album__view.html](https://github.com/DWS-2026/project-grupo-2/commit/645338a7587c97da2c3f703187d66eebf146de70#diff-48a3c797f16e91a20a8c2c5905b0e40f73126f5d75e3c0f6f186584791355de6)<br/>[post_view.html](https://github.com/DWS-2026/project-grupo-2/commit/645338a7587c97da2c3f703187d66eebf146de70#diff-c8ed244d96c172dc2fbc8b6d4e8026b019f9dfee10cd0dd0947c579bd908eefc)     |
+|2| [Creacion botones para ir a vista de album y post ](https://github.com/DWS-2026/project-grupo-2/commit/360297ac762c8e7fd750cf70dd6515e690ad54b6) | [album_listing.html](https://github.com/DWS-2026/project-grupo-2/commit/360297ac762c8e7fd750cf70dd6515e690ad54b6#diff-e351d6d4fb741c2abf7cfb206875171f1f882a578a8a2ebb668b8d670b438446) <br/> [post_listing.html](https://github.com/DWS-2026/project-grupo-2/commit/360297ac762c8e7fd750cf70dd6515e690ad54b6#diff-75e79d7dff23bd46c556b615c829d020f296b2239509e354df494a482ede3afc) |
+|3|            [Añadido comentarios en post](https://github.com/DWS-2026/project-grupo-2/commit/1ae8c99430ee915d7273f0af13c9be0665434e62)            |                                                                                                 [post_view.html](https://github.com/DWS-2026/project-grupo-2/commit/1ae8c99430ee915d7273f0af13c9be0665434e62#diff-c8ed244d96c172dc2fbc8b6d4e8026b019f9dfee10cd0dd0947c579bd908eefc)                                                                                                  |
+|4|          [Añadido directorios de CSS y JS](https://github.com/DWS-2026/project-grupo-2/commit/523cb33ef13880d972a7aa1c04f531ae2ad21791)          |              [CSS](https://github.com/DWS-2026/project-grupo-2/commit/523cb33ef13880d972a7aa1c04f531ae2ad21791#diff-56774e0e5ab1e847262c7a4fba42f12faec641b3a6aca7680bb0311fa283838d)    <br/> [JS](https://github.com/DWS-2026/project-grupo-2/commit/523cb33ef13880d972a7aa1c04f531ae2ad21791#diff-3dee7dcc2464eca4848acc79505d6b7ff0ef892537228ff35c65dc2cd021615c)               |
+|5|                                       [Realización de vídeo](https://www.youtube.com/watch?v=M-PBvYJEMNM)                                        |                                                                                                                                                                 [Vídeo](https://www.youtube.com/watch?v=M-PBvYJEMNM)                                                                                                                                                                 |
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
-
----
 
 ## 🛠 **Práctica 2: Web con HTML generado en servidor**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=M-PBvYJEMNM)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Navegación y Capturas de Pantalla**
