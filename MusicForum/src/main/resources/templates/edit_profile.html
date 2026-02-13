@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MusicForum - Inicio</title>
+
+    <!-- Bootstrap CSS -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="first.html">MusicForum</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="first.html">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="album_listing.html">Álbumes</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="register.html">Registrarse</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="user_profile.html">Mi perfil</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- EDICION PERFIL -->
+    <div class="container d-flex justify-content-center align-items-center" 
+         style="min-height: 85vh;">
+
+        <div class="card shadow p-4" style="max-width: 480px; width: 100%;">
+            <h2 class="text-center mb-4 fw-bold">Editar perfil</h2>
+
+            <form>
+
+                <!-- Nombre -->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Cambiar nombre de usuario</label>
+                    <input type="text" class="form-control" id="nombre" 
+                           placeholder="Nuevo nombre" required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Actualizar correo electrónico</label>
+                    <input type="email" class="form-control" id="email" 
+                           placeholder="usuario@correo.com" required>
+                </div>
+
+                <!-- Avatar -->
+                <div class="mb-3">
+                    <label for="avatar" class="form-label">Avatar</label>
+                    <input type="file" class="form-control" id="avatar" accept="image/*">
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn btn-dark w-100 mt-2">Guardar cambios</button>
+                
+            </form>
+
+        </div>
+
+    </div>
+   
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">© 2026 MusicForum — Desarrollo Web Seguro</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>
