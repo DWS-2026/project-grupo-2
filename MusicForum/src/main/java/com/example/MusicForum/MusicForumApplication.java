@@ -1,14 +1,14 @@
-package com.example.backend;
+package com.example.MusicForum;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendApplication {
+public class MusicForumApplication {
 
 	public static void main(String[] args) {
 		System.out.println("hola mundo");
-		SpringApplication.run(BackendApplication.class, args);
+		SpringApplication.run(MusicForumApplication.class, args);
 	}
 
 }
