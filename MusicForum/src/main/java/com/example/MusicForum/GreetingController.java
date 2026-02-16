@@ -11,4 +11,28 @@ public class GreetingController{
     public String greeting(Model model){
         return "first";
     }
+    @GetMapping("/post_view")
+    public String viewPost(Model model) {
+        return "post_view"; 
+    }
+    @GetMapping("/album_listing")
+    public String album_listing(Model model) {
+        return "album_listing"; 
+    }
+    @GetMapping("/album_view")
+    public String viewAlbum(Model model) {
+        return "album_view"; 
+    }
+    @GetMapping("/edit_post")
+    public String postEdit(Model model) {
+        return "edit_post"; 
+    }
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login"; 
+    }
+    @GetMapping("/register")
+    public String register(Model model) {
+        return "register"; 
+    }
 }
