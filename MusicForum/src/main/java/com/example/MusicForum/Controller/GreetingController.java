@@ -11,14 +11,8 @@ public class GreetingController{
     public String greeting(Model model){
         return "first";
     }
-    @GetMapping("/post_view")
-    public String viewPost(Model model) {
-        return "post_view"; 
-    }
-     @GetMapping("/post_listing")
-    public String viewPostListing(Model model) {
-        return "post_listing"; 
-    }
+
+    
     @GetMapping("/album_listing")
     public String album_listing(Model model) {
         return "album_listing"; 

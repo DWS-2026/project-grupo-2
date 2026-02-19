@@ -10,7 +10,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    Long id;
 
     private String title;
     
@@ -18,6 +18,8 @@ public class Post {
     private String description;
     
     private String image;
+
+    private String date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -29,16 +31,24 @@ public class Post {
     private List<Comment> comments = new ArrayList<>();
 
     // Un Post tiene muchos álbumes (asumiendo que en la clase Albums hay un atributo 'post')
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Albums> albums = new ArrayList<>();
+    // Cambia el @OneToMany por @ManyToMany
+    
+    
+    /*@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+        name = "post_albums", // Nombre de la tabla intermedia
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "album_id")
+    )
+    private List<Albums> albums = new ArrayList<>();*/
 
     // Constructor vacío obligatorio para JPA
     public Post() {}
 
     // Constructor con parámetros
-    public Post(Long ID, String title, String description, String image, User user) {
-        this.ID = ID;
+    public Post(String title,String date, String description, String image, User user) {
         this.title = title;
+        this.date = date;
         this.description = description;
         this.image = image;
         this.user = user;
@@ -47,11 +57,11 @@ public class Post {
     // --- GETTERS Y SETTERS ---
 
     public Long getID() { 
-        return ID; 
+        return id; 
     }
 
     public void setID(Long ID) { // Corregido: antes tenías Long de retorno en lugar de void
-        this.ID = ID; 
+        this.id = ID; 
     }
 
     public String getTitle() { 
@@ -94,11 +104,21 @@ public class Post {
         this.comments = comments;
     }
 
-    public List<Albums> getAlbums() {
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPost(this);
+    }
+ 
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setPost(null);
+    }
+
+    /*public List<Albums> getAlbums() {
         return albums;
     }
 
     public void setAlbums(List<Albums> albums) {
         this.albums = albums;
-    }
+    }*/
 }

@@ -25,11 +25,9 @@ public class Comment {
     public Comment() {}
 
     // Constructor con parámetros
-    public Comment(Long ID, String comment, User user, Post post) {
-        this.ID = ID;
+    public Comment( String comment) {
+        super();
         this.comment = comment;
-        this.user = user;
-        this.post = post;
     }
 
     // --- GETTERS Y SETTERS ---
