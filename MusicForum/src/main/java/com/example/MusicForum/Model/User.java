@@ -1,16 +1,33 @@
 package com.example.MusicForum.Model;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
     private String username;
     private String password;
     private String email;
     private String avatar;
-    private String userRole; // "USER" "INVITADO" "ADMIN"
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole; // "USER" "INVITADO" "ADMIN"
     
+     //UserRole
+    public enum UserRole{
+        USER,
+        INVITADO,
+        ADMIN
+    }
+
     public User(){
     }
     
-    public User(String username, String password, String email, String userRole){
+    public User(String username, String password, String email, UserRole userRole){
         this.username = username;
         this.password = password;
         this.email = email;
@@ -49,18 +66,12 @@ public class User {
         this.avatar = avatar;
     }
     
-    public String getUserRole(){
+    public UserRole getUserRole(){
         return userRole;
     }
 
-    public void setUserRole(String userRole){
+    public void setUserRole(UserRole userRole){
         this.userRole = userRole;
     }
 
-    //UserRole
-    public enum UserRole{
-        USER,
-        INVITADO,
-        ADMIN
-    }
 }
