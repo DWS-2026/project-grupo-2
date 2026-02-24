@@ -104,6 +104,14 @@ public class Post {
         this.comments = comments;
     }
 
+      public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setPost(this);

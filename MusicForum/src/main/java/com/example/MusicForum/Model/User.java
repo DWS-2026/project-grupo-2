@@ -33,6 +33,9 @@ public class User {
         this.email = email;
         this.userRole = userRole;
     }
+    public Long getId() {
+    return id;
+    }
 
     public String getUsername(){
         return username;

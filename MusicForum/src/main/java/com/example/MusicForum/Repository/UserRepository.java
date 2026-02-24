@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.example.MusicForum.Model.*;
 
 @Repository
-public interface UserRepository extends JpaRepository<Post, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
     boolean existsByEmail(String email);
 }
