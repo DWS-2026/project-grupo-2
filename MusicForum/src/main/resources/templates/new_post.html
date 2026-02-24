@@ -1,0 +1,93 @@
+{{>header}}
+
+<div class="container my-5" style="min-height: 75vh;">
+
+    <h2 class="fw-bold mb-4">Crear nuevo post</h2>
+
+    <div class="card shadow-sm border-0">
+        <div class="row g-0">
+
+            <!-- VISTA PREVIA DE IMAGEN (Opcional) -->
+            <div class="col-md-4 d-flex justify-content-center align-items-center p-4 bg-light rounded-start">
+                <div class="text-center">
+                    <i class="bi bi-image text-muted" style="font-size: 4rem;"></i>
+                    <p class="text-muted small">La imagen se cargará mediante URL</p>
+                </div>
+            </div>
+
+            <!-- FORMULARIO DE CREACIÓN -->
+            <div class="col-md-8">
+                <div class="card-body p-4">
+
+                    <!-- El action debe coincidir con el @PostMapping de tu controlador -->
+                    <form action="/post/new_post" method="post">
+
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">Nombre</label>
+                            <input type="text" 
+                                   id="user" 
+                                   name="username" 
+                                   class="form-control" 
+                                   placeholder="Luka Modric" 
+                                   required>
+                        </div>
+
+                        <!-- TÍTULO -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">Título del post</label>
+                            <input type="text" 
+                                   id="title" 
+                                   name="title" 
+                                   class="form-control" 
+                                   placeholder="Ej: Mi álbum favorito de 2024" 
+                                   required>
+                        </div>
+
+                        <!-- URL DE LA IMAGEN -->
+                        <div class="mb-3">
+                            <label for="image" class="form-label fw-bold">URL de la imagen</label>
+                            <input type="url" 
+                                   id="image" 
+                                   name="image" 
+                                   class="form-control" 
+                                   placeholder="https://enlace-a-tu-imagen.jpg" 
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label fw-bold">Fecha de publicación</label>
+                            <input type="date" 
+                                   id="date" 
+                                   name="date" 
+                                   class="form-control" 
+                                   placeholder="2/2/2024" 
+                                   required>
+                        </div>
+
+                        <!-- CONTENIDO -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-bold">Descripción / Contenido</label>
+                            <textarea id="description" 
+                                      name="description" 
+                                      class="form-control" 
+                                      rows="6" 
+                                      placeholder="¿Qué quieres compartir con la comunidad?" 
+                                      required></textarea>
+                        </div>
+
+                        <!-- BOTONES -->
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-outline-light btn-lg mt-3">Publicar post</button>
+                            <a href="/post_listing" class="btn btn-outline-light btn-lg mt-3">Cancelar</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{{>footer}}
