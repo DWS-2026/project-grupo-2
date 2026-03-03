@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-
+@Table(name = "Album")
 
 public class Album{
 
@@ -68,6 +68,7 @@ public class Album{
     public void setArtist(String artist) {
         this.artist = artist;
     }
-
+    @ManyToMany (mappedBy = "album")
+    private List<Post> posts;
     
 }
