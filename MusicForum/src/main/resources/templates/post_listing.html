@@ -26,7 +26,7 @@
                         
                         <!-- Formulario para borrar -->
                         <form action="/post/{{id}}/delete" method="POST" class="d-inline">
-                            <button type="submit" class="btn btn-outline-danger btn-sm admin-only">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">  <!-- esto lo haría el administrador, el usuario normal podría borrar sus post pero no los que no son suyos--> 
                                 <i class="bi bi-trash"></i> Eliminar
                             </button>
                         </form>

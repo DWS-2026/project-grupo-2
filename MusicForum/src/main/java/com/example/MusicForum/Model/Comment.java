@@ -8,7 +8,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
 
     @Column(columnDefinition = "TEXT") // Permite comentarios largos
     private String comment;
@@ -32,13 +32,8 @@ public class Comment {
 
     // --- GETTERS Y SETTERS ---
 
-    public Long getID() {
-        return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
+public Long getId() { return id; }
+public void setId(Long id) { this.id = id; }
 
     public String getComment() {
         return comment;

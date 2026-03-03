@@ -18,6 +18,7 @@ public class DataBaseInit {
 
     @Autowired
     private PostRepository postRepository;
+    @Autowired
     private AlbumRepository albumRepository;
     @PostConstruct
     public void init() {

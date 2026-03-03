@@ -34,13 +34,13 @@ public class Post {
     // Cambia el @OneToMany por @ManyToMany
     
     
-    /*@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
         name = "post_albums", // Nombre de la tabla intermedia
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "album_id")
     )
-    private List<Albums> albums = new ArrayList<>();*/
+    private List<Album> albums = new ArrayList<>();
 
     // Constructor vacío obligatorio para JPA
     public Post() {}
@@ -60,8 +60,8 @@ public class Post {
         return id; 
     }
 
-    public void setID(Long ID) { // Corregido: antes tenías Long de retorno en lugar de void
-        this.id = ID; 
+    public void setID(Long id) { // Corregido: antes tenías Long de retorno en lugar de void
+        this.id = id; 
     }
 
     public String getTitle() { 
@@ -122,11 +122,13 @@ public class Post {
         comment.setPost(null);
     }
 
-    /*public List<Albums> getAlbums() {
+    public List<Album> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<Albums> albums) {
+    public void setAlbums(List<Album> albums) {
         this.albums = albums;
-    }*/
+    }
+    @ManyToMany
+    private List<Album> album; 
 }
