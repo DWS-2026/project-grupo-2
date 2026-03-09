@@ -38,19 +38,20 @@
                                    required>
                         </div>
 
+                        <div class="mb-3">
+    <label class="form-label fw-bold">Álbumes relacionados</label>
+    <div class="d-flex flex-column gap-2">
+        {{#albums}}
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="albumIds" value="{{id}}" id="album-{{id}}">
+            <label class="form-check-label" for="album-{{id}}">{{title}}</label>
+        </div>
+        {{/albums}}
+    </div>
+</div>
+
 
                         
-
-                        <!-- URL DE LA IMAGEN -->
-                        <div class="mb-3">
-                            <label for="image" class="form-label fw-bold">URL de la imagen</label>
-                            <input type="url" 
-                                   id="image" 
-                                   name="image" 
-                                   class="form-control" 
-                                   placeholder="https://enlace-a-tu-imagen.jpg" 
-                                   required>
-                        </div>
                         <div class="mb-3">
                             <label for="date" class="form-label fw-bold">Fecha de publicación</label>
                             <input type="date" 

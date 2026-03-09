@@ -7,6 +7,7 @@ import com.example.MusicForum.Repository.AlbumRepository;
 import com.example.MusicForum.Repository.PostRepository;
 import jakarta.annotation.PostConstruct;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,24 +22,31 @@ public class DataBaseInit {
     @Autowired
     private AlbumRepository albumRepository;
     @PostConstruct
-    public void init() {
-        // Inicialización de datos de prueba
-        Post post1 = new Post("Post1", "2024-01-01", "Descripción del post 1", "/images/rosalia-lux.jpg", null);
-        Post post2 = new Post("Post2", "2024-01-02", "Descripción del post 2", "/images/Geese-Getting-Killed.jpg", null);
-        Post post3 = new Post("Post3", "2024-01-03", "Descripción del post 3", "image3.jpg", null);
-        List<String> songs = Arrays.asList("953", "Speedway", "Reggae", "Near DT, MI", "Western", "Of Schlagenheim", "bmbmbm", "Years Ago", "Ducter");
+public void init() {
+    List<String> songs1 = Arrays.asList("953", "Speedway", "Reggae", "Near DT, MI", "Western", "Of Schlagenheim", "bmbmbm", "Years Ago", "Ducter");
+    List<String> songs2 = Arrays.asList("Berghain","La perla", "La Rumba del Perdón","Memoria","Magnolias");
+    Album album1 = new Album("Schlagenheim", songs1, "/images/Geese-Getting-Killed.jpg", "21-06-2019", "black midi");
+    Album album2 = new Album("Berghain", songs2, "/images/Berghain.jpg", "15-03-2020", "black midi");
 
-        Album Album1= new Album("Schlagenheim", songs , "schlagenheim.png", "21-06-2019", "black midi");
-        albumRepository.save(Album1);
+    
+    albumRepository.save(album1); 
+    albumRepository.save(album2); 
 
-        post1.addComment(new Comment("Comentario 1"));
-        post2.addComment(new Comment("Comentario 2"));
-        post3.addComment(new Comment("Comentario 3"));
+   
+    // Creamos los posts (la imagen se asigna sola internamente a "schlagenheim.png")
+    Post post1 = new Post("Post1", "2024-01-01", "Descripción 1", null);
+    Post post2 = new Post("Post2", "2024-01-02", "Descripción 2", null);
+    Post post3 = new Post("Post3", "2024-01-03", "Descripción 3", null);
 
-        postRepository.save(post1);
-        postRepository.save(post2);
-        postRepository.save(post3);
-        
-        System.out.println("Datos cargados correctamente por DataPopulatorService");
-    }
+    post1.addComment(new Comment("Comentario 1"));
+
+    post1.getAlbums().add(album1);
+    post1.getAlbums().add(album2);
+    post2.getAlbums().add(album2);
+
+
+    
+    // Guardar todo
+    postRepository.saveAll(Arrays.asList(post1, post2, post3));
+}
 }

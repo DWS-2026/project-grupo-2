@@ -30,27 +30,18 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    // Un Post tiene muchos álbumes (asumiendo que en la clase Albums hay un atributo 'post')
-    // Cambia el @OneToMany por @ManyToMany
-    
-    
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-        name = "post_albums", // Nombre de la tabla intermedia
-        joinColumns = @JoinColumn(name = "post_id"),
-        inverseJoinColumns = @JoinColumn(name = "album_id")
-    )
-    private List<Album> albums = new ArrayList<>();
+    // one post can have many albums, and one album can be in many posts
+    @ManyToMany
+    private List<Album> album = new ArrayList<>();
 
     // Constructor vacío obligatorio para JPA
     public Post() {}
 
     // Constructor con parámetros
-    public Post(String title,String date, String description, String image, User user) {
+   public Post(String title, String date, String description, User user) {
         this.title = title;
         this.date = date;
         this.description = description;
-        this.image = image;
         this.user = user;
     }
 
@@ -60,7 +51,7 @@ public class Post {
         return id; 
     }
 
-    public void setID(Long id) { // Corregido: antes tenías Long de retorno en lugar de void
+    public void setID(Long id) {
         this.id = id; 
     }
 
@@ -78,10 +69,6 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public void setImage(String image) {
@@ -123,12 +110,20 @@ public class Post {
     }
 
     public List<Album> getAlbums() {
-        return albums;
+        return album;
     }
 
     public void setAlbums(List<Album> albums) {
-        this.albums = albums;
+    this.album = albums;
+    if (albums != null && !albums.isEmpty()) {
+        this.image = albums.get(0).getImage(); //we set the post image to the first album's image
     }
-    @ManyToMany
-    private List<Album> album; 
+    }
+    public String getImage() {
+    if (album != null && !album.isEmpty()) {
+        return album.get(0).getImage();
+    }
+    return image; // fallback to stored image if no albums
+    }
+    
 }

@@ -10,9 +10,9 @@
         <!-- Cada tarjeta de Post -->
         <div class="col-md-4 col-sm-6">
             <div class="card h-100 shadow-sm">
-                <!-- Imagen con fallback (si no hay imagen, podrías poner una por defecto) -->
-                <img src="{{image}}" class="card-img-top" alt="Portada de {{title}}" 
-                     style="height: 200px; object-fit: cover;">
+                <img src="{{#image}}{{image}}{{/image}}{{^image}}/images/default.jpg{{/image}}" 
+                class="card-img-top" alt="Portada de {{title}}"
+                style="height: 200px; object-fit: cover;">
                 
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">{{title}}</h5>
@@ -30,6 +30,13 @@
                                 <i class="bi bi-trash"></i> Eliminar
                             </button>
                         </form>
+
+                        <form action="/post/{{id}}/delete" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-outline-blue btn-sm">  <!-- esto lo haría el usuario, el usuario normal podría editar sus post pero no los que no son suyos--> 
+                                <i class="bi bi-trash"></i> Editar
+                            </button>
+                        </form>
+
                     </div>
                 </div>
                 

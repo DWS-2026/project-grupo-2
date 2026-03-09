@@ -14,8 +14,20 @@
           {{^user}}Anónimo{{/user}}</strong>
       </p>
 
-      <!-- IMAGEN UNIVERSAL -->
-      <img src="{{post.image}}" class="img-fluid rounded mb-4" alt="Imagen del post {{post.title}}">
+     <!-- ÁLBUMES DEL POST -->
+      <div class="mb-4">
+        <h4 class="mb-3">Álbumes comentados</h4>
+        <div class="row g-3">
+          {{#albums}}
+          <div class="col-md-4 col-sm-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-header fw-bold text-center">{{title}}</div>
+                <img src="{{image}}" class="card-img-bottom" alt="{{title}}" style="height: 180px; object-fit: cover;">
+              </div>
+            </div>
+          {{/albums}}
+        </div>
+      </div>
 
       <!-- DESCRIPCIÓN UNIVERSAL -->
       <p>
@@ -65,11 +77,11 @@
       <p>No comments yet.</p>
       {{/post.comments}}
 
-      <form action="/post/{{post.id}}/comments/{{id}}/new" method="POST" class="d-inline">
-    <button type="submit" class="btn btn-outline-danger btn-sm">
-        <i class="bi bi-trash"></i> Añadir Comentario
-    </button>
-</form>
+    <form action="/post/{{post.id}}/comments/new" method="post" style="background-color: #c2c2c2; width: 200px; padding: 10px;">
+		<p>Author: <input type='text' name='user'/></p>
+		<p>Message: <input type='text' name='comment'/></p>
+		<input type='submit' value='Add comment'/>
+	  </form>
     </div>
   </div>
 </div>

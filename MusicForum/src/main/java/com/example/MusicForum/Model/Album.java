@@ -1,5 +1,6 @@
 package com.example.MusicForum.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,10 +15,14 @@ public class Album{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private List<String> songs;
     private String image;
     private String date;
     private String artist;
+     @ElementCollection // <-- Obligatorio para List<String>
+    private List<String> songs;
+
+     @ManyToMany(mappedBy = "album") 
+    private List<Post> posts = new ArrayList<>();
 
     protected Album(){}
 
@@ -68,7 +73,15 @@ public class Album{
     public void setArtist(String artist) {
         this.artist = artist;
     }
-    @ManyToMany (mappedBy = "album")
-    private List<Post> posts;
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+    
+
+   
     
 }
