@@ -1,37 +1,37 @@
 {{>header}}
 
-    <!-- CONTENIDO DEL PERFIL -->
-    {{#user}}
-    <div class="card shadow p-4 mx-auto" style="max-width: 500px;" style="min-height: 85vh;">
-        <div class="text-center">
-            <h2 class="text-center mb-4 fw-bold">Mi perfil</h2>
-            <img src="{{#avatar}}{{avatar}}{{/avatar}}{{^avatar}}/images/avatar_image.jpg{{/avatar}}"
-                class="rounded-circle mb-3" alt="Avatar" style="width: 150px; height: 150px; object-fit: cover;">
-            <h3 class="fw-bold">{{username}}</h3>
-            <p class="text-muted">{{email}}</p>
-        </div>
-
-        <hr>
-
-        <h5 class="fw-bold">Mis datos</h5>
-        <p><strong>Usuario:</strong> {{username}}</p>
-        <p><strong>Email:</strong> {{email}}</p>
-        <p><strong>Rol:</strong> {{userRole}}</p>
-        <p><strong>Miembro desde:</strong> {{createdAt}}</p>
-
-        <div class="row mt-3">
-            {{/user}}
-            <div class="col-6">
-                <a href="user_posts.html" class="btn btn-dark w-100">Ver mis posts</a>
-            </div>
-            <div class="col-6">
-                <a href="post_a_post.html" class="btn btn-dark w-100">Publicar post</a>
-            </div>
-        </div>
-
-        <a href="edit_profile.html" class="btn btn-dark w-100 mt-3">Editar Perfil</a>
-
-    </div>
+<!-- CONTENIDO DEL PERFIL -->
+{{#user}}
+<div class="card shadow p-4 mx-auto" style="max-width: 500px;" style="min-height: 85vh;">
+    <div class="text-center">
+        <h2 class="text-center mb-4 fw-bold">Mi perfil</h2>
+        <img src="{{#avatar}}{{avatar}}{{/avatar}}{{^avatar}}/images/avatar_image.jpg{{/avatar}}"
+            class="rounded-circle mb-3" alt="Avatar" style="width: 150px; height: 150px; object-fit: cover;">
+        <h3 class="fw-bold">{{username}}</h3>
+        <p class="text-muted">{{email}}</p>
     </div>
 
-    {{>footer}}
+    <hr>
+
+    <h5 class="fw-bold">Mis datos</h5>
+    <p><strong>Usuario:</strong> {{username}}</p>
+    <p><strong>Email:</strong> {{email}}</p>
+    <p><strong>Rol:</strong> {{userRole}}</p>
+    <p><strong>Miembro desde:</strong> {{formattedCreatedAt}}</p>
+
+    <div class="row mt-3">
+        {{/user}}
+        <div class="col-6">
+            <a href="user_posts.html" class="btn btn-dark w-100">Ver mis posts</a>
+        </div>
+        <div class="col-6">
+            <a href="post_a_post.html" class="btn btn-dark w-100">Publicar post</a>
+        </div>
+    </div>
+
+    <a href="edit_profile.html" class="btn btn-dark w-100 mt-3">Editar Perfil</a>
+
+</div>
+</div>
+
+{{>footer}}

@@ -7,6 +7,12 @@
         <div class="card shadow p-4" style="max-width: 420px; width: 100%;">
             <h2 class="text-center mb-4 fw-bold">Iniciar sesión</h2>
 
+            {{#errorl}}
+            <div class="alert alert-danger" role="alert">
+                {{errorl}}
+            </div>
+            {{/errorl}}
+
             <form action="/login" method="post">
 
 

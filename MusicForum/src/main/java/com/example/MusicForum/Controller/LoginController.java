@@ -29,7 +29,7 @@ public class LoginController {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isEmpty() || !userOptional.get().getPassword().equals(password)) {
-            model.addAttribute("error", "Correo o contraseña incorrectos");
+            model.addAttribute("errorl", "Correo o contraseña incorrectos");
             return "login";
         }
 

@@ -42,4 +42,32 @@ public class UserController {
         }
         return "redirect:/";
     }
+
+    @PostMapping("/register")
+    public String registerUser(@RequestParam String username,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String passwordConfirm,
+            Model model) {
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            model.addAttribute("error", "El nombre de usuario ya existe");
+            return "register";
+        }
+
+        if (userRepository.existsByEmail(email)) {
+            model.addAttribute("error", "El email ya está registrado");
+            return "register";
+        }
+
+        if (!password.equals(passwordConfirm)) {
+            model.addAttribute("error", "Las contraseñas no coinciden");
+            return "register";
+        }
+
+        User newUser = new User(username, password, email, User.UserRole.USER);
+        userRepository.save(newUser);
+
+        return "redirect:/login";
+    }
 }

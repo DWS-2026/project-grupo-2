@@ -1,60 +1,63 @@
 {{>header}}
 
-    <!-- REGISTRO -->
-    <div class="container d-flex justify-content-center align-items-center" 
-         style="min-height: 80vh;">
+<!-- REGISTRO -->
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
 
-        <div class="card shadow p-4" style="max-width: 480px; width: 100%;">
-            <h2 class="text-center mb-4 fw-bold">Crear cuenta</h2>
+    <div class="card shadow p-4" style="max-width: 480px; width: 100%;">
+        <h2 class="text-center mb-4 fw-bold">Crear cuenta</h2>
 
-            <form>
-
-                <!-- Nombre -->
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre de usuario</label>
-                    <input type="text" class="form-control" id="nombre" required>
-                </div>
-
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" 
-                           placeholder="usuario@correo.com" required>
-                </div>
-
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" 
-                            pattern=".{8,}" 
-                            title="La contraseña debe tener al menos 8 caracteres" required>
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="mb-3">
-                    <label for="password2" class="form-label">Repetir contraseña</label>
-                    <input type="password" class="form-control" id="password2" 
-                            pattern=".{8,}" 
-                            title="La contraseña debe tener al menos 8 caracteres" required>
-                </div>
-
-                <!-- Avatar -->
-                <div class="mb-3">
-                    <label for="avatar" class="form-label">Avatar (opcional)</label>
-                    <input type="file" class="form-control" id="avatar" accept="image/*">
-                </div>
-
-                <!-- Submit -->
-                <button type="submit" class="btn btn-dark w-100 mt-2">Crear cuenta</button>
-
-            </form>
-
-            <p class="text-center mt-3 mb-0">
-                ¿Ya tienes cuenta? 
-                <a href="login" class="text-decoration-none">Inicia sesión aquí</a>
-            </p>
+        {{#error}}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
         </div>
+        {{/error}}
 
+        <form action="/register" method="post">
+
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control" id="nombre" name="username" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="usuario@correo.com"
+                    required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" pattern=".{8,}"
+                    title="La contraseña debe tener al menos 8 caracteres" required>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3">
+                <label for="password2" class="form-label">Repetir contraseña</label>
+                <input type="password" class="form-control" id="password2" name="passwordConfirm" pattern=".{8,}"
+                    title="La contraseña debe tener al menos 8 caracteres" required>
+            </div>
+
+            <!-- Avatar -->
+            <div class="mb-3">
+                <label for="avatar" class="form-label">Avatar (opcional)</label>
+                <input type="file" class="form-control" id="avatar" name="avatarFile" accept="image/*">
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-dark w-100 mt-2">Crear cuenta</button>
+
+        </form>
+
+        <p class="text-center mt-3 mb-0">
+            ¿Ya tienes cuenta?
+            <a href="login" class="text-decoration-none">Inicia sesión aquí</a>
+        </p>
     </div>
 
-    {{>footer}}
+</div>
+
+{{>footer}}
