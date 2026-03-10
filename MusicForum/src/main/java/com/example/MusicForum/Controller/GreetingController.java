@@ -6,37 +6,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 
 @Controller
-public class GreetingController{
+public class GreetingController {
     @GetMapping("/")
-    public String greeting(Model model){
+    public String greeting(Model model) {
         return "first";
     }
 
-    
     @GetMapping("/album_listing")
     public String album_listing(Model model) {
-        return "album_listing"; 
-    }
-    @GetMapping("/album_view")
-    public String viewAlbum(Model model) {
-        return "album_view"; 
-    }
-    @GetMapping("/edit_post")
-    public String postEdit(Model model) {
-        return "edit_post"; 
-    }
-    
-    @GetMapping("/admin_panel")
-    public String admin_panel(Model model) {
-        return "admin_panel"; 
+        return "album_listing";
     }
 
-    @GetMapping("/user_profile")
-    public String user_profile(Model model) {
-        return "user_profile"; 
+    @GetMapping("/album_view")
+    public String viewAlbum(Model model) {
+        return "album_view";
     }
+
+    @GetMapping("/edit_post")
+    public String postEdit(Model model) {
+        return "edit_post";
+    }
+
+    @GetMapping("/admin_panel")
+    public String admin_panel(Model model) {
+        return "admin_panel";
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
-        return "register"; 
+        return "register";
     }
 }

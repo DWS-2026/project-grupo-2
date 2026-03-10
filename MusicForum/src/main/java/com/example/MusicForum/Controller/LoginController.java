@@ -40,6 +40,6 @@ public class LoginController {
             return "redirect:/admin_panel";
         }
 
-        return "redirect:/user_profile" + user.getId();
+        return "redirect:/user_profile/" + user.getId();
     }
 }
