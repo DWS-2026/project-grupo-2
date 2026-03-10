@@ -25,9 +25,15 @@ public class GreetingController{
     public String postEdit(Model model) {
         return "edit_post"; 
     }
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login"; 
+    
+    @GetMapping("/admin_panel")
+    public String admin_panel(Model model) {
+        return "admin_panel"; 
+    }
+
+    @GetMapping("/user_profile")
+    public String user_profile(Model model) {
+        return "user_profile"; 
     }
     @GetMapping("/register")
     public String register(Model model) {
