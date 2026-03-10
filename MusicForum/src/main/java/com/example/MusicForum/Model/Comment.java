@@ -25,8 +25,9 @@ public class Comment {
     public Comment() {}
 
     // Constructor con parámetros
-    public Comment( String comment) {
+    public Comment( String comment,User user) {
         super();
+        this.user=user;
         this.comment = comment;
     }
     

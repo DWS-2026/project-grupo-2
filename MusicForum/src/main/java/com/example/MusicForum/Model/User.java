@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +31,14 @@ public class User {
     private String email;
 
     private String avatar;
+
+
+    @OneToMany
+    private List<Post> posts=new ArrayList<>();
+
+    @OneToMany
+    private List<Comment> comments=new ArrayList<>();
+
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
