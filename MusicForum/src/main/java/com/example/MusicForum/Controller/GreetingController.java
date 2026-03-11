@@ -12,10 +12,10 @@ public class GreetingController {
         return "first";
     }
 
-    @GetMapping("/album_listing")
+    /*@GetMapping("/album_listing")
     public String album_listing(Model model) {
         return "album_listing";
-    }
+    } */
 
     @GetMapping("/album_view")
     public String viewAlbum(Model model) {
