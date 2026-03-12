@@ -43,7 +43,7 @@ public class AlbumController {
         
 		return "album_view";
 	} else {
-		return "album_listing";
+		return "redirect:/album_listing";
         }
     }
 
