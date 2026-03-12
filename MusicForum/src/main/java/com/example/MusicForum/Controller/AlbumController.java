@@ -36,7 +36,7 @@ public class AlbumController {
     
 
     @GetMapping("/album/{id}")
-    public String getAlbum(@RequestParam Model model, @PathVariable Long id) {
+    public String getAlbum(Model model, @PathVariable Long id) {
         Optional<Album> album = albumRepository.findById(id);
         if (album.isPresent()) {
 		model.addAttribute("album", album.get());
