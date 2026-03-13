@@ -43,6 +43,25 @@ public class AlbumController {
         }
     }
 
+    @PostMapping("/album/{id}")
+    public String updateAlbum(Model model, @PathVariable Long id, Album modifyAlbum) {
+        
+
+        Optional<Album> album = albumRepository.findById(id);
+        
+        if(album.isPresent()){
+            Album albumF = album.get();
+            modifyAlbum.setId(albumF.getId());
+
+            albumRepository.save(modifyAlbum);
+        }
+        
+
+        
+        return "redirect:/album/{id}";
+    }
+
+
     @PostMapping("/albumCreate")
     public String createAlbum(
             @ModelAttribute Album album

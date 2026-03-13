@@ -9,6 +9,7 @@
 
                 <div class="rym-art-col">
                     <img src="{{album.image}}" alt="Portada" class="rym-art-img">
+
                 </div>
 
                 <div>
@@ -23,7 +24,7 @@
 
                     <h5 class="fw-bold mb-3">Canciones</h5>
 
-                    <ul class="list-group">
+                    <ol class="list-group list-group-numbered">
 
                         {{#album.songs}}
                         <li class="list-group-item">
@@ -31,7 +32,7 @@
                         </li>
                         {{/album.songs}}
 
-                    </ul>
+                    </ol>
 
                     <div class="mt-4 d-flex gap-2">
 
@@ -98,5 +99,30 @@
     </div>
 
 </div>
+
+{{>albumModal}}
+
+<script>
+    const songCountInput = document.getElementById("songCountInput");
+    const songsContainer = document.getElementById("songsContainer");
+
+    songCountInput.addEventListener("change", function() {
+    // Clear any existing inputs
+    songsContainer.innerHTML = "";
+
+    const count = parseInt(songCountInput.value);
+
+    if (isNaN(count) || count < 1|| count>100) return;// checking the value given makes sense so not to overflow the variable
+
+    for (let i = 1; i <= count; i++) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = "songs";
+        input.placeholder = `Canción ${i}`;
+        input.classList.add("form-control", "mb-2");
+        songsContainer.appendChild(input);
+    }
+});
+</script>
 
 {{>footer}}
