@@ -1,0 +1,84 @@
+<!-- Album Modal -->
+<div class="container text-center mb-5">
+    <button type="button" class="btn btn-success btn-lg shadow"
+            data-bs-toggle="modal"
+            data-bs-target="#albumModal">
+        Editar Álbum
+    </button>
+</div>
+
+<div class="modal fade" id="albumModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo Álbum</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="albumForm"
+                      action="/album/{{album.id}}"
+                      method="POST"
+                      enctype="multipart/form-data">
+
+                    <!-- Artist -->
+                    <div class="mb-3">
+                        <label class="form-label">Grupo / Artista</label>
+                        <input type="text" class="form-control"
+                               name="artist" value="{{album.artist}}" required>
+                    </div>
+
+                    <!-- Year -->
+                    <div class="mb-3">
+                        <label class="form-label">Año de lanzamiento</label>
+                        <input type="text" class="form-control"
+                               name="date" value="{{album.date}}" required>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label class="form-label">Título del Álbum</label>
+                        <input type="text" class="form-control"
+                               name="title" value="{{album.title}}" required>
+                    </div>
+
+                    <!-- Album Image -->
+                    <div class="mb-3">
+                        <label class="form-label">Subir Portada del Álbum</label>
+                        <input type="text" class="form-control"
+                               name="image" placeholder={{album.image}}
+                               accept="image/*" required>
+                        <div class="form-text">Formatos admitidos: JPG, PNG o WebP.</div>
+                    </div>
+
+                    <!-- Number of songs -->
+                    <div class="mb-3">
+                        <label class="form-label">Número de canciones</label>
+                        <input type="number" class="form-control"
+                               id="songCountInput" min="1" max="30" placeholder="Ej: 5">
+                    </div>
+
+                    <!-- Song titles -->
+                    <div class="mb-3">
+                        <label class="form-label">Canciones</label>
+                        <div id="songsContainer"></div>
+                        <div class="form-text">
+                            Introduce el número de canciones arriba para generar los campos correspondientes.
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="albumForm" class="btn btn-dark">Guardar Álbum</button>
+            </div>
+
+        </div>
+    </div>
+</div>
