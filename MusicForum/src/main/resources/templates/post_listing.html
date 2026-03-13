@@ -31,11 +31,9 @@
                             </button>
                         </form>
 
-                        <form action="/post/{{id}}/delete" method="POST" class="d-inline">
-                            <button type="submit" class="btn btn-outline-blue btn-sm">  <!-- esto lo haría el usuario, el usuario normal podría editar sus post pero no los que no son suyos--> 
-                                <i class="bi bi-trash"></i> Editar
-                            </button>
-                        </form>
+                        <a href="/editpost/{{id}}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-pencil"></i> Editar
+                        </a>
 
                     </div>
                 </div>

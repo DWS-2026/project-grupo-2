@@ -80,6 +80,19 @@ public class Album{
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+    @Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Album)) return false;
+    Album album = (Album) o;
+    return id != null && id.equals(album.id);
+}
+
+@Override
+public int hashCode() {
+    return id != null ? id.hashCode() : 0;
+}
     
 
    

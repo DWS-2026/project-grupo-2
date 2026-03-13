@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import com.example.MusicForum.Model.Album;
 import com.example.MusicForum.Model.Comment;
 import com.example.MusicForum.Model.Post;
-import com.example.MusicForum.Model.User;
 import com.example.MusicForum.Repository.AlbumRepository;
 import com.example.MusicForum.Repository.CommentRepository;
 import com.example.MusicForum.Repository.PostRepository;
 
 @Controller
-
 public class PostController {
 
     @Autowired
@@ -38,12 +36,67 @@ public class PostController {
         return "new_post";
     }
 
+    @GetMapping("/editpost/{id}")
+    public String editPost(Model model, @PathVariable long id) {
+        Optional<Post> op = postRepository.findById(id);
+        if (op.isPresent()) {
+            Post post = op.get();
+            List<Album> availableAlbums = albumRepository.findAll();
+            availableAlbums.removeAll(post.getAlbums());
+            model.addAttribute("post", post);
+            model.addAttribute("postId", post.getID());
+            model.addAttribute("allAlbums", availableAlbums);
+            return "edit_post";
+        } else {
+            return "post_not_found";
+        }
+    }
+
+    @PostMapping("/editpost/{id}")
+    public String editPostPost(@PathVariable long id, Post editedPost) {
+        Optional<Post> op = postRepository.findById(id);
+        if (op.isPresent()) {
+            Post existing = op.get();
+            existing.setTitle(editedPost.getTitle());
+            existing.setDescription(editedPost.getDescription());
+            postRepository.save(existing);
+            return "redirect:/post_listing";
+        } else {
+            return "post_not_found";
+        }
+    }
+
+    @PostMapping("/editpost/{id}/addAlbum/{albumId}")
+    public String addAlbum(@PathVariable long id, @PathVariable long albumId) {
+        Optional<Post> op = postRepository.findById(id);
+        Optional<Album> albumOp = albumRepository.findById(albumId);
+        if (op.isPresent() && albumOp.isPresent()) {
+            Post post = op.get();
+            if (!post.getAlbums().contains(albumOp.get())) {
+                post.getAlbums().add(albumOp.get());
+                postRepository.save(post);
+            }
+        }
+        return "redirect:/editpost/" + id;
+    }
+
+    @PostMapping("/editpost/{id}/removeAlbum/{albumId}")
+    public String removeAlbum(@PathVariable long id, @PathVariable long albumId) {
+        Optional<Post> op = postRepository.findById(id);
+        Optional<Album> albumOp = albumRepository.findById(albumId);
+        if (op.isPresent() && albumOp.isPresent()) {
+            Post post = op.get();
+            post.getAlbums().remove(albumOp.get());
+            postRepository.save(post);
+        }
+        return "redirect:/editpost/" + id;
+    }
+
     @PostMapping("/post/new_post")
     public String newPost(Post post, @RequestParam(required = false) List<Long> albumIds) {
-
         if (albumIds != null) {
             List<Album> selectedAlbums = albumRepository.findAllById(albumIds);
-            post.setAlbums(selectedAlbums); // this also sets the image automatically
+            post.setAlbums(selectedAlbums);
         }
         postRepository.save(post);
         return "redirect:/post_listing";
@@ -75,13 +128,7 @@ public class PostController {
     @PostMapping("/post/{postId}/comments/new")
     public String newComment(@PathVariable long postId, Comment comment) {
         Post post = postRepository.findById(postId).orElseThrow();
-
-        // Buscas el usuario con ID 1 (debes haberlo creado previamente)
-        // User defaultUser = userRepository.findById(1L).orElse(null);
-
         comment.setPost(post);
-        // comment.setUser(defaultUser); // Asignas el usuario manualmente
-
         commentRepository.save(comment);
         return "redirect:/post/" + postId;
     }
@@ -91,5 +138,4 @@ public class PostController {
         commentRepository.deleteById(commentId);
         return "redirect:/post/" + postId;
     }
-
 }

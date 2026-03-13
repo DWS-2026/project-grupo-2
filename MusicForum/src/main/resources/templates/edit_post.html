@@ -2,49 +2,85 @@
 
 <div class="container my-5" style="min-height: 75vh;">
 
-    <h2 class="fw-bold mb-4" style="min-height: 15vh;">Editar post</h2>
+    <h2 class="fw-bold mb-4">Editar post</h2>
 
-    <div class="card shadow-sm">
-        <div class="row g-0">
+    <!-- FORMULARIO EDITAR TÍTULO Y DESCRIPCIÓN -->
+    <form action="/editpost/{{postId}}" method="POST">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
 
-            <!-- IMAGE -->
-            <div class="col-md-4 d-flex justify-content-center align-items-center p-3">
-                <img src="https://www.justfortherecord.co.nz/assets/Images/Albums/R-30691885-1716052776-7205.jpg"
-                     alt="Imagen del post"
-                     class="img-fluid rounded post-image"
-                     style="max-height: 250px; object-fit: cover;">
-            </div>
-
-            <!-- POST INFORMATION -->
-            <div class="col-md-8">
-                <div class="card-body">
-
-                    <form>
-
-                        <!-- TITLE -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Título del post</label>
-                            <input type="text" class="form-control"
-                                   value="Mi opinión sobre Hit Me Hard and Soft">
-                        </div>
-
-                        <!-- CONTENT -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Contenido</label>
-                            <textarea class="form-control" rows="6">Un álbum muy íntimo y atmosférico. Billie está en otro nivel.</textarea>
-                        </div>
-
-                        <!-- BUTTONS -->
-                        <div class="d-flex gap-2 mt-3">
-                            <a href="user_posts.html" class="btn btn-dark">Guardar cambios</a>
-                            <a href="user_posts.html" class="btn btn-outline-secondary">Cancelar</a>
-                        </div>
-
-                    </form>
-
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Título del post</label>
+                    <input type="text" name="title" class="form-control" value="{{post.title}}">
                 </div>
-            </div>
 
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Descripción</label>
+                    <textarea name="description" class="form-control" rows="6">{{post.description}}</textarea>
+                </div>
+
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-dark">Guardar cambios</button>
+                    <a href="/post_listing" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <!-- ÁLBUMES ACTUALES DEL POST -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3">Álbumes del post</h5>
+            <div class="row g-3">
+                {{#post.albums}}
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header fw-bold text-center small">{{title}}</div>
+                        <img src="{{image}}" class="card-img-bottom" alt="{{title}}"
+                             style="height: 150px; object-fit: cover;">
+                        <div class="card-footer p-1 text-center">
+                            <form action="/editpost/{{postId}}/removeAlbum/{{id}}" method="POST">
+                                <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{/post.albums}}
+                {{^post.albums}}
+                <p class="text-muted">No hay álbumes en este post.</p>
+                {{/post.albums}}
+            </div>
+        </div>
+    </div>
+
+    <!-- AÑADIR ÁLBUMES -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-3">Añadir álbum</h5>
+            <div class="row g-3">
+                {{#allAlbums}}
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header fw-bold text-center small">{{title}}</div>
+                        <img src="{{image}}" class="card-img-bottom" alt="{{title}}"
+                             style="height: 150px; object-fit: cover;">
+                        <div class="card-footer p-1 text-center">
+                            <form action="/editpost/{{postId}}/addAlbum/{{id}}" method="POST">
+                                <button type="submit" class="btn btn-outline-success btn-sm w-100">
+                                    <i class="bi bi-plus"></i> Añadir
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{/allAlbums}}
+                {{^allAlbums}}
+                <p class="text-muted">No hay más álbumes disponibles para añadir.</p>
+                {{/allAlbums}}
+            </div>
         </div>
     </div>
 
