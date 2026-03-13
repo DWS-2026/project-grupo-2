@@ -46,12 +46,14 @@
         </div>
     </div>
 
+    {{#admin}}
     <!-- ADD AN ALBUM -->
     <div class="container text-center mb-5">
         <button type="button" class="btn btn-success btn-lg shadow" data-bs-toggle="modal" data-bs-target="#addAlbumModal">
             + Añadir Nuevo Álbum
         </button>
     </div>
+    {{/admin}}
 
     <!-- Modal -->
     <div class="modal fade" id="addAlbumModal" tabindex="-1" aria-labelledby="addAlbumModalLabel" aria-hidden="true">

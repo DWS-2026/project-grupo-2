@@ -42,4 +42,10 @@ public class LoginController {
 
         return "redirect:/user_profile/" + user.getId();
     }
+
+    @GetMapping("/logout")                                  //Logs out the user
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 }

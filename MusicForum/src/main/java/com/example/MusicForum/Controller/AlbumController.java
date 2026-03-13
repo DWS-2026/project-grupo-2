@@ -23,20 +23,17 @@ import com.example.MusicForum.Repository.AlbumRepository;
 
 @Controller
 public class AlbumController {
-    
 
     @Autowired
     private AlbumRepository albumRepository;
 
     @GetMapping("/album_listing")
     public String showAlbums(Model model) {
-        List<Album> albums= albumRepository.findAll();
-        model.addAttribute("albums",albums);
-        
-        
+        List<Album> albums = albumRepository.findAll();
+        model.addAttribute("albums", albums);
+
         return "album_listing";
     }
-    
 
     @GetMapping("/album/{id}")
     public String getAlbum(Model model, @PathVariable Long id) {
@@ -71,28 +68,17 @@ public class AlbumController {
     }
 
 
-        
-    
-
     @PostMapping("/albumCreate")
     public String createAlbum(
             @ModelAttribute Album album
 
-            
-            
     ) throws IOException {
-        
+
         albumRepository.save(album);
         return "redirect:/album_listing";
 
+    }
 
-        }
-
-    
-
-
-
-
-    //@AlbumConstruct
-    //public void init(){}
+    // @AlbumConstruct
+    // public void init(){}
 }
