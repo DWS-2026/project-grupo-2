@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 
 import com.example.MusicForum.Model.Album;
 import com.example.MusicForum.Model.Post;
@@ -40,6 +43,8 @@ public class AlbumController {
         Optional<Album> album = albumRepository.findById(id);
         if (album.isPresent()) {
 		model.addAttribute("album", album.get());
+        Album auxAlbum = album.get();
+        model.addAttribute("songsJoined", String.join(",", auxAlbum.getSongs()));
         
 		return "album_view";
 	} else {

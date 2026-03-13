@@ -103,16 +103,12 @@
 {{>albumModal}}
 
 <script>
-    const songCountInput = document.getElementById("songCountInput");
-    const songsContainer = document.getElementById("songsContainer");
+const songCountInput = document.getElementById("songCountInput");
+const songsContainer = document.getElementById("songsContainer");
 
-    songCountInput.addEventListener("change", function() {
-    // Clear any existing inputs
+function buildSongInputs(count, prefill = []) {
     songsContainer.innerHTML = "";
-
-    const count = parseInt(songCountInput.value);
-
-    if (isNaN(count) || count < 1|| count>100) return;// checking the value given makes sense so not to overflow the variable
+    if (isNaN(count) || count < 1 || count > 100) return;
 
     for (let i = 1; i <= count; i++) {
         const input = document.createElement("input");
@@ -120,8 +116,20 @@
         input.name = "songs";
         input.placeholder = `Canción ${i}`;
         input.classList.add("form-control", "mb-2");
+        if (prefill[i - 1]) input.value = prefill[i - 1];
         songsContainer.appendChild(input);
     }
+}
+
+// Pre-fill on modal open
+const rawSongs = songsContainer.dataset.songs || "";
+const existingSongs = rawSongs ? rawSongs.split(",") : [];
+const initialCount = parseInt(songCountInput.value);
+buildSongInputs(initialCount, existingSongs);
+
+// Rebuild on count change
+songCountInput.addEventListener("change", function () {
+    buildSongInputs(parseInt(songCountInput.value), existingSongs);
 });
 </script>
 

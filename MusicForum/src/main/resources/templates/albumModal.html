@@ -58,16 +58,13 @@
                     <div class="mb-3">
                         <label class="form-label">Número de canciones</label>
                         <input type="number" class="form-control"
-                               id="songCountInput" min="1" max="30" placeholder="Ej: 5">
+                               id="songCountInput" min="1" max="30" value="{{album.songs.size}}">
                     </div>
 
                     <!-- Song titles -->
                     <div class="mb-3">
                         <label class="form-label">Canciones</label>
-                        <div id="songsContainer"></div>
-                        <div class="form-text">
-                            Introduce el número de canciones arriba para generar los campos correspondientes.
-                        </div>
+                        <div id="songsContainer" data-songs="{{songsJoined}}"></div>
                     </div>
 
                 </form>
