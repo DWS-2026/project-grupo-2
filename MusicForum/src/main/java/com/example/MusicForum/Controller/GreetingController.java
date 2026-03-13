@@ -12,28 +12,11 @@ public class GreetingController {
         return "first";
     }
 
-    /*@GetMapping("/album_listing")
-    public String album_listing(Model model) {
-        return "album_listing";
-    } */
+    /*
+     * @GetMapping("/album_listing")
+     * public String album_listing(Model model) {
+     * return "album_listing";
+     * }
+     */
 
-    @GetMapping("/album_view")
-    public String viewAlbum(Model model) {
-        return "album_view";
-    }
-
-    @GetMapping("/edit_post")
-    public String postEdit(Model model) {
-        return "edit_post";
-    }
-
-    @GetMapping("/admin_panel")
-    public String admin_panel(Model model) {
-        return "admin_panel";
-    }
-
-    @GetMapping("/register")
-    public String register(Model model) {
-        return "register";
-    }
 }

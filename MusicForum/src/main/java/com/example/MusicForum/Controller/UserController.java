@@ -10,21 +10,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-import java.util.*;
-
-import com.example.MusicForum.Model.Comment;
-import com.example.MusicForum.Model.Post;
-import com.example.MusicForum.Repository.PostRepository;
-
-import jakarta.annotation.PostConstruct;
-
 @Controller
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    
+    @GetMapping("/register")
+    public String register(Model model) {
+        return "register";
+    }
+
+    @GetMapping("/edit_profile")
+    public String edit_profile(Model model) {
+        return "edit_profile";
+    }
+
+    @GetMapping("/admin_panel")
+    public String admin_panel(Model model) {
+        return "admin_panel";
+    }
+
     @GetMapping("/user_profile/{id}")
     public String userProfile(@PathVariable Long id, Model model) {
         Optional<User> user = userRepository.findById(id);

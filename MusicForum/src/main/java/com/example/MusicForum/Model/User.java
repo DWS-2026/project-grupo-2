@@ -32,13 +32,11 @@ public class User {
 
     private String avatar;
 
+    @OneToMany
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany
-    private List<Post> posts=new ArrayList<>();
-
-    @OneToMany
-    private List<Comment> comments=new ArrayList<>();
-
+    private List<Comment> comments = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -119,6 +117,14 @@ public class User {
 
     public UserRole getUserRole() {
         return userRole;
+    }
+
+    public boolean isAdmin() {
+        return this.userRole == UserRole.ADMIN;
+    }
+
+    public boolean isRegularUser() {
+        return this.userRole == UserRole.USER;
     }
 
     public void setUserRole(UserRole userRole) {

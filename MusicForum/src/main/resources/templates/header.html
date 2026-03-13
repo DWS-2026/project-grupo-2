@@ -32,6 +32,7 @@
                         <a class="nav-link" href="/album_listing">Álbumes</a>
                     </li>
 
+                    {{^loggedUser}}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
@@ -39,6 +40,27 @@
                     <li class="nav-item">
                         <a class="btn btn-primary ms-2" href="/register">Registrarse</a>
                     </li>
+                    {{/loggedUser}}
+
+                    {{#loggedUser}} 
+                    
+                    <!-- If exists and it´s true -->
+                    {{#admin}}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bold" href="/admin_panel">Panel de Admin</a>
+                    </li>
+                    {{/admin}}
+
+                    <!-- If not exists or it´s false -->
+                    {{^admin}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user_profile/{{id}}">Mi Perfil</a>
+                    </li>
+                    {{/admin}}
+                    <li class="nav-item">
+                        <a class="btn btn-danger ms-2" href="/logout">Cerrar Sesión</a>
+                    </li>
+                    {{/loggedUser}}
 
                 </ul>
             </div>
