@@ -30,6 +30,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String avatar;
 
     @OneToMany
@@ -123,7 +124,7 @@ public class User {
         return this.userRole == UserRole.ADMIN;
     }
 
-    public boolean isRegularUser() {
+    public boolean isUser() {
         return this.userRole == UserRole.USER;
     }
 

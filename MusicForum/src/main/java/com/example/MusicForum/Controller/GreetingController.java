@@ -12,6 +12,10 @@ public class GreetingController {
         return "first";
     }
 
+    @GetMapping("/error")
+    public String error(Model model) {
+        return "error";
+    }
     /*
      * @GetMapping("/album_listing")
      * public String album_listing(Model model) {

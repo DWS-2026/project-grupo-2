@@ -46,6 +46,7 @@ public class UserController {
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String passwordConfirm,
+            @RequestParam(required = false) org.springframework.web.multipart.MultipartFile avatarFile,
             Model model) {
 
         if (userRepository.findByUsername(username).isPresent()) {
@@ -64,8 +65,70 @@ public class UserController {
         }
 
         User newUser = new User(username, password, email, User.UserRole.USER);
+
+        if (avatarFile != null && !avatarFile.isEmpty()) {
+            try {
+                String base64Image = java.util.Base64.getEncoder().encodeToString(avatarFile.getBytes());
+                newUser.setAvatar(base64Image);
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         userRepository.save(newUser);
 
         return "redirect:/login";
+    }
+
+    @PostMapping("/edit_profile")
+    public String updateProfile(
+            @RequestParam String username,
+            @RequestParam String email,
+            @RequestParam(required = false) org.springframework.web.multipart.MultipartFile avatarFile,
+            HttpSession session,
+            Model model) {
+
+        User loggedUser = (User) session.getAttribute("loggedUser");
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+
+        Optional<User> userOpt = userRepository.findById(loggedUser.getId());
+        if (userOpt.isPresent()) {
+            User userToUpdate = userOpt.get();
+
+            // Check uniqueness if username changed
+            if (!userToUpdate.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
+                model.addAttribute("error", "El nombre de usuario ya existe");
+                return "edit_profile";
+            }
+            // Check uniqueness if email changed
+            if (!userToUpdate.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+                model.addAttribute("error", "El email ya está registrado");
+                return "edit_profile";
+            }
+
+            userToUpdate.setUsername(username);
+            userToUpdate.setEmail(email);
+
+            if (avatarFile != null && !avatarFile.isEmpty()) {
+                try {
+                    String base64Image = java.util.Base64.getEncoder().encodeToString(avatarFile.getBytes());
+                    userToUpdate.setAvatar(base64Image);
+                } catch (java.io.IOException e) {
+                    e.printStackTrace();
+                    model.addAttribute("error", "Error al procesar la imagen del avatar");
+                    return "edit_profile";
+                }
+            }
+
+            userRepository.save(userToUpdate);
+            // Update session with new user data
+            session.setAttribute("loggedUser", userToUpdate);
+
+            return "redirect:/user_profile/" + userToUpdate.getId();
+        }
+
+        return "redirect:/";
     }
 }

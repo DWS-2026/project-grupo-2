@@ -1,47 +1,44 @@
 {{>header}}
 
 
-    <!-- EDICION PERFIL -->
-    <div class="container d-flex justify-content-center align-items-center" 
-         style="min-height: 85vh;">
+<!-- EDICION PERFIL -->
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
 
-        <div class="card shadow p-4" style="max-width: 480px; width: 100%;">
-            <h2 class="text-center mb-4 fw-bold">Editar perfil</h2>
+    <div class="card shadow p-4" style="max-width: 480px; width: 100%;">
+        <h2 class="text-center mb-4 fw-bold">Editar perfil</h2>
 
-            <form>
+        <form action="/edit_profile" method="POST" enctype="multipart/form-data">
 
-                <!-- Nombre -->
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Cambiar nombre de usuario</label>
-                    <input type="text" class="form-control" id="nombre" 
-                           placeholder="Nuevo nombre" required>
-                </div>
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Cambiar nombre de usuario</label>
+                <input type="text" class="form-control" id="nombre" name="username" value="{{loggedUser.username}}"
+                    placeholder="Nuevo nombre" required>
+            </div>
 
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Actualizar correo electrónico</label>
-                    <input type="email" class="form-control" id="email" 
-                           placeholder="usuario@correo.com" required>
-                </div>
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Actualizar correo electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{loggedUser.email}}"
+                    placeholder="usuario@correo.com" required>
+            </div>
 
-                <!-- Avatar -->
-                <div class="mb-3">
-                    <label for="avatar" class="form-label">Avatar</label>
-                    <input type="file" class="form-control" id="avatar" accept="image/*">
-                </div>
+            <!-- Avatar -->
+            <div class="mb-3">
+                <label for="avatar" class="form-label">Avatar</label>
+                <input type="file" class="form-control" id="avatar" name="avatarFile" accept="image/*">
+            </div>
 
-                <!-- Submit -->
-                 <div class="card-footer bg-white d-flex justify-content-center gap-2">
-                    <button type="submit" class="btn btn-dark">Guardar cambios</button>
-                    <a href="user_profile.html" class="btn btn-outline-secondary">Descartar cambios</a>
-                 </div>
-                
-            </form>
+            <!-- Submit -->
+            <div class="card-footer bg-white d-flex justify-content-center gap-2">
+                <button type="submit" class="btn btn-dark">Guardar cambios</button>
+                <a href="/user_profile/{{loggedUser.id}}" class="btn btn-outline-secondary">Descartar cambios</a>
+            </div>
 
-        </div>
+        </form>
 
     </div>
-   
-   {{>footer}}
 
+</div>
 
+{{>footer}}
