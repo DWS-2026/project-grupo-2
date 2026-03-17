@@ -1,6 +1,8 @@
 package com.example.MusicForum.Model;
 
 import jakarta.persistence.*;
+
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,8 @@ public class Post {
     
     @Column(columnDefinition = "TEXT")
     private String description;
-    
-    private String image;
+    @Lob
+    private Blob imageFile;
 
     private String date;
 
@@ -71,8 +73,8 @@ public class Post {
         this.description = description;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(Blob imageFile) {
+        this.imageFile = imageFile;
     }
 
     public User getUser() {
@@ -115,15 +117,10 @@ public class Post {
 
     public void setAlbums(List<Album> albums) {
     this.album = albums;
-    if (albums != null && !albums.isEmpty()) {
-        this.image = albums.get(0).getImage(); //we set the post image to the first album's image
     }
-    }
-    public String getImage() {
-    if (album != null && !album.isEmpty()) {
-        return album.get(0).getImage();
-    }
-    return image; // fallback to stored image if no albums
+    public Blob getImageFile() {
+
+    return imageFile; // fallback to stored image if no albums
     }
     
 }

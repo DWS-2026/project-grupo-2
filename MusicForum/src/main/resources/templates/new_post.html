@@ -21,57 +21,49 @@
                 <div class="card-body p-4">
 
                     <!-- El action debe coincidir con el @PostMapping de tu controlador -->
-                    <form action="/post/new_post" method="post">
-
-                        <div class="mb-3">
-                            <label for="title" class="form-label fw-bold">Nombre</label>
-                            <input type="text" id="user" name="tempUser" class="form-control" placeholder="Luka Modric">
-                        </div>
+                    <form action="/post/new_post" method="post" enctype="multipart/form-data">
 
                         <!-- TÍTULO -->
                         <div class="mb-3">
                             <label for="title" class="form-label fw-bold">Título del post</label>
-                            <input type="text" 
-                                   id="title" 
-                                   name="title" 
-                                   class="form-control" 
-                                   placeholder="Ej: Mi álbum favorito de 2024" 
-                                   required>
+                            <input type="text" id="title" name="title" class="form-control"
+                                placeholder="Ej: Mi álbum favorito de 2024" required>
                         </div>
 
                         <div class="mb-3">
-    <label class="form-label fw-bold">Álbumes relacionados</label>
-    <div class="d-flex flex-column gap-2">
-        {{#albums}}
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" name="albumIds" value="{{id}}" id="album-{{id}}">
-            <label class="form-check-label" for="album-{{id}}">{{title}}</label>
-        </div>
-        {{/albums}}
-    </div>
-</div>
+                            <label for="imageFile" class="form-label fw-bold">Imagen del post</label>
+                            <input type="file" id="imageFile" name="imageFile" class="form-control" accept="image/*"
+                                required>
+                            <div class="form-text">Formatos permitidos: JPG, PNG.</div>
+                        </div>
 
 
-                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Álbumes relacionados</label>
+                            <div class="d-flex flex-column gap-2">
+                                {{#albums}}
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="albumIds" value="{{id}}"
+                                        id="album-{{id}}">
+                                    <label class="form-check-label" for="album-{{id}}">{{title}}</label>
+                                </div>
+                                {{/albums}}
+                            </div>
+                        </div>
+
+
+
                         <div class="mb-3">
                             <label for="date" class="form-label fw-bold">Fecha de publicación</label>
-                            <input type="date" 
-                                   id="date" 
-                                   name="date" 
-                                   class="form-control" 
-                                   placeholder="2/2/2024" 
-                                   required>
+                            <input type="date" id="date" name="date" class="form-control" placeholder="2/2/2024"
+                                required>
                         </div>
 
                         <!-- CONTENIDO -->
                         <div class="mb-3">
                             <label for="description" class="form-label fw-bold">Descripción / Contenido</label>
-                            <textarea id="description" 
-                                      name="description" 
-                                      class="form-control" 
-                                      rows="6" 
-                                      placeholder="¿Qué quieres compartir con la comunidad?" 
-                                      required></textarea>
+                            <textarea id="description" name="description" class="form-control" rows="6"
+                                placeholder="¿Qué quieres compartir con la comunidad?" required></textarea>
                         </div>
 
                         <!-- BOTONES -->

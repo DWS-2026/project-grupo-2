@@ -1,17 +1,29 @@
 package com.example.MusicForum.Controller;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaTypeFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.MusicForum.Model.Album;
+import com.example.MusicForum.Service.*;
+
 import com.example.MusicForum.Model.Comment;
 import com.example.MusicForum.Model.Post;
 import com.example.MusicForum.Repository.AlbumRepository;
 import com.example.MusicForum.Repository.CommentRepository;
 import com.example.MusicForum.Repository.PostRepository;
+
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class PostController {
@@ -22,6 +34,8 @@ public class PostController {
     private CommentRepository commentRepository;
     @Autowired
     private AlbumRepository albumRepository;
+    @Autowired
+    private PostService postService;
 
     @GetMapping("/post_listing")
     public String getPosts(Model model) {
@@ -34,6 +48,17 @@ public class PostController {
         model.addAttribute("post", new Post());
         model.addAttribute("albums", albumRepository.findAll());
         return "new_post";
+    }
+
+    @PostMapping("/post/new_post")
+    public String newPost(Post post,@RequestParam("imageFile")MultipartFile imageFile, @RequestParam(required = false) List<Long> albumIds)
+            throws IOException {
+        if (albumIds != null) {
+            List<Album> selectedAlbums = albumRepository.findAllById(albumIds);
+            post.setAlbums(selectedAlbums);
+        }
+        postService.save(post, imageFile);
+        return "redirect:/post_listing";
     }
 
     @GetMapping("/editpost/{id}")
@@ -49,6 +74,24 @@ public class PostController {
             return "edit_post";
         } else {
             return "post_not_found";
+        }
+    }
+
+    @GetMapping("/posts/{id}/image")
+    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
+        Optional<Post> op = postRepository.findById(id);
+        if (op.isPresent() && op.get().getImageFile() != null) {
+            Blob image = op.get().getImageFile();
+            Resource imageFile = new InputStreamResource(image.getBinaryStream());
+            MediaType mediaType = MediaTypeFactory
+                    .getMediaType(imageFile)
+                    .orElse(MediaType.IMAGE_JPEG);
+            return ResponseEntity
+                    .ok()
+                    .contentType(mediaType)
+                    .body(imageFile);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -90,16 +133,6 @@ public class PostController {
             postRepository.save(post);
         }
         return "redirect:/editpost/" + id;
-    }
-
-    @PostMapping("/post/new_post")
-    public String newPost(Post post, @RequestParam(required = false) List<Long> albumIds) {
-        if (albumIds != null) {
-            List<Album> selectedAlbums = albumRepository.findAllById(albumIds);
-            post.setAlbums(selectedAlbums);
-        }
-        postRepository.save(post);
-        return "redirect:/post_listing";
     }
 
     @GetMapping("/post/{id}")

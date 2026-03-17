@@ -6,41 +6,43 @@
 
     <div class="row g-4">
 
-        {{#posts}} 
+        {{#posts}}
         <!-- Cada tarjeta de Post -->
         <div class="col-md-4 col-sm-6">
             <div class="card h-100 shadow-sm">
-                <img src="{{#image}}{{image}}{{/image}}{{^image}}/images/default.jpg{{/image}}" 
-                class="card-img-top" alt="Portada de {{title}}"
-                style="height: 200px; object-fit: cover;">
-                
+                <div class="ratio ratio-1x1 bg-light border-bottom">
+                    <img src="/posts/{{id}}/image" onerror="this.src='/images/default.jpg';" class="card-img-top p-2"
+                        alt="Portada de {{title}}" style="object-fit: contain;">
+                </div>
+
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">{{title}}</h5>
                     <p class="card-text text-truncate" style="max-height: 3rem;">
                         {{description}}
                     </p>
-                    
+
                     <div class="mt-auto">
                         <!-- Enlace al detalle del post -->
                         <a href="/post/{{id}}" class="btn btn-primary btn-sm">Ver post</a>
-                        
+
                         <!-- Formulario para borrar -->
                         <form action="/post/{{id}}/delete" method="POST" class="d-inline">
-                            <button type="submit" class="btn btn-outline-danger btn-sm">  <!-- esto lo haría el administrador, el usuario normal podría borrar sus post pero no los que no son suyos--> 
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <!-- esto lo haría el administrador, el usuario normal podría borrar sus post pero no los que no son suyos-->
                                 <i class="bi bi-trash"></i> Eliminar
                             </button>
                         </form>
 
                         <a href="/editpost/{{id}}" class="btn btn-outline-secondary btn-sm">
-                        <i class="bi bi-pencil"></i> Editar
+                            <i class="bi bi-pencil"></i> Editar
                         </a>
 
                     </div>
                 </div>
-                
+
                 <div class="card-footer bg-transparent border-top-0">
                     <small class="text-muted">
-                        <i class="bi bi-person"></i> Autor: 
+                        <i class="bi bi-person"></i> Autor:
                         <strong>
                             {{#user}}{{username}}{{/user}}
                             {{^user}}Anónimo{{/user}}
@@ -62,22 +64,22 @@
         </div>
         {{/posts}}
 
-        
+
         <div class="container mb-5">
-    <div class="d-flex justify-content-end align-items-center border-top pt-4">
-        <div class="me-auto">
-            <p class="text-muted mb-0">¿Tienes algo nuevo que compartir?</p>
-        
+            <div class="d-flex justify-content-end align-items-center border-top pt-4">
+                <div class="me-auto">
+                    <p class="text-muted mb-0">¿Tienes algo nuevo que compartir?</p>
+
+                </div>
+                {{#loggedUser}}
+                <a href="/create/new_post" class="btn btn-dark btn-lg shadow-sm">
+                    <i class="bi bi-plus-lg me-2"></i>Crear nuevo post
+                </a>
+                {{/loggedUser}}
+            </div>
+
         </div>
-        {{#loggedUser}} 
-        <a href="/create/new_post" class="btn btn-dark btn-lg shadow-sm">
-            <i class="bi bi-plus-lg me-2"></i>Crear nuevo post
-        </a>
-        {{/loggedUser}}
-    </div>
-        
-</div>
-         
+
 
     </div>
 </div>
