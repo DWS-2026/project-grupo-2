@@ -28,28 +28,30 @@
                     <div class="mb-3">
                         <label class="form-label">Grupo / Artista</label>
                         <input type="text" class="form-control"
-                               name="artist" value="{{album.artist}}" required>
+                               name="artist" value="{{album.artist}}" >
                     </div>
 
                     <!-- Year -->
                     <div class="mb-3">
                         <label class="form-label">Año de lanzamiento</label>
                         <input type="text" class="form-control"
-                               name="date" value="{{album.date}}" required>
+                               name="date" value="{{album.date}}" >
                     </div>
 
                     <!-- Title -->
                     <div class="mb-3">
                         <label class="form-label">Título del Álbum</label>
                         <input type="text" class="form-control"
-                               name="title" value="{{album.title}}" required>
+                               name="title" value="{{album.title}}" >
                     </div>
 
                     <!-- Album Image -->
                     <div class="mb-3">
                         <label class="form-label">Subir Portada del Álbum</label>
-                        <input type="text" class="form-control"
-                               name="image" placeholder={{album.image}}
+                        <input type="file" class="form-control"
+                               name="imageFile"
+                                id = "imageFile"
+                               placeholder="/album/{{id}}/image"
                                accept="image/*" required>
                         <div class="form-text">Formatos admitidos: JPG, PNG o WebP.</div>
                     </div>

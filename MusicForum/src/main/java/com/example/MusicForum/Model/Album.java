@@ -1,5 +1,6 @@
 package com.example.MusicForum.Model;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,24 +16,40 @@ public class Album{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private String image;
+    private String imagePath;
     private String date;
     private String artist;
+
+    @Lob
+    private Blob imageBlob;
+
      @ElementCollection // <-- Obligatorio para List<String>
     private List<String> songs;
+
+
 
      @ManyToMany(mappedBy = "album") 
     private List<Post> posts = new ArrayList<>();
 
     protected Album(){}
 
-    public Album(String title, List<String> songs, String image, String date, String artist){
+    public Album(String title, List<String> songs, String imagePath, String date, String artist){
         this.title = title;
         this.date = date;
         this.songs = songs;
-        this.image = image;
+        this.imagePath=imagePath;
         this.artist = artist;
     }
+
+
+    public void setImageBlob(Blob image){
+        this.imageBlob=image;
+    }
+
+    public Blob getImageBlob(){
+        return imageBlob;
+    }
+
     public String getTitle() { 
         return title; 
     }
@@ -45,8 +62,11 @@ public class Album{
         return songs; 
     }
 
-    public String getImage() { 
-        return image; 
+    public String getImagePath(){
+        return imagePath;
+    }
+    public void setImagePath(String imagePath){
+        this.imagePath=imagePath;
     }
     
     public String getArtist() { 
@@ -64,9 +84,7 @@ public class Album{
     public void setSongs(List<String> songs) {
         this.songs = songs;
     }
-    public void setImage(String image) {
-        this.image = image;
-    }
+    
     public void setDate(String date) {
         this.date = date;
     }

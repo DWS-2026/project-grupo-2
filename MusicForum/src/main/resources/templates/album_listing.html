@@ -13,7 +13,7 @@
         <div class="d-flex gap-4 border-bottom pb-4 mb-4">
 
             <div class="rym-art-col">
-                <img src="{{image}}" alt="Portada" class="rym-art-img">
+                <img src="/album/{{id}}/image" alt="{{title}}" class="rym-art-img">
             </div>
 
             <div>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="albumImg" class="form-label">Subir Portada del Álbum</label>
-                            <input class="form-control" type="text" name="image" accept="image/*" required>
+                            <input class="form-control" type="file" id= "imageFile" name="imageFile" accept="image/*" required>
                             <div class="form-text">Formatos admitidos: JPG, PNG o WebP.</div>
                         </div>
 

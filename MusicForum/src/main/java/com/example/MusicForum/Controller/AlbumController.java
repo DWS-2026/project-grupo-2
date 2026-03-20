@@ -1,10 +1,15 @@
 package com.example.MusicForum.Controller;
 
 import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaTypeFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,20 +17,27 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 
 import com.example.MusicForum.Model.Album;
 import com.example.MusicForum.Model.Post;
 import com.example.MusicForum.Repository.AlbumRepository;
+import com.example.MusicForum.Service.AlbumService;
+import com.example.MusicForum.Service.PostService;
 
 @Controller
 public class AlbumController {
 
     @Autowired
     private AlbumRepository albumRepository;
+    @Autowired
+    private AlbumService albumService;
 
     @GetMapping("/album_listing")
     public String showAlbums(Model model) {
@@ -67,14 +79,34 @@ public class AlbumController {
         return "redirect:/album/{id}";
     }
 
+    @GetMapping("/album/{id}/image")
+    public ResponseEntity<Object> downloadImage(@PathVariable long id) throws SQLException {
+        Optional<Album> op = albumRepository.findById(id);
+        if (op.isPresent() && op.get().getImageBlob() != null) {
+            Blob image = op.get().getImageBlob();
+            Resource imageFile = new InputStreamResource(image.getBinaryStream());
+            MediaType mediaType = MediaTypeFactory
+                    .getMediaType(imageFile)
+                    .orElse(MediaType.IMAGE_JPEG);
+            return ResponseEntity
+                    .ok()
+                    .contentType(mediaType)
+                    .body(imageFile);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+
 
     @PostMapping("/albumCreate")
-    public String createAlbum(
-            @ModelAttribute Album album
-
+    public String createAlbum(@ModelAttribute Album album,
+    @RequestParam("imageFile") MultipartFile imageFile
     ) throws IOException {
 
-        albumRepository.save(album);
+        
+
+        albumService.save(album, imageFile);
         return "redirect:/album_listing";
 
     }
