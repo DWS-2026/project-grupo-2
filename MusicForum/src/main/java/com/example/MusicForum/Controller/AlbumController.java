@@ -62,7 +62,9 @@ public class AlbumController {
     }
 
     @PostMapping("/album/{id}")
-    public String updateAlbum(Model model, @PathVariable Long id, Album modifyAlbum) {
+    public String updateAlbum(Model model, @PathVariable Long id, Album modifyAlbum,
+        @RequestParam("imageFile") MultipartFile imageFile
+    ) throws SQLException, IOException{
         
 
         Optional<Album> album = albumRepository.findById(id);
@@ -70,8 +72,11 @@ public class AlbumController {
         if(album.isPresent()){
             Album albumF = album.get();
             modifyAlbum.setId(albumF.getId());
-
-            albumRepository.save(modifyAlbum);
+            if(imageFile.isEmpty()){
+                modifyAlbum.setImageBlob(albumF.getImageBlob());
+            }
+            
+            albumService.save(modifyAlbum, imageFile);
         }
         
 
