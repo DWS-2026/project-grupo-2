@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.*;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaTypeFactory;
@@ -57,6 +58,8 @@ public class PostController {
             List<Album> selectedAlbums = albumRepository.findAllById(albumIds);
             post.setAlbums(selectedAlbums);
         }
+
+        post.setDate(LocalDate.now().toString()); // "2026-03-20"
         postService.save(post, imageFile);
         return "redirect:/post_listing";
     }
@@ -94,20 +97,25 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping("/editpost/{id}")
-    public String editPostPost(@PathVariable long id, Post editedPost) {
-        Optional<Post> op = postRepository.findById(id);
-        if (op.isPresent()) {
-            Post existing = op.get();
-            existing.setTitle(editedPost.getTitle());
-            existing.setDescription(editedPost.getDescription());
-            postRepository.save(existing);
-            return "redirect:/post_listing";
+@PostMapping("/editpost/{id}")
+public String editPostPost(@PathVariable long id, Post editedPost,
+        @RequestParam("imageFile") MultipartFile imageFile) throws SQLException, IOException {
+    Optional<Post> op = postRepository.findById(id);
+    if (op.isPresent()) {
+        Post existing = op.get();
+        existing.setTitle(editedPost.getTitle());
+        existing.setDescription(editedPost.getDescription());
+        if (imageFile != null && !imageFile.isEmpty()) {
+            postService.save(existing, imageFile);
         } else {
-            return "post_not_found";
+            postRepository.save(existing);
         }
+
+        return "redirect:/post_listing";
+    } else {
+        return "post_not_found";
     }
+}
 
     @PostMapping("/editpost/{id}/addAlbum/{albumId}")
     public String addAlbum(@PathVariable long id, @PathVariable long albumId) {
