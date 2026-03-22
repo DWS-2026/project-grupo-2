@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,15 +25,17 @@ public class DataBaseInit {
     private AlbumRepository albumRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder; 
 
 
 
     @PostConstruct
 public void init() {
 
-    User user1= new User("admin", "admin123", "admin@musicforum.com", User.UserRole.ADMIN);
-    User user2 = new User("user", "user123", "user@gmail.com", User.UserRole.USER);
-    User user3 = new User("invitado", "guest123", "invitado@gmail.com", User.UserRole.INVITADO);
+    User user1 = new User("admin", passwordEncoder.encode("admin123"), "admin@musicforum.com", "ADMIN", "USER");
+    User user2 = new User("user", passwordEncoder.encode("user123"), "user@gmail.com", "USER");
+    User user3 = new User("invitado", passwordEncoder.encode("guest123"), "invitado@gmail.com", "INVITADO");
     userRepository.save(user1);
     userRepository.save(user2);
     userRepository.save(user3);

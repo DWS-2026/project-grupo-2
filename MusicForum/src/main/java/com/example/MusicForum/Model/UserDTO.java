@@ -1,4 +1,4 @@
-package com.example.MusicForum.Model;
+/*package com.example.MusicForum.Model;
 
 import jakarta.validation.constraints.*;
 
@@ -69,4 +69,4 @@ public class UserDTO {
     public void setUserRole(User.UserRole userRole) {
         this.userRole = userRole;
     }
-}
+}*/

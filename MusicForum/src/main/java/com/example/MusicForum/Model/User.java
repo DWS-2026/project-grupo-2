@@ -23,7 +23,7 @@ public class User {
     @NotBlank(message = "La contraseña no puede estar vacía")
     @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
     @Column(nullable = false)
-    private String password;
+    private String encodedPassword;
 
     @NotBlank(message = "El email no puede estar vacío")
     @Email(message = "El formato del email no es válido")
@@ -39,9 +39,9 @@ public class User {
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
+	@ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
-    private UserRole userRole; // "USER" "INVITADO" "ADMIN"
+    private List<String> roles; // "USER" "INVITADO" "ADMIN"
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -59,21 +59,14 @@ public class User {
         updatedAt = LocalDateTime.now();
     }
 
-    // UserRole
-    public enum UserRole {
-        USER,
-        INVITADO,
-        ADMIN
-    }
-
     public User() {
     }
 
-    public User(String username, String password, String email, UserRole userRole) {
+    public User(String username, String password, String email, String ... roles) {
         this.username = username;
-        this.password = password;
+        this.encodedPassword = password;
         this.email = email;
-        this.userRole = userRole;
+        this.roles=List.of(roles);
     }
 
     public Long getId() {
@@ -92,13 +85,13 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
+  	public String getEncodedPassword() {
+		return encodedPassword;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setEncodedPassword(String encodedPassword) {
+		this.encodedPassword = encodedPassword;
+	}
 
     public String getEmail() {
         return email;
@@ -116,21 +109,14 @@ public class User {
         this.avatar = avatar;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
-    }
+    
+	public List<String> getRoles() {
+		return roles;
+	}
 
-    public boolean isAdmin() {
-        return this.userRole == UserRole.ADMIN;
-    }
-
-    public boolean isUser() {
-        return this.userRole == UserRole.USER;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
