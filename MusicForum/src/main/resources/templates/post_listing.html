@@ -25,17 +25,17 @@
                         <!-- Enlace al detalle del post -->
                         <a href="/post/{{id}}" class="btn btn-primary btn-sm">Ver post</a>
 
-                        <!-- Formulario para borrar -->
-                        <form action="/post/{{id}}/delete" method="POST" class="d-inline">
+                          {{#admin}}
+                            <form action="/post/{{id}}/delete" method="POST" class="d-inline">
                             <button type="submit" class="btn btn-outline-danger btn-sm">
-                                <!-- esto lo haría el administrador, el usuario normal podría borrar sus post pero no los que no son suyos-->
-                                <i class="bi bi-trash"></i> Eliminar
+                            <i class="bi bi-trash"></i> Eliminar
                             </button>
-                        </form>
+                             </form>
 
-                        <a href="/editpost/{{id}}" class="btn btn-outline-secondary btn-sm">
+                            <a href="/editpost/{{id}}" class="btn btn-outline-secondary btn-sm">
                             <i class="bi bi-pencil"></i> Editar
-                        </a>
+                            </a>
+                            {{/admin}}
 
                     </div>
                 </div>
@@ -45,7 +45,6 @@
                         <i class="bi bi-person"></i> Autor:
                         <strong>
                             {{#user}}{{username}}{{/user}}
-                            {{^user}}Anónimo{{/user}}
                         </strong>
                     </small>
                     <br>

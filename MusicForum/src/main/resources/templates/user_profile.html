@@ -2,7 +2,7 @@
 
 <main class="flex-grow-1">
 <!-- CONTENIDO DEL PERFIL -->
-{{#loggeduser}}
+{{#user}}
 <div class="card shadow p-4 mx-auto" style="max-width: 500px;" style="min-height: 85vh;">
     <div class="text-center">
         <h2 class="text-center mb-4 fw-bold">Mi perfil</h2>
@@ -21,18 +21,19 @@
     <p><strong>Miembro desde:</strong> {{formattedCreatedAt}}</p>
 
     <div class="row mt-3">
-    {{/loggeduser}}
-        <div class="col-6">
-            <a href="user_posts" class="btn btn-dark w-100">Ver mis posts</a>
-        </div>
-        <div class="col-6">
-            <a href="edit_profile" class="btn btn-dark w-100">Editar Perfil</a>
-        </div>
+       <div class="col-6">
+    <a href="/user_posts" class="btn btn-dark w-100">Ver mis posts</a>
+</div>
+<div class="col-6">
+    <a href="/edit_profile" class="btn btn-dark w-100">Editar Perfil</a>
+</div>
     </div>
 
 
 
 </div>
 </div>
+    {{/user}}
+
 </main>
 {{>footer}}

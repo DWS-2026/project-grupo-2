@@ -1,6 +1,7 @@
 package com.example.MusicForum.Controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.*;
@@ -18,9 +19,11 @@ import com.example.MusicForum.Service.*;
 
 import com.example.MusicForum.Model.Comment;
 import com.example.MusicForum.Model.Post;
+import com.example.MusicForum.Model.User;
 import com.example.MusicForum.Repository.AlbumRepository;
 import com.example.MusicForum.Repository.CommentRepository;
 import com.example.MusicForum.Repository.PostRepository;
+import com.example.MusicForum.Repository.UserRepository;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -37,6 +40,8 @@ public class PostController {
     private AlbumRepository albumRepository;
     @Autowired
     private PostService postService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/post_listing")
     public String getPosts(Model model) {
@@ -52,14 +57,16 @@ public class PostController {
     }
 
     @PostMapping("/post/new_post")
-    public String newPost(Post post,@RequestParam("imageFile")MultipartFile imageFile, @RequestParam(required = false) List<Long> albumIds)
+    public String newPost(Post post,@RequestParam("imageFile")MultipartFile imageFile, @RequestParam(required = false) List<Long> albumIds,Principal principal)
             throws IOException {
         if (albumIds != null) {
             List<Album> selectedAlbums = albumRepository.findAllById(albumIds);
             post.setAlbums(selectedAlbums);
         }
 
-        post.setDate(LocalDate.now().toString()); // "2026-03-20"
+        post.setDate(LocalDate.now().toString()); 
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+        post.setUser(user);
         postService.save(post, imageFile);
         return "redirect:/post_listing";
     }
@@ -72,7 +79,7 @@ public class PostController {
             List<Album> availableAlbums = albumRepository.findAll();
             availableAlbums.removeAll(post.getAlbums());
             model.addAttribute("post", post);
-            model.addAttribute("postId", post.getID());
+            model.addAttribute("postId", post.getId());
             model.addAttribute("allAlbums", availableAlbums);
             return "edit_post";
         } else {
@@ -148,6 +155,7 @@ public String editPostPost(@PathVariable long id, Post editedPost,
         Optional<Post> post = postRepository.findById(id);
         if (post.isPresent()) {
             model.addAttribute("post", post.get());
+            model.addAttribute("postId", id);
             model.addAttribute("albums", post.get().getAlbums());
             return "post_view";
         } else {
@@ -166,17 +174,29 @@ public String editPostPost(@PathVariable long id, Post editedPost,
         }
     }
 
-    @PostMapping("/post/{postId}/comments/new")
-    public String newComment(@PathVariable long postId, Comment comment) {
-        Post post = postRepository.findById(postId).orElseThrow();
-        comment.setPost(post);
-        commentRepository.save(comment);
-        return "redirect:/post/" + postId;
-    }
+ @PostMapping("/post/{postId}/comments/new")
+public String newComment(@PathVariable long postId, 
+                         @RequestParam String comment,
+                         Principal principal) {
+    Post post = postRepository.findById(postId).orElseThrow();
+    User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+    
+    Comment newComment = new Comment(comment, user);
+    newComment.setPost(post);
+    commentRepository.save(newComment);
+    
+    return "redirect:/post/" + postId;
+}
 
     @PostMapping("/post/{postId}/comments/{commentId}/delete")
-    public String deleteComment(@PathVariable Long postId, @PathVariable Long commentId) {
+public String deleteComment(@PathVariable Long postId, @PathVariable Long commentId, Principal principal) {
+    Comment comment = commentRepository.findById(commentId).orElseThrow();
+    
+    // Solo puede borrar si es el autor
+    if (comment.getUser().getUsername().equals(principal.getName())) {
         commentRepository.deleteById(commentId);
-        return "redirect:/post/" + postId;
     }
+    
+    return "redirect:/post/" + postId;
+}
 }

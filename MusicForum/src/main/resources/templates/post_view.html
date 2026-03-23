@@ -1,89 +1,80 @@
 {{>header}}
 
-<!-- CONTENIDO DEL POST -->
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
 
-      <!-- TÍTULO -->
       <h1 class="mb-3">{{post.title}}</h1>
 
-      <!-- AUTOR -->
       <p class="text-muted mb-4">
-        Publicado por <strong>{{#user}}{{username}}{{/user}}
-          {{^user}}Anónimo{{/user}}</strong>
+        Publicado por <strong>{{#post.user}}{{username}}{{/post.user}}{{^post.user}}Anónimo{{/post.user}}</strong>
       </p>
 
-      <!-- ÁLBUMES DEL POST -->
       <div class="mb-4">
         <h4 class="mb-3">Álbumes comentados</h4>
         <div class="row g-3">
-          {{#albums}}
-            <div class="card shadow-sm h-100">
-               <div class="rym-art-row">
-                <img src="/album/{{id}}/image" alt="{{title}}" class="rym-art-img">
-            </div>
+          {{#post.albums}}
+          <div class="card shadow-sm h-100">
+            <img src="/album/{{id}}/image" alt="{{title}}" class="card-img-top">
           </div>
-          {{/albums}}
+          {{/post.albums}}
         </div>
       </div>
 
-      <!-- DESCRIPCIÓN UNIVERSAL -->
-      <p>
-        {{post.description}}
-      </p>
-
-      <p>
-        Participa dejando tu opinión y respetando siempre al resto de la comunidad.
-      </p>
+      <p>{{post.description}}</p>
+      <p>Participa dejando tu opinión y respetando siempre al resto de la comunidad.</p>
 
     </div>
 
-    <!-- SECCIÓN DE COMENTARIOS MÁS PEQUEÑA Y CENTRADA -->
     <div class="col-md-6 border-top pt-4">
       <h3 class="h5 mb-4 border-bottom pb-2 text-center">Comentarios</h3>
 
-      <!-- COMENTARIO 1 -->
       {{#post.comments}}
-      <div class="card mb-3 shadow-sm border-0 bg-white">
-        <div class="card-body p-3">
-          <div class="d-flex justify-content-between align-items-start">
-            <div>
-              <small class="text-muted">
-                <i class="bi bi-person"></i> Autor:
-                <strong>
-                  {{#user}}{{username}}{{/user}}
-                  {{^user}}Anónimo{{/user}}
-                </strong>
-              </small>
-            </div>
-            <form action="/post/{{post.id}}/comments/{{id}}/delete" method="POST" class="d-inline">
-              <button type="submit" class="btn btn-outline-danger btn-sm">
-                <i class="bi bi-trash"></i> Eliminar Comentario
-              </button>
-            </form> <svg xmlns="http://www.w3.org" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-              <path
-                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-            </svg>
-            </button>
-          </div>
-          <p class="text-secondary mb-0 mt-2" style="font-size: 0.85rem;">{{comment}}</p>
-        </div>
-      </div>
-      {{/post.comments}}
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+        <small class="text-muted">
+            Autor: <strong>{{#user}}{{username}}{{/user}}</strong>
+        </small>
+        
+        {{#user}}
+        {{#isCurrentUser}}
+        <form action="/post/{{postId}}/comments/{{id}}/delete" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
+        </form>
+        {{/isCurrentUser}}
+        {{/user}}
+        
+        <p class="mt-2">{{comment}}</p>
+    </div>
+</div>
+{{/post.comments}}
 
       {{^post.comments}}
-      <p>No comments yet.</p>
+      <p>No hay comentarios aún.</p>
       {{/post.comments}}
 
-      <form action="/post/{{post.id}}/comments/new" method="post"
-        style="background-color: #c2c2c2; width: 200px; padding: 10px;">
-        <p>Author: <input type='text' name='user' /></p>
-        <p>Message: <input type='text' name='comment' /></p>
-        <input type='submit' value='Add comment' />
-      </form>
+       
+
+    
+
     </div>
+{{#loggedUser}}
+
+      <form action="/post/{{postId}}/comments/new" method="post"
+        class="mt-4 p-3 bg-light rounded">
+        <div class="mb-3">
+          <label class="form-label">Tu comentario</label>
+          <input type="text" class="form-control" name="comment" />
+        </div>
+        <button type="submit" class="btn btn-dark">Añadir comentario</button>
+      </form>
+
+        {{/loggedUser}}
+     
   </div>
+   
 </div>
+
+
 
 {{>footer}}

@@ -33,7 +33,7 @@ public class User {
     @Column(columnDefinition = "LONGTEXT")
     private String avatar;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany
@@ -109,7 +109,9 @@ public class User {
         this.avatar = avatar;
     }
 
-    
+    public List<Post> getPosts(){
+        return posts;
+    }
 	public List<String> getRoles() {
 		return roles;
 	}
@@ -118,6 +120,11 @@ public class User {
 		this.roles = roles;
 	}
 
+    public String getUserRole() {
+    return roles != null && !roles.isEmpty() ? roles.get(0) : "";
+    }
+
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -125,7 +132,7 @@ public class User {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-
+    
     public String getFormattedCreatedAt() {
         if (createdAt == null)
             return "";

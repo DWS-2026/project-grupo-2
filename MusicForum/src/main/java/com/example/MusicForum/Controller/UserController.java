@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -99,4 +100,11 @@ public class UserController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/user_posts")
+        public String showUserPosts(Principal principal, Model model) {
+        userRepository.findByUsername(principal.getName())
+        .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
+        return "user_posts";
+}
 }

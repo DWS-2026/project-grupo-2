@@ -41,7 +41,8 @@ public class WebSecurityConfig {
                 .requestMatchers("/", "/login", "/register", "/loginerror", "/css/**", "/js/**").permitAll()
                 .requestMatchers("/first/**", "/album_listing/**", "/album_view/**").permitAll()
                 .requestMatchers("/error.html/**", "/footer.html/**", "/header.html/**").permitAll()
-                .requestMatchers("/post_listing.html/**", "/post_view.html/**").permitAll()
+                .requestMatchers("/post_listing", "/post_listing/**").permitAll()
+                .requestMatchers("/post_view", "/post_view/**", "/post/**").permitAll() 
                 
                 // Private Pages (USER)
                 .requestMatchers("/edit_profile", "/edit_post", "/new_comment", "/new_post", "/user_profile/**").hasRole("USER")

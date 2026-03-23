@@ -49,11 +49,11 @@ public class Post {
 
     // --- GETTERS Y SETTERS ---
 
-    public Long getID() { 
+    public Long getId() { 
         return id; 
     }
 
-    public void setID(Long id) {
+    public void setId(Long id) {
         this.id = id; 
     }
 
