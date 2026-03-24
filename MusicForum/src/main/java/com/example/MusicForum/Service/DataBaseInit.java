@@ -8,9 +8,14 @@ import com.example.MusicForum.Repository.*;
 
 import jakarta.annotation.PostConstruct;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.sql.rowset.serial.SerialBlob;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,8 +26,9 @@ public class DataBaseInit {
 
     @Autowired
     private PostRepository postRepository;
+    
     @Autowired
-    private AlbumRepository albumRepository;
+    private AlbumService albumService;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -43,12 +49,33 @@ public void init() {
 
     List<String> songs1 = Arrays.asList("953", "Speedway", "Reggae", "Near DT, MI", "Western", "Of Schlagenheim", "bmbmbm", "Years Ago", "Ducter");
     List<String> songs2 = Arrays.asList("Berghain","La perla", "La Rumba del Perdón","Memoria","Magnolias");
-    Album album1 = new Album("Schlagenheim", songs1, "/images/Geese-Getting-Killed.jpg", "21-06-2019", "black midi");
-    Album album2 = new Album("Berghain", songs2, "/images/Berghain.jpg", "15-03-2020", "black midi");
+    Album album1 = new Album("Schlagenheim", songs1, "21-06-2019", "black midi");
+    Album album2 = new Album("Lux", songs2, "15-03-2020", "Rosalía");
     
+    try (InputStream is = getClass().getResourceAsStream("/static/images/Schlagenheim.jpg")) {
+        byte[] imageBytes = is.readAllBytes();
+        album1.setImageBlob(new SerialBlob(imageBytes));
+    } catch (IOException e) {
+        throw new RuntimeException("Failed to read image file", e);
+    } catch (SQLException e) {
+        throw new RuntimeException("Failed to create image blob", e);
+    }
+    albumService.save(album1);
+// weird thingy for saving images as blobs getting the image from the path and turning it to bytes 
+// it's for saving some entries as an initiation of the database
+// now that this works and its clear there is no need for the string imagepath field in album, it's deletion elsewhere will follow
 
-    albumRepository.save(album1); 
-    albumRepository.save(album2); 
+    try (InputStream is = getClass().getResourceAsStream("/static/images/rosalia-lux.jpg")) {
+        byte[] imageBytes = is.readAllBytes();
+        album2.setImageBlob(new SerialBlob(imageBytes));
+    } catch (IOException e) {
+        throw new RuntimeException("Failed to read image file", e);
+    } catch (SQLException e) {
+        throw new RuntimeException("Failed to create image blob", e);
+    }
+    albumService.save(album2);
+    
+    
 
    
     // Creamos los posts (la imagen se asigna sola internamente a "schlagenheim.png")
