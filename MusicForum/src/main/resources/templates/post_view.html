@@ -3,78 +3,80 @@
 <div class="container my-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
-
+      <!-- Post Header -->
       <h1 class="mb-3">{{post.title}}</h1>
-
       <p class="text-muted mb-4">
         Publicado por <strong>{{#post.user}}{{username}}{{/post.user}}{{^post.user}}Anónimo{{/post.user}}</strong>
       </p>
 
+      <!-- Albums Section -->
       <div class="mb-4">
         <h4 class="mb-3">Álbumes comentados</h4>
         <div class="row g-3">
           {{#post.albums}}
-          <div class="card shadow-sm h-100">
-            <img src="/album/{{id}}/image" alt="{{title}}" class="card-img-top">
+          <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+              <img src="/album/{{id}}/image" alt="{{title}}" class="card-img-top">
+            </div>
           </div>
           {{/post.albums}}
         </div>
       </div>
 
-      <p>{{post.description}}</p>
-      <p>Participa dejando tu opinión y respetando siempre al resto de la comunidad.</p>
-
+      <p class="lead">{{post.description}}</p>
+      <hr class="my-5">
     </div>
 
-    <div class="col-md-6 border-top pt-4">
-      <h3 class="h5 mb-4 border-bottom pb-2 text-center">Comentarios</h3>
+    <!-- Comments Section -->
+    <div class="col-md-8">
+      <h3 class="h5 mb-4 border-bottom pb-2">Comentarios</h3>
+      <p class="small text-muted italic">Participa dejando tu opinión y respetando siempre al resto de la comunidad.</p>
 
       {{#post.comments}}
-<div class="card mb-3 shadow-sm">
-    <div class="card-body">
-        <small class="text-muted">
-            Autor: <strong>{{#user}}{{username}}{{/user}}</strong>
-        </small>
-        
-        {{#user}}
-        {{#isCurrentUser}}
-        <form action="/post/{{postId}}/comments/{{id}}/delete" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
-        </form>
-        {{/isCurrentUser}}
-        {{/user}}
-        
-        <p class="mt-2">{{comment}}</p>
-    </div>
-</div>
-{{/post.comments}}
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <small class="text-muted">Autor: <strong>{{user.username}}</strong></small>
+            <p class="mt-2 mb-0">{{comment}}</p>
+          </div>
 
-      {{^post.comments}}
-      <p>No hay comentarios aún.</p>
+          {{#canDelete}}
+          <form action="/post/{{post.id}}/comments/{{id}}/delete" method="POST">
+            <button type="submit" class="btn btn-outline-danger btn-sm">
+              <i class="bi bi-trash"></i> Borrar
+            </button>
+          </form>
+          {{/canDelete}}
+        </div>
+      </div>
       {{/post.comments}}
 
-       
+      {{^post.comments}}
+      <p class="text-center text-muted">No hay comentarios aún.</p>
+      {{/post.comments}}
 
-    
+      <!-- New Comment Form -->
+      {{#loggedUser}}
+      <div class="mt-4 p-4 bg-light rounded shadow-sm">
+        <form action="/post/{{post.id}}/comments/new" method="post">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Tu comentario</label>
+            <textarea class="form-control" name="comment" rows="3" placeholder="Escribe aquí tu opinión..."></textarea>
+          </div>
+          <div class="text-end">
+            <button type="submit" class="btn btn-dark">Añadir comentario</button>
+          </div>
+        </form>
+      </div>
+      {{/loggedUser}}
 
+      {{^loggedUser}}
+      <div class="alert alert-secondary text-center mt-4">
+        <a href="/login" class="alert-link">Inicia sesión</a> para dejar un comentario.
+      </div>
+      {{/loggedUser}}
     </div>
-{{#loggedUser}}
-
-      <form action="/post/{{postId}}/comments/new" method="post"
-        class="mt-4 p-3 bg-light rounded">
-        <div class="mb-3">
-          <label class="form-label">Tu comentario</label>
-          <input type="text" class="form-control" name="comment" />
-        </div>
-        <button type="submit" class="btn btn-dark">Añadir comentario</button>
-      </form>
-
-        {{/loggedUser}}
-     
   </div>
-   
 </div>
-
-
 
 {{>footer}}

@@ -15,7 +15,7 @@ public class Post {
     Long id;
 
     private String title;
-    
+
     @Column(columnDefinition = "TEXT")
     private String description;
     @Lob
@@ -27,8 +27,8 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Un Post tiene muchos comentarios
-    // mappedBy debe coincidir con el nombre del atributo "post" en la clase Comment
+    // A post can have many albums
+    // mappedBy must coincide with the name of the atribute "post" in class Comment
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
@@ -36,29 +36,31 @@ public class Post {
     @ManyToMany
     private List<Album> album = new ArrayList<>();
 
-    // Constructor vacío obligatorio para JPA
-    public Post() {}
+    // Void construct for JPA
+    public Post() {
+    }
 
-    // Constructor con parámetros
-   public Post(String title, String date, String description, User user) {
+    // paramaters
+    public Post(String title, String date, Blob imageFile, String description, User user) {
         this.title = title;
         this.date = date;
         this.description = description;
         this.user = user;
+        this.imageFile = imageFile;
     }
 
     // --- GETTERS Y SETTERS ---
 
-    public Long getId() { 
-        return id; 
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
-        this.id = id; 
+        this.id = id;
     }
 
-    public String getTitle() { 
-        return title; 
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
@@ -93,7 +95,7 @@ public class Post {
         this.comments = comments;
     }
 
-      public String getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -105,7 +107,7 @@ public class Post {
         comments.add(comment);
         comment.setPost(this);
     }
- 
+
     public void removeComment(Comment comment) {
         comments.remove(comment);
         comment.setPost(null);
@@ -116,11 +118,12 @@ public class Post {
     }
 
     public void setAlbums(List<Album> albums) {
-    this.album = albums;
+        this.album = albums;
     }
+
     public Blob getImageFile() {
 
-    return imageFile; // fallback to stored image if no albums
+        return imageFile; // fallback to stored image if no albums
     }
-    
+
 }

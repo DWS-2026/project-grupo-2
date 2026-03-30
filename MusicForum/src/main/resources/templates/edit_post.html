@@ -4,7 +4,7 @@
 
     <h2 class="fw-bold mb-4">Editar post</h2>
 
-    <!-- FORMULARIO EDITAR TÍTULO Y DESCRIPCIÓN -->
+    <!-- Edit post -->
     <form action="/editpost/{{postId}}" method="POST" enctype="multipart/form-data">
     <div class="card shadow-sm mb-4">
         <div class="card-body">
@@ -19,13 +19,13 @@
                 <textarea name="description" class="form-control" rows="6">{{post.description}}</textarea>
             </div>
 
-            <!-- IMAGEN ACTUAL -->
+            <!--  ACTUAL Image -->
             <div class="mb-3">
                 <label class="form-label fw-bold">Imagen actual</label><br>
                 <img src="/posts/{{postId}}/image" style="height: 150px; object-fit: cover;" class="mb-2">
             </div>
 
-            <!-- NUEVA IMAGEN (opcional) -->
+            <!-- new image (optional) -->
             <div class="mb-3">
                 <label class="form-label fw-bold">Cambiar imagen (opcional)</label>
                 <input type="file" name="imageFile" class="form-control" accept="image/*">
@@ -40,7 +40,7 @@
     </div>
 </form>
 
-    <!-- ÁLBUMES ACTUALES DEL POST -->
+    <!-- Actual albums -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <h5 class="fw-bold mb-3">Álbumes del post</h5>
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <!-- AÑADIR ÁLBUMES -->
+    <!-- add album -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <h5 class="fw-bold mb-3">Añadir álbum</h5>

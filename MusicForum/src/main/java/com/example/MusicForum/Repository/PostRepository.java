@@ -6,6 +6,6 @@ import com.example.MusicForum.Model.*;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    // Al extender JpaRepository<Post, Long>, ya tienes métodos como:
+    // JpaRepository<Post, Long>,:
     // save(), findById(), findAll(), deleteById(), etc.
 }

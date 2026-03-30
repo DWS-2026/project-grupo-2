@@ -1,7 +1,7 @@
 {{>header}}
 
 
-<!-- EDICION PERFIL -->
+<!-- edit profile -->
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
 
     <div class="card shadow p-4" style="max-width: 480px; width: 100%;">
@@ -9,7 +9,7 @@
 
         <form action="/edit_profile" method="POST" enctype="multipart/form-data">
 
-            <!-- Nombre -->
+            <!-- name -->
             <div class="mb-3">
                 <label for="nombre" class="form-label">Cambiar nombre de usuario</label>
                 <input type="text" class="form-control" id="nombre" name="username" value="{{loggedUser.username}}"

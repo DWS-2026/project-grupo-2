@@ -6,6 +6,6 @@ import com.example.MusicForum.Model.*;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    // Al extender JpaRepository<Comment, Long>, ya tienes métodos como:
+    // Methods aviailable:
     // save(), findById(), findAll(), deleteById(), etc.
 }

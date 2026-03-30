@@ -30,40 +30,40 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
-        
+
         // Use the injected authProvider
         http.authenticationProvider(authProvider);
 
         http
-			.csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(authorize -> authorize
-                // Public Pages
-                .requestMatchers("/", "/login", "/register", "/loginerror", "/css/**", "/js/**").permitAll()
-                .requestMatchers("/first/**", "/album_listing/**", "/album_view/**").permitAll()
-                .requestMatchers("/error.html/**", "/footer.html/**", "/header.html/**").permitAll()
-                .requestMatchers("/post_listing", "/post_listing/**").permitAll()
-                .requestMatchers("/post_view", "/post_view/**", "/post/**").permitAll() 
-                
-                // Private Pages (USER)
-                .requestMatchers("/edit_profile", "/edit_post", "/new_comment", "/new_post", "/user_profile/**").hasRole("USER")
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize -> authorize
+                        // Public Pages
+                        .requestMatchers("/", "/login", "/register", "/loginerror", "/css/**", "/js/**", "/images/**")
+                        .permitAll()
+                        .requestMatchers("/first/**", "/album_listing/**", "/album_view/**").permitAll()
+                        .requestMatchers("/error.html/**", "/footer.html/**", "/header.html/**").permitAll()
+                        .requestMatchers("/post_listing", "/post_listing/**").permitAll()
+                        .requestMatchers("/post_view", "/post_view/**", "/post/**").permitAll()
+                        .requestMatchers("/posts/**").permitAll()
 
-                // Admin Pages
-                .requestMatchers("/user_listing", "/admin_panel").hasRole("ADMIN")
-                
-                // Any other request
-                .anyRequest().authenticated()
-            )
-            .formLogin(formLogin -> formLogin
-                .loginPage("/login")
-                .failureUrl("/loginerror")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll()
-            );
+                        // Private Pages (USER)
+                        .requestMatchers("/edit_profile", "/edit_post", "/new_comment", "/new_post", "/user_profile/**")
+                        .hasRole("USER")
+
+                        // Admin Pages
+                        .requestMatchers("/user_listing", "/admin_panel").hasRole("ADMIN")
+
+                        // Any other request
+                        .anyRequest().authenticated())
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .failureUrl("/loginerror")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll());
 
         return http.build();
     }

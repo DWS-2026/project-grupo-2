@@ -20,7 +20,7 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
-     @Autowired
+    @Autowired
     private UserService userService;
 
     @GetMapping("/login")
@@ -28,18 +28,18 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/logout")                                  //Logs out the user
+    @GetMapping("/logout") // Logs out the user
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
-    
+
     @GetMapping("/loginerror")
-    public String loginerror(){
+    public String loginerror() {
         return "loginerror";
     }
 
-     @GetMapping("/register")
+    @GetMapping("/register")
     public String showRegistrationForm() {
         // Return the name of the HTML file (register.html)
         return "register";
@@ -49,25 +49,8 @@ public class LoginController {
     public String processRegistration(User user) {
         // Call the service to handle encryption and persistence
         userService.registerUser(user);
-        
+
         // Redirect to login page after successful registration
         return "redirect:/login";
     }
-
-    @ModelAttribute
-    public void addAttributes(Model model, HttpServletRequest request) {
-    Principal principal = request.getUserPrincipal();
-
-    if (principal != null) {
-        model.addAttribute("loggedUser", true);
-        model.addAttribute("userName", principal.getName());
-        model.addAttribute("admin", request.isUserInRole("ADMIN"));
-        
-        // Buscar el usuario en la BD para obtener el id
-        userRepository.findByUsername(principal.getName())
-            .ifPresent(user -> model.addAttribute("id", user.getId()));
-    } else {
-        model.addAttribute("loggedUser", false);
-    }
-}
 }

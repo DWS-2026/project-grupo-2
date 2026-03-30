@@ -25,8 +25,6 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder; // To encrypt the password during registration
 
-
-
     @GetMapping("/edit_profile")
     public String showEditProfileForm() {
         return "edit_profile";
@@ -46,6 +44,7 @@ public class UserController {
         }
         return "redirect:/";
     }
+
     @PostMapping("/edit_profile")
     public String updateProfile(
             @RequestParam String username,
@@ -69,7 +68,7 @@ public class UserController {
                 model.addAttribute("error", "Username already exists");
                 return "edit_profile";
             }
-            
+
             // Check uniqueness if email changed
             if (!userToUpdate.getEmail().equals(email) && userRepository.existsByEmail(email)) {
                 model.addAttribute("error", "Email is already registered");
@@ -102,9 +101,9 @@ public class UserController {
     }
 
     @GetMapping("/user_posts")
-        public String showUserPosts(Principal principal, Model model) {
+    public String showUserPosts(Principal principal, Model model) {
         userRepository.findByUsername(principal.getName())
-        .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
+                .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
         return "user_posts";
-}
+    }
 }

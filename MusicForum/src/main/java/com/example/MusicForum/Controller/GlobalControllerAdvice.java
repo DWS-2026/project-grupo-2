@@ -27,7 +27,7 @@ public class GlobalControllerAdvice {
             model.addAttribute("loggedUser", true);
             model.addAttribute("userName", principal.getName());
             model.addAttribute("admin", request.isUserInRole("ADMIN"));
-            
+
             Optional<User> user = userRepository.findByUsername(principal.getName());
             if (user.isPresent()) {
                 model.addAttribute("id", user.get().getId());

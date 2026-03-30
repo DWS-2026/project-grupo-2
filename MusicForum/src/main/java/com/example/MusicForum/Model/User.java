@@ -39,9 +39,9 @@ public class User {
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
 
-	@ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
-    private List<String> roles; // "USER" "INVITADO" "ADMIN"
+    private List<String> roles; // "USER" "ADMIN"
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -62,11 +62,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String email, String ... roles) {
+    public User(String username, String password, String email, String... roles) {
         this.username = username;
         this.encodedPassword = password;
         this.email = email;
-        this.roles=List.of(roles);
+        this.roles = List.of(roles);
     }
 
     public Long getId() {
@@ -85,13 +85,13 @@ public class User {
         this.username = username;
     }
 
-  	public String getEncodedPassword() {
-		return encodedPassword;
-	}
+    public String getEncodedPassword() {
+        return encodedPassword;
+    }
 
-	public void setEncodedPassword(String encodedPassword) {
-		this.encodedPassword = encodedPassword;
-	}
+    public void setEncodedPassword(String encodedPassword) {
+        this.encodedPassword = encodedPassword;
+    }
 
     public String getEmail() {
         return email;
@@ -109,21 +109,21 @@ public class User {
         this.avatar = avatar;
     }
 
-    public List<Post> getPosts(){
+    public List<Post> getPosts() {
         return posts;
     }
-	public List<String> getRoles() {
-		return roles;
-	}
 
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
-	}
-
-    public String getUserRole() {
-    return roles != null && !roles.isEmpty() ? roles.get(0) : "";
+    public List<String> getRoles() {
+        return roles;
     }
 
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public String getUserRole() {
+        return roles != null && !roles.isEmpty() ? roles.get(0) : "";
+    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -132,7 +132,7 @@ public class User {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-    
+
     public String getFormattedCreatedAt() {
         if (createdAt == null)
             return "";

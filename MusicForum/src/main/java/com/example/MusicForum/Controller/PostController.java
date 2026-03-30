@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.MusicForum.Model.Album;
 import com.example.MusicForum.Service.*;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.example.MusicForum.Model.Comment;
 import com.example.MusicForum.Model.Post;
 import com.example.MusicForum.Model.User;
@@ -57,14 +59,15 @@ public class PostController {
     }
 
     @PostMapping("/post/new_post")
-    public String newPost(Post post,@RequestParam("imageFile")MultipartFile imageFile, @RequestParam(required = false) List<Long> albumIds,Principal principal)
+    public String newPost(Post post, @RequestParam("imageFile") MultipartFile imageFile,
+            @RequestParam(required = false) List<Long> albumIds, Principal principal)
             throws IOException {
         if (albumIds != null) {
             List<Album> selectedAlbums = albumRepository.findAllById(albumIds);
             post.setAlbums(selectedAlbums);
         }
 
-        post.setDate(LocalDate.now().toString()); 
+        post.setDate(LocalDate.now().toString());
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         post.setUser(user);
         postService.save(post, imageFile);
@@ -104,25 +107,26 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
     }
-@PostMapping("/editpost/{id}")
-public String editPostPost(@PathVariable long id, Post editedPost,
-        @RequestParam("imageFile") MultipartFile imageFile) throws SQLException, IOException {
-    Optional<Post> op = postRepository.findById(id);
-    if (op.isPresent()) {
-        Post existing = op.get();
-        existing.setTitle(editedPost.getTitle());
-        existing.setDescription(editedPost.getDescription());
-        if (imageFile != null && !imageFile.isEmpty()) {
-            postService.save(existing, imageFile);
-        } else {
-            postRepository.save(existing);
-        }
 
-        return "redirect:/post_listing";
-    } else {
-        return "post_not_found";
+    @PostMapping("/editpost/{id}")
+    public String editPostPost(@PathVariable long id, Post editedPost,
+            @RequestParam("imageFile") MultipartFile imageFile) throws SQLException, IOException {
+        Optional<Post> op = postRepository.findById(id);
+        if (op.isPresent()) {
+            Post existing = op.get();
+            existing.setTitle(editedPost.getTitle());
+            existing.setDescription(editedPost.getDescription());
+            if (imageFile != null && !imageFile.isEmpty()) {
+                postService.save(existing, imageFile);
+            } else {
+                postRepository.save(existing);
+            }
+
+            return "redirect:/post_listing";
+        } else {
+            return "post_not_found";
+        }
     }
-}
 
     @PostMapping("/editpost/{id}/addAlbum/{albumId}")
     public String addAlbum(@PathVariable long id, @PathVariable long albumId) {
@@ -151,16 +155,28 @@ public String editPostPost(@PathVariable long id, Post editedPost,
     }
 
     @GetMapping("/post/{id}")
-    public String getPost(Model model, @PathVariable long id) {
-        Optional<Post> post = postRepository.findById(id);
-        if (post.isPresent()) {
-            model.addAttribute("post", post.get());
-            model.addAttribute("postId", id);
-            model.addAttribute("albums", post.get().getAlbums());
+    public String getPost(Model model, @PathVariable long id, Principal principal, HttpServletRequest request) {
+        Optional<Post> postOp = postRepository.findById(id);
+
+        if (postOp.isPresent()) {
+            Post post = postOp.get();
+            boolean isAdmin = request.isUserInRole("ADMIN");
+
+            if (principal != null) {
+                String currentUsername = principal.getName();
+                for (Comment comment : post.getComments()) {
+                    // appea¡¡
+                    boolean isOwner = comment.getUser().getUsername().equals(currentUsername);
+                    comment.setCanDelete(isOwner || isAdmin);
+                }
+                model.addAttribute("loggedUser", true);
+            }
+
+            model.addAttribute("post", post);
+            model.addAttribute("isAdmin", isAdmin); // admin can view only
             return "post_view";
-        } else {
-            return "post_not_found";
         }
+        return "post_not_found";
     }
 
     @PostMapping("/post/{id}/delete")
@@ -174,29 +190,32 @@ public String editPostPost(@PathVariable long id, Post editedPost,
         }
     }
 
- @PostMapping("/post/{postId}/comments/new")
-public String newComment(@PathVariable long postId, 
-                         @RequestParam String comment,
-                         Principal principal) {
-    Post post = postRepository.findById(postId).orElseThrow();
-    User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-    
-    Comment newComment = new Comment(comment, user);
-    newComment.setPost(post);
-    commentRepository.save(newComment);
-    
-    return "redirect:/post/" + postId;
-}
+    @PostMapping("/post/{postId}/comments/new")
+    public String newComment(@PathVariable long postId,
+            @RequestParam String comment,
+            Principal principal) {
+        Post post = postRepository.findById(postId).orElseThrow();
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+
+        Comment newComment = new Comment(comment, user);
+        newComment.setPost(post);
+        commentRepository.save(newComment);
+
+        return "redirect:/post/" + postId;
+    }
 
     @PostMapping("/post/{postId}/comments/{commentId}/delete")
-public String deleteComment(@PathVariable Long postId, @PathVariable Long commentId, Principal principal) {
-    Comment comment = commentRepository.findById(commentId).orElseThrow();
-    
-    // Solo puede borrar si es el autor
-    if (comment.getUser().getUsername().equals(principal.getName())) {
-        commentRepository.deleteById(commentId);
+    public String deleteComment(@PathVariable Long postId, @PathVariable Long commentId,
+            Principal principal, HttpServletRequest request) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
+
+        boolean isOwner = comment.getUser().getUsername().equals(principal.getName());
+        boolean isAdmin = request.isUserInRole("ADMIN");
+
+        if (isOwner || isAdmin) {
+            commentRepository.deleteById(commentId);
+        }
+
+        return "redirect:/post/" + postId;
     }
-    
-    return "redirect:/post/" + postId;
-}
 }

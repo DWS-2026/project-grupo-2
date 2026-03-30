@@ -23,14 +23,13 @@ public class UserService {
         // Encrypt the plain text password before saving
         String encryptedPassword = passwordEncoder.encode(user.getEncodedPassword());
         user.setEncodedPassword(encryptedPassword);
-        
+
         // Assign default role (e.g., USER)
         List<String> roles = new ArrayList<>();
         roles.add("USER");
         user.setRoles(roles);
-        
+
         // Save the new user to the database
         userRepository.save(user);
     }
 }
-

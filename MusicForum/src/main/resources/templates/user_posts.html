@@ -6,7 +6,7 @@
     <div class="row g-4">
 
         {{#posts}}
-        <!-- Cada tarjeta de Post -->
+        <!-- Every post-->
         <div class="col-md-4 col-sm-6">
             <div class="card h-100 shadow-sm">
                 <div class="ratio ratio-1x1 bg-light border-bottom">
@@ -21,13 +21,13 @@
                     </p>
 
                     <div class="mt-auto">
-                        <!-- Enlace al detalle del post -->
+                        <!-- Post_view  link -->
                         <a href="/post/{{id}}" class="btn btn-primary btn-sm">Ver post</a>
 
-                        <!-- Formulario para borrar -->
+                        <!-- Delete quest -->
                         <form action="/post/{{id}}/delete" method="POST" class="d-inline">
                             <button type="submit" class="btn btn-outline-danger btn-sm">
-                                <!-- esto lo haría el administrador, el usuario normal podría borrar sus post pero no los que no son suyos-->
+                                <!--delete button-->
                                 <i class="bi bi-trash"></i> Eliminar
                             </button>
                         </form>
@@ -53,7 +53,7 @@
         </div>
         {{/posts}}
 
-        <!-- Si no hay posts en la base de datos -->
+        <!-- If there is no post in the database-->
         {{^posts}}
         <div class="col-12 text-center my-5">
             <div class="alert alert-info">

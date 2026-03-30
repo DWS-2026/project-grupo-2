@@ -8,7 +8,7 @@
     <div class="card shadow-sm border-0">
         <div class="row g-0">
 
-            <!-- VISTA PREVIA DE IMAGEN (Opcional) -->
+            <!-- IMAGE (Optional) -->
             <div class="col-md-4 d-flex justify-content-center align-items-center p-4 bg-light rounded-start">
                 <div class="text-center">
                     <i class="bi bi-image text-muted" style="font-size: 4rem;"></i>
@@ -16,14 +16,14 @@
                 </div>
             </div>
 
-            <!-- FORMULARIO DE CREACIÓN -->
+            <!-- CREATE POST -->
             <div class="col-md-8">
                 <div class="card-body p-4">
 
-                    <!-- El action debe coincidir con el @PostMapping de tu controlador -->
+                    <!-- El action must coincide with the @PostMapping of the controller -->
                     <form action="/post/new_post" method="post" enctype="multipart/form-data">
 
-                        <!-- TÍTULO -->
+                        <!-- Title -->
                         <div class="mb-3">
                             <label for="title" class="form-label fw-bold">Título del post</label>
                             <input type="text" id="title" name="title" class="form-control"
@@ -51,14 +51,14 @@
                             </div>
                         </div>
 
-                        <!-- CONTENIDO -->
+                        <!-- Content -->
                         <div class="mb-3">
                             <label for="description" class="form-label fw-bold">Descripción / Contenido</label>
                             <textarea id="description" name="description" class="form-control" rows="6"
                                 placeholder="¿Qué quieres compartir con la comunidad?" required></textarea>
                         </div>
 
-                        <!-- BOTONES -->
+                        <!-- Button -->
                         <div class="d-flex gap-2 mt-4">
                             <button type="submit" class="btn btn-outline-light btn-lg mt-3">Publicar post</button>
                             <a href="/post_listing" class="btn btn-outline-light btn-lg mt-3">Cancelar</a>

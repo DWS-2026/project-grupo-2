@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.MusicForum.Model.Album;
 
-
-public interface AlbumRepository extends JpaRepository<Album, Long>{
+public interface AlbumRepository extends JpaRepository<Album, Long> {
     Optional<Album> findById(Long id);
 
 }

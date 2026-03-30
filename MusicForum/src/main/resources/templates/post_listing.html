@@ -1,13 +1,12 @@
 {{>header}}
 
-<!-- CONTENIDO -->
 <div class="container mb-5">
     <h1 class="text-center my-5">Posts de la Comunidad</h1>
 
+    <!-- Posts Grid Section -->
     <div class="row g-4">
-
         {{#posts}}
-        <!-- Cada tarjeta de Post -->
+        <!-- Individual Post Card -->
         <div class="col-md-4 col-sm-6">
             <div class="card h-100 shadow-sm">
                 <div class="ratio ratio-1x1 bg-light border-bottom">
@@ -22,30 +21,27 @@
                     </p>
 
                     <div class="mt-auto">
-                        <!-- Enlace al detalle del post -->
+                        <!-- Link to post details -->
                         <a href="/post/{{id}}" class="btn btn-primary btn-sm">Ver post</a>
 
-                          {{#admin}}
-                            <form action="/post/{{id}}/delete" method="POST" class="d-inline">
+                        {{#admin}}
+                        <!-- Admin actions: Delete and Edit -->
+                        <form action="/post/{{id}}/delete" method="POST" class="d-inline">
                             <button type="submit" class="btn btn-outline-danger btn-sm">
-                            <i class="bi bi-trash"></i> Eliminar
+                                <i class="bi bi-trash"></i> Eliminar
                             </button>
-                             </form>
-
-                            <a href="/editpost/{{id}}" class="btn btn-outline-secondary btn-sm">
+                        </form>
+                        <a href="/editpost/{{id}}" class="btn btn-outline-secondary btn-sm">
                             <i class="bi bi-pencil"></i> Editar
-                            </a>
-                            {{/admin}}
-
+                        </a>
+                        {{/admin}}
                     </div>
                 </div>
 
                 <div class="card-footer bg-transparent border-top-0">
                     <small class="text-muted">
                         <i class="bi bi-person"></i> Autor:
-                        <strong>
-                            {{#user}}{{username}}{{/user}}
-                        </strong>
+                        <strong>{{#user}}{{username}}{{/user}}</strong>
                     </small>
                     <br>
                     <small class="text-muted italic">{{date}}</small>
@@ -54,7 +50,7 @@
         </div>
         {{/posts}}
 
-        <!-- Si no hay posts en la base de datos -->
+        <!-- Empty state when no posts are found -->
         {{^posts}}
         <div class="col-12 text-center my-5">
             <div class="alert alert-info">
@@ -62,25 +58,30 @@
             </div>
         </div>
         {{/posts}}
+    </div> <!-- End of posts row -->
 
+    <!-- Call to Action Section -->
+    <div class="mt-5 pt-4 border-top">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div class="me-auto">
+                <p class="text-muted mb-0">¿Tienes algo nuevo que compartir?</p>
+            </div>
 
-        <div class="container mb-5">
-            <div class="d-flex justify-content-end align-items-center border-top pt-4">
-                <div class="me-auto">
-                    <p class="text-muted mb-0">¿Tienes algo nuevo que compartir?</p>
-
-                </div>
+            <div class="d-flex gap-2">
                 {{#loggedUser}}
+                <!-- Action for authenticated users -->
                 <a href="/create/new_post" class="btn btn-dark btn-lg shadow-sm">
                     <i class="bi bi-plus-lg me-2"></i>Crear nuevo post
                 </a>
                 {{/loggedUser}}
+
+                {{^loggedUser}}
+                <!-- Action for guest users -->
+                <a href="/login" class="btn btn-outline-dark btn-sm d-flex align-items-center">
+                    Inicia sesión para participar
+                </a>
+                {{/loggedUser}}
             </div>
-
         </div>
-
-
     </div>
 </div>
-
-{{>footer}}

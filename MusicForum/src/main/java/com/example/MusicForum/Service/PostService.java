@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PostService {
-	
+
 	@Autowired
 	private PostRepository postRepository;
 
@@ -22,8 +22,8 @@ public class PostService {
 		postRepository.save(post);
 	}
 
-	public void save(Post post, MultipartFile imageFile) throws IOException{
-		if(!imageFile.isEmpty()) {
+	public void save(Post post, MultipartFile imageFile) throws IOException {
+		if (!imageFile.isEmpty()) {
 			try {
 				post.setImage(new SerialBlob(imageFile.getBytes()));
 			} catch (Exception e) {
@@ -42,8 +42,8 @@ public class PostService {
 	}
 
 	public void deleteById(long id) {
-		
-		postRepository.deleteById(id);		
+
+		postRepository.deleteById(id);
 	}
 
 }
