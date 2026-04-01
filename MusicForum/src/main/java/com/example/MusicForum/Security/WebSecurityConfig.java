@@ -3,6 +3,7 @@ package com.example.MusicForum.Security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,16 +35,18 @@ public class WebSecurityConfig {
         // Use the injected authProvider
         http.authenticationProvider(authProvider);
 
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
                         // Public Pages
-                        .requestMatchers("/", "/login", "/register", "/loginerror", "/css/**", "/js/**", "/images/**")
+                        .requestMatchers("/","/error", "/login", "/register", "/loginerror", "/css/**", "/js/**", "/images/**")
                         .permitAll()
                         .requestMatchers("/first/**", "/album_listing/**", "/album_view/**").permitAll()
                         .requestMatchers("/error.html/**", "/footer.html/**", "/header.html/**").permitAll()
                         .requestMatchers("/post_listing", "/post_listing/**").permitAll()
                         .requestMatchers("/post_view", "/post_view/**", "/post/**").permitAll()
                         .requestMatchers("/posts/**").permitAll()
+                        .requestMatchers("/access_denied").permitAll()
+
 
                         // Private Pages (USER)
                         .requestMatchers("/edit_profile", "/edit_post", "/new_comment", "/new_post", "/user_profile/**")
@@ -53,7 +56,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/user_listing", "/admin_panel").hasRole("ADMIN")
 
                         // Any other request
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/loginerror")
@@ -63,6 +66,15 @@ public class WebSecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
                         .permitAll());
+
+       http.exceptionHandling(handling -> handling
+    .accessDeniedHandler((request, response, accessDeniedException) -> {
+        response.sendRedirect("/access_denied");
+    })
+    .authenticationEntryPoint((request, response, authException) -> {
+        response.sendRedirect("/access_denied");
+    })
+    );
 
         return http.build();
     }

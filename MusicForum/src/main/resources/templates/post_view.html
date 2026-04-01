@@ -64,6 +64,10 @@
             <textarea class="form-control" name="comment" rows="3" placeholder="Escribe aquí tu opinión..."></textarea>
           </div>
           <div class="text-end">
+
+             <!-- Token CSRF-->
+            <input type="hidden" name="_csrf" value="{{token}}">
+            
             <button type="submit" class="btn btn-dark">Añadir comentario</button>
           </div>
         </form>

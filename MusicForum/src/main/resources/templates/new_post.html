@@ -58,6 +58,10 @@
                                 placeholder="¿Qué quieres compartir con la comunidad?" required></textarea>
                         </div>
 
+
+                         <!-- Token CSRF-->
+                        <input type="hidden" name="_csrf" value="{{token}}">
+
                         <!-- Button -->
                         <div class="d-flex gap-2 mt-4">
                             <button type="submit" class="btn btn-outline-light btn-lg mt-3">Publicar post</button>

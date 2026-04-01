@@ -20,6 +20,13 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public void registerUser(User user) {
+
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+        throw new RuntimeException("El nombre de usuario ya está en uso");
+    }
+        if (userRepository.existsByEmail(user.getEmail())) {
+        throw new RuntimeException("El email ya está en uso");
+    }
         // Encrypt the plain text password before saving
         String encryptedPassword = passwordEncoder.encode(user.getEncodedPassword());
         user.setEncodedPassword(encryptedPassword);

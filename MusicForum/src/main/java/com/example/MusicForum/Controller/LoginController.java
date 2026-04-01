@@ -5,14 +5,23 @@ import com.example.MusicForum.Repository.UserRepository;
 import com.example.MusicForum.Service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoginController {
@@ -35,8 +44,9 @@ public class LoginController {
     }
 
     @GetMapping("/loginerror")
-    public String loginerror() {
-        return "loginerror";
+    public String loginerror(Model model) {
+        model.addAttribute("errorl", "Usuario o contraseña incorrectos");
+        return "login";
     }
 
     @GetMapping("/register")
@@ -46,11 +56,29 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public String processRegistration(User user) {
-        // Call the service to handle encryption and persistence
+    public String processRegistration(User user, Model model, HttpServletRequest request, HttpServletResponse response) {
+
+
+        try {
         userService.registerUser(user);
 
-        // Redirect to login page after successful registration
-        return "redirect:/login";
+        List<GrantedAuthority> roles = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
+
+        UsernamePasswordAuthenticationToken auth =
+                new UsernamePasswordAuthenticationToken(user.getUsername(), null, roles);
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        new HttpSessionSecurityContextRepository()
+                .saveContext(SecurityContextHolder.getContext(), request, response);
+
+        return "redirect:/";
+
+        } catch (RuntimeException e) {
+        model.addAttribute("error", e.getMessage());
+        return "register";
+        }
     }
 }

@@ -16,6 +16,10 @@ public class GreetingController {
     public String error(Model model) {
         return "error";
     }
+    @GetMapping("/access_denied")
+    public String accesoDenegado() {
+    return "access_denied";
+    }
     /*
      * @GetMapping("/album_listing")
      * public String album_listing(Model model) {

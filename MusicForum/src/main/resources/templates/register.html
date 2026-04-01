@@ -47,6 +47,12 @@
                 <input type="file" class="form-control" id="avatar" name="avatarFile" accept="image/*">
             </div>
 
+
+
+            <!-- Token CSRF-->
+            <input type="hidden" name="_csrf" value="{{token}}">
+
+
             <!-- Submit -->
             <button type="submit" class="btn btn-dark w-100 mt-2">Crear cuenta</button>
 

@@ -75,6 +75,8 @@
 
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                 <!-- Token CSRF-->
+                <input type="hidden" name="_csrf" value="{{token}}">
                 <button type="submit" form="albumForm" class="btn btn-dark">Guardar Álbum</button>
             </div>
 

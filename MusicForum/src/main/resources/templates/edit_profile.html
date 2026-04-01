@@ -29,6 +29,9 @@
                 <input type="file" class="form-control" id="avatar" name="avatarFile" accept="image/*">
             </div>
 
+             <!-- Token CSRF-->
+            <input type="hidden" name="_csrf" value="{{token}}">
+
             <!-- Submit -->
             <div class="card-footer bg-white d-flex justify-content-center gap-2">
                 <button type="submit" class="btn btn-dark">Guardar cambios</button>
