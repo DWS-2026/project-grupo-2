@@ -34,8 +34,7 @@ public class WebSecurityConfig {
         // Use the injected authProvider
         http.authenticationProvider(authProvider);
 
-        http
-                .csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         // Public Pages
                         .requestMatchers("/", "/login", "/register", "/loginerror", "/css/**", "/js/**", "/images/**")
