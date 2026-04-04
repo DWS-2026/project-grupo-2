@@ -39,4 +39,16 @@ public class UserService {
         // Save the new user to the database
         userRepository.save(user);
     }
+
+    //Update user profile
+     public void updateUser(User existingUser, String newUsername, String newEmail, String newPassword) {
+        existingUser.setUsername(newUsername);
+        existingUser.setEmail(newEmail);
+        
+        if (newPassword != null && !newPassword.isBlank()) {
+            existingUser.setEncodedPassword(passwordEncoder.encode(newPassword));
+        }
+        
+        userRepository.save(existingUser);
+    }
 }

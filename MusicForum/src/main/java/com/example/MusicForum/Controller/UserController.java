@@ -2,6 +2,7 @@ package com.example.MusicForum.Controller;
 
 import com.example.MusicForum.Model.User;
 import com.example.MusicForum.Repository.UserRepository;
+import com.example.MusicForum.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder; // Necessary for registration
@@ -23,11 +24,19 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder; // To encrypt the password during registration
 
     @GetMapping("/edit_profile")
-    public String showEditProfileForm() {
-        return "edit_profile";
+        public String showEditProfile(Model model, Principal principal) {
+        if (principal == null) return "redirect:/login";
+    
+        User user = userRepository.findByUsername(principal.getName())
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        model.addAttribute("user", user);
+        return "edit_profile"; 
     }
 
     @GetMapping("/admin_panel")
@@ -49,55 +58,51 @@ public class UserController {
     public String updateProfile(
             @RequestParam String username,
             @RequestParam String email,
+            @RequestParam(required = false) String newPassword,
             @RequestParam(required = false) MultipartFile avatarFile,
-            HttpSession session,
+            Principal principal,
             Model model) {
 
-        // Get the logged user from the session
-        User loggedUser = (User) session.getAttribute("loggedUser");
-        if (loggedUser == null) {
+        if (principal == null) {
             return "redirect:/login";
         }
 
-        Optional<User> userOpt = userRepository.findById(loggedUser.getId());
-        if (userOpt.isPresent()) {
-            User userToUpdate = userOpt.get();
+        User userToUpdate = userRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-            // Check uniqueness if username changed
-            if (!userToUpdate.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
-                model.addAttribute("error", "Username already exists");
-                return "edit_profile";
-            }
-
-            // Check uniqueness if email changed
-            if (!userToUpdate.getEmail().equals(email) && userRepository.existsByEmail(email)) {
-                model.addAttribute("error", "Email is already registered");
-                return "edit_profile";
-            }
-
-            userToUpdate.setUsername(username);
-            userToUpdate.setEmail(email);
-
-            // Handle avatar update
-            if (avatarFile != null && !avatarFile.isEmpty()) {
-                try {
-                    String base64Image = Base64.getEncoder().encodeToString(avatarFile.getBytes());
-                    userToUpdate.setAvatar(base64Image);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    model.addAttribute("error", "Error processing the avatar image");
-                    return "edit_profile";
-                }
-            }
-
-            userRepository.save(userToUpdate);
-            // Update session with new user data
-            session.setAttribute("loggedUser", userToUpdate);
-
-            return "redirect:/user_profile/" + userToUpdate.getId();
+        //Check uniqueness if username changed
+        if (!userToUpdate.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
+            model.addAttribute("error", "El nombre de usuario ya existe");
+            model.addAttribute("user", userToUpdate);
+            return "edit_profile";
         }
 
-        return "redirect:/";
+        //Check uniqueness if email changed
+        if (!userToUpdate.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+            model.addAttribute("error", "El email ya está registrado");
+            model.addAttribute("user", userToUpdate);
+            return "edit_profile";
+        }
+
+        userToUpdate.setUsername(username);
+        userToUpdate.setEmail(email);
+
+        //Avatar update
+        if (avatarFile != null && !avatarFile.isEmpty()) {
+            try {
+                String base64Image = Base64.getEncoder().encodeToString(avatarFile.getBytes());
+                userToUpdate.setAvatar(base64Image);
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("error", "Error al procesar la imagen del avatar");
+                model.addAttribute("user", userToUpdate);
+                return "edit_profile";
+            }
+        }
+
+        userService.updateUser(userToUpdate, username, email, newPassword);
+
+        return "redirect:/user_profile/" + userToUpdate.getId();
     }
 
     @GetMapping("/user_posts")

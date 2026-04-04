@@ -9,18 +9,31 @@
 
         <form action="/edit_profile" method="POST" enctype="multipart/form-data">
 
+            {{#error}}
+            <div class="alert alert-danger" role="alert">
+                {{error}}
+            </div>
+            {{/error}}
+
             <!-- name -->
             <div class="mb-3">
                 <label for="nombre" class="form-label">Cambiar nombre de usuario</label>
-                <input type="text" class="form-control" id="nombre" name="username" value="{{loggedUser.username}}"
+                <input type="text" class="form-control" id="nombre" name="username" value="{{user.username}}"
                     placeholder="Nuevo nombre" required>
             </div>
 
             <!-- Email -->
             <div class="mb-3">
                 <label for="email" class="form-label">Actualizar correo electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{loggedUser.email}}"
+                <input type="email" class="form-control" id="email" name="email" value="{{user.email}}"
                     placeholder="usuario@correo.com" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="newPassword" class="form-label">Nueva contraseña (opcional)</label>
+                <input type="password" class="form-control" id="newPassword" name="newPassword" 
+                    placeholder="********">
             </div>
 
             <!-- Avatar -->
@@ -35,7 +48,7 @@
             <!-- Submit -->
             <div class="card-footer bg-white d-flex justify-content-center gap-2">
                 <button type="submit" class="btn btn-dark">Guardar cambios</button>
-                <a href="/user_profile/{{loggedUser.id}}" class="btn btn-outline-secondary">Descartar cambios</a>
+                <a href="/user_profile/{{user.id}}" class="btn btn-outline-secondary">Descartar cambios</a>
             </div>
 
         </form>
