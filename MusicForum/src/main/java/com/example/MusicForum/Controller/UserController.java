@@ -111,4 +111,12 @@ public class UserController {
                 .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
         return "user_posts";
     }
+
+    //In panel admin. User listing
+     @GetMapping("/user_listing")
+        public String showUserListing(Model model) {
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "user_listing";
+    }
 }

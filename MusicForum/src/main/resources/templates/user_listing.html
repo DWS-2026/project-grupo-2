@@ -5,41 +5,25 @@
         <h2 class="text-center mb-5 fw-bold">Comunidad MusicForum</h2>
 
         <div class="row g-4">
+            {{#users}}
             <div class="col-md-4 col-sm-6">
                 <div class="card shadow-sm border-0 text-center p-4">
                     <div class="mb-3">
-                        <img src="images/avatar_image.jpg" class="rounded-circle img-thumbnail" 
+                        <img src="{{#avatar}}data:image/jpeg;base64,{{avatar}}{{/avatar}}{{^avatar}}/images/avatar_image.jpg{{/avatar}}" 
+                             class="rounded-circle img-thumbnail" 
                              alt="Avatar" style="width: 100px; height: 100px; object-fit: cover;">
                     </div>
-                    <h5 class="fw-bold">rocklover</h5>
-                    <p class="text-muted small">Rebeca García</p>
-                    <a href="user_profile.html" class="btn btn-dark btn-sm w-100">Ver Perfil</a>
+                    <h5 class="fw-bold">{{username}}</h5>
+                    <p class="text-muted small">{{email}}</p>
+                    <a href="/user_profile/{{id}}" class="btn btn-dark btn-sm w-100">Ver Perfil</a>
                 </div>
             </div>
-
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm border-0 text-center p-4">
-                    <div class="mb-3">
-                        <img src="images/avatar_image.jpg" class="rounded-circle img-thumbnail" 
-                             alt="Avatar" style="width: 100px; height: 100px; object-fit: cover;">
-                    </div>
-                    <h5 class="fw-bold">Peló</h5>
-                    <p class="text-muted small">Sergio Pérez</p>
-                    <a href="user_profile.html" class="btn btn-dark btn-sm w-100">Ver Perfil</a>
-                </div>
+            {{/users}}
+            {{^users}}
+            <div class="col-12 text-center">
+                <p class="text-muted">No hay usuarios registrados.</p>
             </div>
-
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm border-0 text-center p-4">
-                    <div class="mb-3">
-                        <img src="images/avatar_image.jpg" class="rounded-circle img-thumbnail" 
-                             alt="Avatar" style="width: 100px; height: 100px; object-fit: cover;">
-                    </div>
-                    <h5 class="fw-bold">bnet</h5>
-                    <p class="text-muted small">Javier Bonet</p>
-                    <a href="user_profile.html" class="btn btn-dark btn-sm w-100">Ver Perfil</a>
-                </div>
-            </div>
+            {{/users}}
         </div>
     </div>
 
