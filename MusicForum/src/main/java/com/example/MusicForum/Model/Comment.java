@@ -14,7 +14,7 @@ public class Comment {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // Name of the table that is connected
+    @JoinColumn(name = "user_id",nullable = true) // Name of the table that is connected
     private User user;
 
     @ManyToOne

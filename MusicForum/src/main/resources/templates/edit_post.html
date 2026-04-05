@@ -88,6 +88,8 @@
                              style="height: 150px; object-fit: cover;">
                         <div class="card-footer p-1 text-center">
                             <form action="/editpost/{{postId}}/addAlbum/{{id}}" method="POST">
+                                 <!-- Token CSRF-->
+                                <input type="hidden" name="_csrf" value="{{token}}">
                                 <button type="submit" class="btn btn-outline-success btn-sm w-100">
                                     <i class="bi bi-plus"></i> Añadir
                                 </button>

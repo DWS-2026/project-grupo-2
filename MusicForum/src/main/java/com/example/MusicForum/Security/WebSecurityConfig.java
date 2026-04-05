@@ -38,7 +38,8 @@ public class WebSecurityConfig {
         http.csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
                         // Public Pages
-                        .requestMatchers("/","/error", "/login", "/register", "/loginerror", "/css/**", "/js/**", "/images/**")
+                        .requestMatchers("/", "/error", "/login", "/register", "/loginerror", "/css/**", "/js/**",
+                                "/images/**")
                         .permitAll()
                         .requestMatchers("/first/**", "/album_listing/**", "/album_view/**").permitAll()
                         .requestMatchers("/error.html/**", "/footer.html/**", "/header.html/**").permitAll()
@@ -47,13 +48,13 @@ public class WebSecurityConfig {
                         .requestMatchers("/posts/**").permitAll()
                         .requestMatchers("/access_denied").permitAll()
 
-
                         // Private Pages (USER)
                         .requestMatchers("/edit_profile", "/edit_post", "/new_comment", "/new_post", "/user_profile/**")
                         .hasRole("USER")
 
                         // Admin Pages
-                        .requestMatchers("/user_listing", "/admin_panel").hasRole("ADMIN")
+                        .requestMatchers("/user_listing", "/admin_panel", "/albumModal", "/albumCreate", "/user/**")
+                        .hasRole("ADMIN")
 
                         // Any other request
                         .anyRequest().permitAll())
@@ -67,14 +68,13 @@ public class WebSecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll());
 
-       http.exceptionHandling(handling -> handling
-    .accessDeniedHandler((request, response, accessDeniedException) -> {
-        response.sendRedirect("/access_denied");
-    })
-    .authenticationEntryPoint((request, response, authException) -> {
-        response.sendRedirect("/access_denied");
-    })
-    );
+        http.exceptionHandling(handling -> handling
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    response.sendRedirect("/access_denied");
+                })
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.sendRedirect("/access_denied");
+                }));
 
         return http.build();
     }

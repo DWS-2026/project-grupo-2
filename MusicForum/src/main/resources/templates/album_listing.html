@@ -1,159 +1,144 @@
 {{>header}}
 
-    <div class="container my-5">
-        <h2 class="mb-4 fw-bold"></h2>
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <div class="container my-5">
-    <h2 class="mb-4 fw-bold">Álbumes</h2>
+<div class="container my-5">
+    <h2 class="mb-4 fw-bold"></h2>
     <div class="card shadow-sm">
         <div class="card-body p-4">
+            <div class="container my-5">
+                <h2 class="mb-4 fw-bold">Álbumes</h2>
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
 
-        {{#albums}}
-        <div class="d-flex gap-4 border-bottom pb-4 mb-4">
+                        {{#albums}}
+                        <div class="d-flex gap-4 border-bottom pb-4 mb-4">
+                            <div class="rym-art-col">
+                                <img src="/album/{{id}}/image" alt="{{title}}" class="rym-art-img">
+                            </div>
+                            <div>
+                                <h4 class="h5 mb-1">
+                                    <a class="rym-link">{{artist}}</a> -
+                                    <a class="rym-link">{{title}}</a>
+                                </h4>
+                                <p class="mb-0">Álbum destacado</p>
+                                <a href="/album/{{id}}" class="btn btn-dark w-40 mt-3">Ver canciones</a>
 
-            <div class="rym-art-col">
-                <img src="/album/{{id}}/image" alt="{{title}}" class="rym-art-img">
+                                {{#admin}}
+                                <form action="/album/{{id}}/delete" method="POST" style="display:inline;">
+                                    <!-- CSRF Token -->
+                                    <input type="hidden" name="_csrf" value="{{token}}">
+                                    <button type="submit" class="btn btn-danger w-40 mt-3">
+                                        <i class="bi bi-trash"></i> Eliminar álbum
+                                    </button>
+                                </form>
+                                {{/admin}}
+                            </div>
+                        </div>
+                        {{/albums}}
+
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <h4 class="h5 mb-1">
-                    <a class="rym-link">{{artist}}</a> - 
-                    <a class="rym-link">{{title}}</a>
-                </h4>
-
-                <p class="mb-0">
-                    Álbum destacado
-                </p>
-
-                <a href="/album/{{id}}" class="btn btn-dark w-40 mt-3">
-                    Ver canciones
-                </a>
-
-                <button class="btn btn-dark w-40 mt-3 admin-only">
-                    Eliminar álbum
-                </button>
-            </div>
-
-        </div>
-        {{/albums}}
-
         </div>
     </div>
 </div>
 
+{{#admin}}
+<!-- ADD AN ALBUM -->
+<div class="container text-center mb-5">
+    <button type="button" class="btn btn-success btn-lg shadow" data-bs-toggle="modal" data-bs-target="#addAlbumModal">
+        + Añadir Nuevo Álbum
+    </button>
+</div>
+{{/admin}}
+
+<!-- Modal -->
+<div class="modal fade" id="addAlbumModal" tabindex="-1" aria-labelledby="addAlbumModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAlbumModalLabel">Nuevo Álbum</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
+            <div class="modal-body">
+                <form id="albumForm" action="/albumCreate" method="POST" enctype="multipart/form-data">
 
-    {{#admin}}
-    <!-- ADD AN ALBUM -->
-    <div class="container text-center mb-5">
-        <button type="button" class="btn btn-success btn-lg shadow" data-bs-toggle="modal" data-bs-target="#addAlbumModal">
-            + Añadir Nuevo Álbum
-        </button>
-    </div>
-    {{/admin}}
-
-    <!-- Modal -->
-    <div class="modal fade" id="addAlbumModal" tabindex="-1" aria-labelledby="addAlbumModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addAlbumModalLabel">Nuevo Álbum</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="albumForm" action="/albumCreate" method="POST" enctype="multipart/form-data">
-
-                        <div class="mb-3">
-                            <label class="form-label">Grupo / Artista</label>
-                            <input type="text" class="form-control" name="artist" placeholder="Ej: Radiohead" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Año de lanzamiento</label>
-                            <input type="text" class="form-control" name="date" placeholder="Ej: 1999" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Título del Álbum</label>
-                            <input type="text" class="form-control" name="title" placeholder="Ej: Kid A" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="albumImg" class="form-label">Subir Portada del Álbum</label>
-                            <input class="form-control" type="file" id= "imageFile" name="imageFile" accept="image/*" required>
-                            <div class="form-text">Formatos admitidos: JPG, PNG o WebP.</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <!-- Number of songs input -->
-                            <label class="form-label">Número de canciones</label>
-                            <input type="number" class="form-control" id="songCountInput" min="1" max="30" placeholder="Ej: 5">
-                        </div>
-
-                        <div class="mb-3">
-                            <!-- Container for song title inputs -->
-                            <label class="form-label">Canciones</label>
-                            <div id="songsContainer">
-
-                            </div>
-                            <div class="form-text">Introduce el número de canciones arriba para generar los campos correspondientes.
-
-                            </div>
-                        </div>
-
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-
-                     <!-- Token CSRF-->
+                    <!-- CSRF token must be inside the form, otherwise Spring Security blocks the POST -->
                     <input type="hidden" name="_csrf" value="{{token}}">
-                    <button type="submit" form="albumForm" class="btn btn-dark">Guardar Álbum</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    
-
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center">
-                <div class="modal-body p-5">
                     <div class="mb-3">
-                        <i class="bi bi-trash-fill text-danger" style="font-size: 3rem;"></i>
+                        <label class="form-label">Grupo / Artista</label>
+                        <input type="text" class="form-control" name="artist" placeholder="Ej: Radiohead" required>
                     </div>
-                    <h4 class="mb-3">Álbum eliminado</h4>
-                    <p class="text-muted">El registro se ha borrado correctamente de la biblioteca.</p>
-                    <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal">Entendido</button>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Año de lanzamiento</label>
+                        <input type="text" class="form-control" name="date" placeholder="Ej: 1999" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Título del Álbum</label>
+                        <input type="text" class="form-control" name="title" placeholder="Ej: Kid A" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="albumImg" class="form-label">Subir Portada del Álbum</label>
+                        <input class="form-control" type="file" id="imageFile" name="imageFile" accept="image/*" required>
+                        <div class="form-text">Formatos admitidos: JPG, PNG o WebP.</div>
+                    </div>
+                    <div class="mb-3">
+                        <!-- Number of songs input -->
+                        <label class="form-label">Número de canciones</label>
+                        <input type="number" class="form-control" id="songCountInput" min="1" max="30" placeholder="Ej: 5">
+                    </div>
+                    <div class="mb-3">
+                        <!-- Container for dynamically generated song title inputs -->
+                        <label class="form-label">Canciones</label>
+                        <div id="songsContainer"></div>
+                        <div class="form-text">Introduce el número de canciones arriba para generar los campos correspondientes.</div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="albumForm" class="btn btn-dark">Guardar Álbum</button>
             </div>
         </div>
     </div>
+</div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+            <div class="modal-body p-5">
+                <div class="mb-3">
+                    <i class="bi bi-trash-fill text-danger" style="font-size: 3rem;"></i>
+                </div>
+                <h4 class="mb-3">Álbum eliminado</h4>
+                <p class="text-muted">El registro se ha borrado correctamente de la biblioteca.</p>
+                <button type="button" class="btn btn-dark px-4" data-bs-dismiss="modal">Entendido</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-    <script>
+<script>
     const songCountInput = document.getElementById("songCountInput");
     const songsContainer = document.getElementById("songsContainer");
 
-    songCountInput.addEventListener("change", function() {
-    // Clear any existing inputs
-    songsContainer.innerHTML = "";
+    songCountInput.addEventListener("change", function () {
+        // Clear any existing inputs
+        songsContainer.innerHTML = "";
 
-    const count = parseInt(songCountInput.value);
+        const count = parseInt(songCountInput.value);
 
-    if (isNaN(count) || count < 1|| count>100) return;// checking the value given makes sense so not to overflow the variable
+        if (isNaN(count) || count < 1 || count > 100) return; // checking the value given makes sense so not to overflow the variable
 
-    for (let i = 1; i <= count; i++) {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.name = "songs";
-        input.placeholder = `Canción ${i}`;
-        input.classList.add("form-control", "mb-2");
-        songsContainer.appendChild(input);
-    }
-});
+        for (let i = 1; i <= count; i++) {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "songs";
+            input.placeholder = `Canción ${i}`;
+            input.classList.add("form-control", "mb-2");
+            songsContainer.appendChild(input);
+        }
+    });
 </script>
-    {{>footer}}
+{{>footer}}

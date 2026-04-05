@@ -1,9 +1,16 @@
 package com.example.MusicForum.Controller;
 
+import com.example.MusicForum.Model.Comment;
+import com.example.MusicForum.Model.Post;
 import com.example.MusicForum.Model.User;
+import com.example.MusicForum.Repository.CommentRepository;
+import com.example.MusicForum.Repository.PostRepository;
 import com.example.MusicForum.Repository.UserRepository;
 import com.example.MusicForum.Service.UserService;
 import jakarta.servlet.http.HttpSession;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder; // Necessary for registration
 import org.springframework.stereotype.Controller;
@@ -13,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -25,18 +33,23 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder; // To encrypt the password during registration
 
     @GetMapping("/edit_profile")
-        public String showEditProfile(Model model, Principal principal) {
-        if (principal == null) return "redirect:/login";
-    
+    public String showEditProfile(Model model, Principal principal) {
+        if (principal == null)
+            return "redirect:/login";
+
         User user = userRepository.findByUsername(principal.getName())
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         model.addAttribute("user", user);
-        return "edit_profile"; 
+        return "edit_profile";
     }
 
     @GetMapping("/admin_panel")
@@ -52,6 +65,27 @@ public class UserController {
             return "user_profile";
         }
         return "redirect:/";
+    }
+
+    @PostMapping("/user/{id}/delete")
+    @Transactional
+    public String deleteUser(@PathVariable Long id) {
+        Optional<User> optUser = userRepository.findById(id);
+        if (!optUser.isPresent())
+            return "redirect:/user_listing";
+
+        User user = optUser.get();
+
+        // Set user_id to null on comments made on other people's posts
+        commentRepository.detachUserFromOthersPosts(id);
+
+        // Delete the user's own posts (cascade handles their comments)
+        for (Post post : new ArrayList<>(user.getPosts())) {
+            postRepository.delete(post);
+        }
+
+        userRepository.delete(user);
+        return "redirect:/user_listing";
     }
 
     @PostMapping("/edit_profile")
@@ -70,14 +104,14 @@ public class UserController {
         User userToUpdate = userRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        //Check uniqueness if username changed
+        // Check uniqueness if username changed
         if (!userToUpdate.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
             model.addAttribute("error", "El nombre de usuario ya existe");
             model.addAttribute("user", userToUpdate);
             return "edit_profile";
         }
 
-        //Check uniqueness if email changed
+        // Check uniqueness if email changed
         if (!userToUpdate.getEmail().equals(email) && userRepository.existsByEmail(email)) {
             model.addAttribute("error", "El email ya está registrado");
             model.addAttribute("user", userToUpdate);
@@ -87,7 +121,7 @@ public class UserController {
         userToUpdate.setUsername(username);
         userToUpdate.setEmail(email);
 
-        //Avatar update
+        // Avatar update
         if (avatarFile != null && !avatarFile.isEmpty()) {
             try {
                 String base64Image = Base64.getEncoder().encodeToString(avatarFile.getBytes());
@@ -112,9 +146,9 @@ public class UserController {
         return "user_posts";
     }
 
-    //In panel admin. User listing
-     @GetMapping("/user_listing")
-        public String showUserListing(Model model) {
+    // In panel admin. User listing
+    @GetMapping("/user_listing")
+    public String showUserListing(Model model) {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
         return "user_listing";

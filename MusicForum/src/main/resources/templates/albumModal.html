@@ -1,4 +1,5 @@
-<!-- Album Modal -->
+{{#admin}}
+<!-- Button to open the modal -->
 <div class="container text-center mb-5">
     <button type="button" class="btn btn-success btn-lg shadow"
             data-bs-toggle="modal"
@@ -6,78 +7,70 @@
         Editar Álbum
     </button>
 </div>
+{{/admin}}
 
 <div class="modal fade" id="albumModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">Nuevo Álbum</h5>
-                <button type="button" class="btn-close"
-                        data-bs-dismiss="modal"></button>
+                <h5 class="modal-title">Editar Álbum</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
-
+                <!-- Form action points to the current album's ID -->
                 <form id="albumForm"
                       action="/album/{{album.id}}"
                       method="POST"
                       enctype="multipart/form-data">
 
+                    <!-- CSRF token must be inside the form, otherwise Spring Security blocks the POST -->
+                    <input type="hidden" name="_csrf" value="{{token}}">
+
                     <!-- Artist -->
                     <div class="mb-3">
-                        <label class="form-label">Grupo / Artista</label>
-                        <input type="text" class="form-control"
-                               name="artist" value="{{album.artist}}" >
+                        <label class="form-label fw-bold">Grupo / Artista</label>
+                        <input type="text" class="form-control" name="artist" value="{{album.artist}}" required>
                     </div>
 
-                    <!-- Year -->
+                    <!-- Release year -->
                     <div class="mb-3">
-                        <label class="form-label">Año de lanzamiento</label>
-                        <input type="text" class="form-control"
-                               name="date" value="{{album.date}}" >
+                        <label class="form-label fw-bold">Año de lanzamiento</label>
+                        <input type="text" class="form-control" name="date" value="{{album.date}}" required>
                     </div>
 
                     <!-- Title -->
                     <div class="mb-3">
-                        <label class="form-label">Título del Álbum</label>
-                        <input type="text" class="form-control"
-                               name="title" value="{{album.title}}" >
+                        <label class="form-label fw-bold">Título del Álbum</label>
+                        <input type="text" class="form-control" name="title" value="{{album.title}}" required>
                     </div>
 
-                    <!-- Album Image -->
+                    <!-- Image ('required' removed since this is an edit - keeps current cover if empty) -->
                     <div class="mb-3">
-                        <label class="form-label">Subir Portada del Álbum</label>
-                        <input type="file" class="form-control"
-                               name="imageFile"
-                                id = "imageFile"
-                               placeholder="/album/{{id}}/image"
-                               accept="image/*" required>
-                        <div class="form-text">Formatos admitidos: JPG, PNG o WebP.</div>
+                        <label class="form-label fw-bold">Subir Portada del Álbum</label>
+                        <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*">
+                        <div class="form-text">Si no seleccionas nada, se mantendrá la portada actual.</div>
                     </div>
 
                     <!-- Number of songs -->
                     <div class="mb-3">
-                        <label class="form-label">Número de canciones</label>
-                        <input type="number" class="form-control"
-                               id="songCountInput" min="1" max="30" value="{{album.songs.size}}">
+                        <label class="form-label fw-bold">Número de canciones</label>
+                        <input type="number" class="form-control" id="songCountInput" min="1" max="30" value="{{album.songs.size}}">
                     </div>
 
-                    <!-- Song titles -->
+                    <!-- Container for dynamically generated song title inputs -->
                     <div class="mb-3">
-                        <label class="form-label">Canciones</label>
+                        <label class="form-label fw-bold">Canciones</label>
                         <div id="songsContainer" data-songs="{{songsJoined}}"></div>
                     </div>
-
                 </form>
-
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                 <!-- Token CSRF-->
-                <input type="hidden" name="_csrf" value="{{token}}">
-                <button type="submit" form="albumForm" class="btn btn-dark">Guardar Álbum</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <!-- Submit button references the form by ID since it lives outside the form tag -->
+                <button type="submit" form="albumForm" class="btn btn-dark">Guardar Cambios</button>
             </div>
 
         </div>

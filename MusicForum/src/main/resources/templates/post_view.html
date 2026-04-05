@@ -42,6 +42,11 @@
 
           {{#canDelete}}
           <form action="/post/{{post.id}}/comments/{{id}}/delete" method="POST">
+
+           <!-- Token CSRF-->
+
+            <input type="hidden" name="_csrf" value="{{token}}">
+
             <button type="submit" class="btn btn-outline-danger btn-sm">
               <i class="bi bi-trash"></i> Borrar
             </button>

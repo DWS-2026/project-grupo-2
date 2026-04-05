@@ -27,6 +27,8 @@
                         {{#admin}}
                         <!-- Admin actions: Delete and Edit -->
                         <form action="/post/{{id}}/delete" method="POST" class="d-inline">
+                            <!-- Token CSRF-->
+                            <input type="hidden" name="_csrf" value="{{token}}">
                             <button type="submit" class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-trash"></i> Eliminar
                             </button>

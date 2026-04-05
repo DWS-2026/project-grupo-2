@@ -74,6 +74,43 @@ public class PostController {
         return "redirect:/post_listing";
     }
 
+     @GetMapping("/post/{id}")
+    public String getPost(Model model, @PathVariable long id, Principal principal, HttpServletRequest request) {
+        Optional<Post> postOp = postRepository.findById(id);
+
+        if (postOp.isPresent()) {
+            Post post = postOp.get();
+            boolean isAdmin = request.isUserInRole("ADMIN");
+
+            if (principal != null) {
+                String currentUsername = principal.getName();
+                for (Comment comment : post.getComments()) {
+                    // appea¡¡
+                    boolean isOwner = comment.getUser().getUsername().equals(currentUsername);
+                    comment.setCanDelete(isOwner || isAdmin);
+                }
+                model.addAttribute("loggedUser", true);
+            }
+
+            model.addAttribute("post", post);
+            model.addAttribute("isAdmin", isAdmin); // admin can view only
+            return "post_view";
+        }
+        return "post_not_found";
+    }
+
+    @PostMapping("/post/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        Optional<Post> post = postRepository.findById(id);
+        if (post.isPresent()) {
+            postRepository.deleteById(id);
+            return "redirect:/post_listing";
+        } else {
+            return "error";
+        }
+    }
+
+
     @GetMapping("/editpost/{id}")
     public String editPost(Model model, @PathVariable long id) {
         Optional<Post> op = postRepository.findById(id);
@@ -154,42 +191,7 @@ public class PostController {
         return "redirect:/editpost/" + id;
     }
 
-    @GetMapping("/post/{id}")
-    public String getPost(Model model, @PathVariable long id, Principal principal, HttpServletRequest request) {
-        Optional<Post> postOp = postRepository.findById(id);
-
-        if (postOp.isPresent()) {
-            Post post = postOp.get();
-            boolean isAdmin = request.isUserInRole("ADMIN");
-
-            if (principal != null) {
-                String currentUsername = principal.getName();
-                for (Comment comment : post.getComments()) {
-                    // appea¡¡
-                    boolean isOwner = comment.getUser().getUsername().equals(currentUsername);
-                    comment.setCanDelete(isOwner || isAdmin);
-                }
-                model.addAttribute("loggedUser", true);
-            }
-
-            model.addAttribute("post", post);
-            model.addAttribute("isAdmin", isAdmin); // admin can view only
-            return "post_view";
-        }
-        return "post_not_found";
-    }
-
-    @PostMapping("/post/{id}/delete")
-    public String deletePost(@PathVariable long id) {
-        Optional<Post> post = postRepository.findById(id);
-        if (post.isPresent()) {
-            postRepository.deleteById(id);
-            return "redirect:/post_listing";
-        } else {
-            return "post_not_found";
-        }
-    }
-
+   
     @PostMapping("/post/{postId}/comments/new")
     public String newComment(@PathVariable long postId,
             @RequestParam String comment,

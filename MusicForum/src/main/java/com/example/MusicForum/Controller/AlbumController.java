@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.core.io.Resource;
@@ -51,36 +50,52 @@ public class AlbumController {
     public String getAlbum(Model model, @PathVariable Long id) {
         Optional<Album> album = albumRepository.findById(id);
         if (album.isPresent()) {
-		model.addAttribute("album", album.get());
-        Album auxAlbum = album.get();
-        model.addAttribute("songsJoined", String.join(",", auxAlbum.getSongs()));
-        
-		return "album_view";
-	} else {
-		return "redirect:/album_listing";
+            model.addAttribute("album", album.get());
+            Album auxAlbum = album.get();
+            model.addAttribute("songsJoined", String.join(",", auxAlbum.getSongs()));
+
+            return "album_view";
+        } else {
+            return "redirect:/album_listing";
+        }
+    }
+
+    @PostMapping("/album/{id}/delete")
+    public String deleteAlbum(@PathVariable long id) {
+        Optional<Album> album = albumRepository.findById(id);
+
+        if (album.isPresent()) {
+            Album a = album.get();
+
+            // Remove album from all posts before deleting to avoid breaking them
+            for (Post post : a.getPosts()) {
+                post.getAlbums().remove(a);
+            }
+            a.getPosts().clear();
+
+            albumRepository.deleteById(id);
+            return "redirect:/album_listing";
+        } else {
+            return "error";
         }
     }
 
     @PostMapping("/album/{id}")
     public String updateAlbum(Model model, @PathVariable Long id, Album modifyAlbum,
-        @RequestParam("imageFile") MultipartFile imageFile
-    ) throws SQLException, IOException{
-        
+            @RequestParam("imageFile") MultipartFile imageFile) throws SQLException, IOException {
 
         Optional<Album> album = albumRepository.findById(id);
-        
-        if(album.isPresent()){
+
+        if (album.isPresent()) {
             Album albumF = album.get();
             modifyAlbum.setId(albumF.getId());
-            if(imageFile.isEmpty()){
+            if (imageFile.isEmpty()) {
                 modifyAlbum.setImageBlob(albumF.getImageBlob());
             }
-            
+
             albumService.save(modifyAlbum, imageFile);
         }
-        
 
-        
         return "redirect:/album/{id}";
     }
 
@@ -101,20 +116,17 @@ public class AlbumController {
             return ResponseEntity.notFound().build();
         }
     }
-    
-
 
     @PostMapping("/albumCreate")
     public String createAlbum(@ModelAttribute Album album,
-    @RequestParam("imageFile") MultipartFile imageFile
-    ) throws IOException {
-
-        
+            @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
         albumService.save(album, imageFile);
         return "redirect:/album_listing";
 
     }
+
+    
 
     // @AlbumConstruct
     // public void init(){}
