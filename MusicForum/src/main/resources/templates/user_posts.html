@@ -26,6 +26,8 @@
 
                         <!-- Delete quest -->
                         <form action="/post/{{id}}/delete" method="POST" class="d-inline">
+                            <input type="hidden" name="_csrf" value="{{token}}">
+
                             <button type="submit" class="btn btn-outline-danger btn-sm">
                                 <!--delete button-->
                                 <i class="bi bi-trash"></i> Eliminar
@@ -63,6 +65,6 @@
         {{/posts}}
 
     </div>
-    </div>
-   
+</div>
+
 {{>footer}}
