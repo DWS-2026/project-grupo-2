@@ -1,38 +1,34 @@
 {{>header}}
 
 <main class="flex-grow-1">
-<!-- Profile content -->
-{{#user}}
-<div class="card shadow p-4 mx-auto" style="max-width: 500px;" style="min-height: 85vh;">
-    <div class="text-center">
-        <h2 class="text-center mb-4 fw-bold">Mi perfil</h2>
-        <img src="{{#avatar}}data:image/jpeg;base64,{{avatar}}{{/avatar}}{{^avatar}}/images/avatar_image.jpg{{/avatar}}"
-            class="rounded-circle mb-3" alt="Avatar" style="width: 150px; height: 150px; object-fit: cover;">
-        <h3 class="fw-bold">{{username}}</h3>
-        <p class="text-muted">{{email}}</p>
+    {{#user}}
+    <div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+        <div class="text-center">
+            <h2 class="text-center mb-4 fw-bold">Mi perfil</h2>
+            <img src="{{#avatar}}data:image/jpeg;base64,{{avatar}}{{/avatar}}{{^avatar}}/images/avatar_image.jpg{{/avatar}}"
+                class="rounded-circle mb-3" alt="Avatar" style="width: 150px; height: 150px; object-fit: cover;">
+            <h3 class="fw-bold">{{username}}</h3>
+            <p class="text-muted">{{email}}</p>
+        </div>
+
+        <hr>
+
+        <h5 class="fw-bold">Mis datos</h5>
+        <p><strong>Usuario:</strong> {{username}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <p><strong>Rol:</strong> {{userRole}}</p>
+        <p><strong>Miembro desde:</strong> {{formattedCreatedAt}}</p>
+
+        <div class="d-flex gap-2 mt-3">
+            <a href="/user_posts/{{id}}" class="btn btn-dark w-50">Ver Posts</a>
+            {{^admin}}
+            <a href="/edit_profile" class="btn btn-outline-secondary w-50">
+                <i class="bi bi-pencil"></i> Editar perfil
+            </a>
+            {{/admin}}
+        </div>
+
     </div>
-
-    <hr>
-
-    <h5 class="fw-bold">Mis datos</h5>
-    <p><strong>Usuario:</strong> {{username}}</p>
-    <p><strong>Email:</strong> {{email}}</p>
-    <p><strong>Rol:</strong> {{userRole}}</p>
-    <p><strong>Miembro desde:</strong> {{formattedCreatedAt}}</p>
-
-    <div class="row mt-3">
-       <div class="col-6">
-    <a href="/user_posts" class="btn btn-dark w-100">Ver mis posts</a>
-</div>
-<div class="col-6">
-    <a href="/edit_profile" class="btn btn-dark w-100">Editar Perfil</a>
-</div>
-    </div>
-
-
-
-</div>
-</div>
     {{/user}}
 
 </main>

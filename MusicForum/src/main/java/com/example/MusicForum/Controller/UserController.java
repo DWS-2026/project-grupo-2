@@ -58,9 +58,18 @@ public class UserController {
     }
 
     @GetMapping("/user_profile/{id}")
-    public String showUserProfile(@PathVariable Long id, Model model) {
+    public String showUserProfile(@PathVariable Long id, Model model, Principal principal) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
+            // Only the own user or an admin can view the profile
+            User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+            boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+            boolean isOwnProfile = loggedUser.getId().equals(id);
+
+            if (!isAdmin && !isOwnProfile) {
+                return "redirect:/access_denied";
+            }
+
             model.addAttribute("user", user.get());
             return "user_profile";
         }
@@ -152,5 +161,12 @@ public class UserController {
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
         return "user_listing";
+    }
+
+    @GetMapping("/user_posts/{id}")
+    public String showUserPosts(@PathVariable Long id, Model model) {
+        userRepository.findById(id)
+                .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
+        return "user_posts";
     }
 }

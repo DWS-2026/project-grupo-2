@@ -18,6 +18,7 @@ import com.example.MusicForum.Model.Album;
 import com.example.MusicForum.Service.*;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 
 import com.example.MusicForum.Model.Comment;
 import com.example.MusicForum.Model.Post;
@@ -74,7 +75,7 @@ public class PostController {
         return "redirect:/post_listing";
     }
 
-     @GetMapping("/post/{id}")
+    @GetMapping("/post/{id}")
     public String getPost(Model model, @PathVariable long id, Principal principal, HttpServletRequest request) {
         Optional<Post> postOp = postRepository.findById(id);
 
@@ -99,17 +100,17 @@ public class PostController {
         return "post_not_found";
     }
 
+    @Transactional
     @PostMapping("/post/{id}/delete")
     public String deletePost(@PathVariable long id) {
-        Optional<Post> post = postRepository.findById(id);
-        if (post.isPresent()) {
-            postRepository.deleteById(id);
+        if (postRepository.existsById(id)) {
+            postRepository.deleteAlbumRelations(id);
+            postRepository.deleteComments(id);
+            postRepository.deletePostById(id);
             return "redirect:/post_listing";
-        } else {
-            return "error";
         }
+        return "error";
     }
-
 
     @GetMapping("/editpost/{id}")
     public String editPost(Model model, @PathVariable long id) {
@@ -191,7 +192,6 @@ public class PostController {
         return "redirect:/editpost/" + id;
     }
 
-   
     @PostMapping("/post/{postId}/comments/new")
     public String newComment(@PathVariable long postId,
             @RequestParam String comment,
