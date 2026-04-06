@@ -188,12 +188,47 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ### **Navegación y Capturas de Pantalla**
 
 #### **Diagrama de Navegación**
-
-Solo si ha cambiado.
+La navegación es esencialmente la misma respecto a la anterior entrega.
 
 #### **Capturas de Pantalla Actualizadas**
 
-Solo si han cambiado.
+
+A continuación hay una serie de capturas con su correspondiente breve explicación de las vistas que han pasado por un cambio sustancial más allá de estar conectadas a base de datos.
+
+#### **1. Header.**
+![Header](images/header.png)
+
+> Añadida con mustache una plantilla de encabezado para cada página con las opciones de navegación dentro de la web.
+
+#### **2. Listado de posts.**
+![Post_Listing](images/Post_Listing_2.png)
+
+> Página de listado de posts que muestra las entradas de la base de datos y el primer álbum que hay enlazado a cada post.
+
+#### **3. Vista del post.**
+![Post_view](images/Post_view_2.png)
+
+> Nueva vista para los posts. De nuevo está reflejado el álbum enlazado y están los campos del texto del post en sí y la sección de comentarios del post.
+
+#### **4. Vista de los posts de un usuario.**
+![User_Post_Listing](images/User_post_listing_2.png)
+
+> Similar a la vista del listado de posts anterior con las opciones añadidas de editar y eliminar post.
+
+#### **5. Acceso denegado.**
+![Access_Denied](images/Access_Denied.png)
+
+> Pantalla de error resultado de intentar acceder a unos datos para los que no se tiene permiso.
+
+#### **6. Listado de users.**
+![User_Listing](images/user_listing_2.png)
+
+> Pantalla actualizada de listado de users a partir de la base de datos con la opción de ver perfil y eliminar usuario sólo accesibles para el administrador.
+
+#### **7. Pantalla de edición de post.**
+![Access Denied](images/edit_post_2.png)
+
+> Formulario de edición de post con las opciones de cambiar todos los campos por separado de post. Ahora hay un campo nuevo donde se pueden añadir álbumes donde estarán todos los álbumes de la base de datos .
 
 ### **Instrucciones de Ejecución**
 
@@ -207,24 +242,34 @@ Solo si han cambiado.
 
 1. **Clonar el repositorio**
    ```bash
-   git clone https://github.com/[usuario]/[nombre-repositorio].git
-   cd [nombre-repositorio]
+   git clone https://github.com/DWS-2026/project-grupo-2.git
+   cd [project-grupo-2]
    ```
 
-2. **AQUÍ INDICAR LO SIGUIENTES PASOS**
+2. **Esta aplicación está pensada para funcionar en Visual Studio Code. Si bien puede funcionar en otros IDEs, VSCode es el IDE para el que está comprobado que los siguientes pasos funcionan.**
+
+3. **Configuración del IDE.**
+
+Se necesitarán los paquetes de extensiones 'Spring Boot Extension Pack' y 'Extension Pack for Java'.
+
+4. **Configuración de la base de datos.**
+
+Si bien la gestión se puede hacer desde MySQL Workbench, lo mínimo sería que se dispusiese de MySQL Server, y, se ejecutasen los siguientes comandos en la consola:
+  - CREATE DATABASE musicforum;
+  - USE musicforum;
+  - GRANT ALL PRIVILEGES ON musicforum.* TO 'musicuser'@'localhost';
+
+
 
 #### **Credenciales de prueba**
-- **Usuario Admin**: usuario: `admin`, contraseña: `admin`
-- **Usuario Registrado**: usuario: `user`, contraseña: `user`
+- **Usuario Admin**: usuario: `admin`, contraseña: `admin123`
+- **Usuario Registrado**: usuario: `user`, contraseña: `user123`
 
 ### **Diagrama de Entidades de Base de Datos**
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](images/database-diagram.png)
-
-> [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
-
+![Diagrama Entidad-Relación](images/diagrama_bd.png)
 ### **Diagrama de Clases y Templates**
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
