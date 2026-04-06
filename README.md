@@ -249,17 +249,17 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Lorena López Gallego Casilda]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Todo lo relacionado con la entidad User]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Registro de usuarios](https://github.com/DWS-2026/project-grupo-2/commit/469dec1c1f541c9d2fad0ed119d302806292bc4c)  | [LoginController.java](https://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/LoginController.java)   |
+|2| [User antes de la bbdd](https://github.com/DWS-2026/project-grupo-2/commit/ddfc37fc7e148d480251b2b35b05ca4f72194b80)  | [UserController.java](https://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/UserController.java)   |
+|3| [Editar perfil](https://github.com/DWS-2026/project-grupo-2/commit/dbcf9f097bafb18849ae1518354f2bf64726e6e9)  | [UserController.java](https://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/UserController.java)   |
+|4| [Listado usuarios](https://github.com/DWS-2026/project-grupo-2/commit/5712114fd4d6cf6f11943970b89e49ae4b7fb869)  | [UserController.java](https://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/UserController.java)   |
+|5| [Role admin](https://github.com/DWS-2026/project-grupo-2/commit/819c5d900f1ac70973ec6ca3f75d41fd09dff475)  | [Carpeta Controller]()   |
 
 ---
 
