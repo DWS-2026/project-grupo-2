@@ -274,7 +274,7 @@ Diagrama mostrando las entidades, sus campos y relaciones:
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
 
-![Diagrama de Clases](images/diagrama_clases.jpeg)
+![Diagrama de Clases](images/diagrama_clases.jpg)
 
 ### **Participación de Miembros en la Práctica 2**
 
