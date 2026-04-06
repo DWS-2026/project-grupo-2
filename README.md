@@ -284,11 +284,11 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Gestión de imágenes sin path (usando el tipo Blob).](https://github.com/DWS-2026/dws-2026-project-base/commit/2276ec859df1a0aec7d426bf04b3e39007bac5c0)  | [AlbumController.java](MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumController.java)   |
+|2| [Búsqueda y acceso a los álbumes a través de base de datos](https://github.com/DWS-2026/dws-2026-project-base/commit/b7debe9ecf91395a0de9ff76a2df4254c6296ec0)  | [album_view.html](MusicForum/src/main/resources/templates/album_view.html)   |
+|3| [Soporte de álbumes a través de bbdd](https://github.com/DWS-2026/dws-2026-project-base/commit/2e28c05cf0f69eeec798c5494cb04039493666c2)  | [AlbumController.java](MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumController.java)   |
+|4| [Formulario y listing de albums funcionales para bbdd](https://github.com/DWS-2026/dws-2026-project-base/commit/09f6f78a26fbb2145e91fa84f1eaf38b8a9c4fbe)  | [AlbumController.java](MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumController.java)   |
+|5| [Edición de álbumes funcional](https://github.com/DWS-2026/dws-2026-project-base/commit/1877cb5e9c058b61302c58f01acf8c671d85003d)  | [AlbumController.java](MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumController.java)   |
 
 ---
 
