@@ -182,7 +182,7 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ## 🛠 **Práctica 2: Web con HTML generado en servidor**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=M-PBvYJEMNM)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/5cEnen_3Wmc)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Navegación y Capturas de Pantalla**
@@ -263,31 +263,18 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - [Óscar Rodríguez Pérez]**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Durante esta práctica me he encargado de todo lo relacionado con la entidad Post y Comment y de añadir SpringSecurity]
 
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+| Nº    |                                                                             Commits                                                                              | Files      |
+|:------------: |:----------------------------------------------------------------------------------------------------------------------------------------------------------------:| :------------:|
+|1|                      [Añadido SpringSecurity](https://github.com/DWS-2026/project-grupo-2/commit/3df896489ac7cc8c5af48c7d3bc3f8e73fe74d28)                       | [Archivo1](URL_archivo_1)   |
+|2|                                                 [Implementado la eliminación de usuarios y albumes](https://github.com/DWS-2026/project-grupo-2/commit/56d0332daf1904f39350fbfc740deee472c046772)                                                 | [Archivo2](https://github.com/DWS-2026/project-grupo-2/commit/56d0332daf1904f39350fbfc740deee472c04677)   |
+|3| [Implementación de imagenes en bases de datos para la entidad post](https://github.com/DWS-2026/project-grupo-2/commit/aacc629b8cf24cec15cfb25b85c96991f963ef13) | [Archivo3](https://github.com/DWS-2026/project-grupo-2/commit/aacc629b8cf24cec15cfb25b85c96991f963ef13)   |
+|4|                       [Cambiar de H2 a MySQL](https://github.com/DWS-2026/project-grupo-2/commit/876fe913c39188193dc601a35d911bffdc7e303c)                       | [Archivo4](https://github.com/DWS-2026/project-grupo-2/commit/876fe913c39188193dc601a35d911bffdc7e303c)   |
+|5|             [Conectados las tablas en la base de datos](https://github.com/DWS-2026/project-grupo-2/commit/e265a09e1efb59ed524285803400940d29187921)             | [Archivo5](https://github.com/DWS-2026/project-grupo-2/commit/e265a09e1efb59ed524285803400940d29187921)   |
 
----
-
-#### **Alumno 4 - [Nombre Completo]**
-
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
 
 ---
 
