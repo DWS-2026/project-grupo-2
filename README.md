@@ -269,20 +269,18 @@ Si bien la gestión se puede hacer desde MySQL Workbench, lo mínimo sería que 
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](images/diagrama_bd.png)
+![Diagrama Entidad-Relación](images/diagrama_bd.jpeg)
 ### **Diagrama de Clases y Templates**
 
 Diagrama de clases de la aplicación con diferenciación por colores o secciones:
 
-![Diagrama de Clases](images/classes-diagram.png)
-
-> [Descripción opcional del diagrama y relaciones principales]
+![Diagrama de Clases](images/diagrama_clases.jpeg)
 
 ### **Participación de Miembros en la Práctica 2**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - Carlos Moreno Cano**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+[Todo lo relacionado con la entidad Album]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
