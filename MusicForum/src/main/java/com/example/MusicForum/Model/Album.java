@@ -4,6 +4,8 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -20,12 +22,14 @@ public class Album {
     private String artist;
 
     @Lob
+    @JsonIgnore
     private Blob imageBlob;
 
     @ElementCollection // <-- Mandatory for List<String>
     private List<String> songs;
 
     @ManyToMany(mappedBy = "album")
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
     protected Album() {
