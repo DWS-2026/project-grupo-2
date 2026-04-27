@@ -36,32 +36,42 @@ public class WebSecurityConfig {
     }
 
 
-    @Bean
-@Order(1)
-public SecurityFilterChain apiFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
+  @Bean
+@Order(1) // This chain is evaluated first, before the web filter chain
+public SecurityFilterChain apiFilterChain(HttpSecurity http, 
+        DaoAuthenticationProvider authProvider) throws Exception {
 
+    // Register the authentication provider that validates users against the database
     http.authenticationProvider(authProvider);
 
+    // This chain only applies to requests starting with /api/**
+    // All other requests fall through to the web filter chain (@Order 2)
     http.securityMatcher("/api/**");
 
     http
         .authorizeHttpRequests(authorize -> authorize
-            // PRIMERO las reglas específicas
+            // Only ADMIN role can perform DELETE requests on /api/posts/**
             .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasRole("ADMIN")
-            // SIEMPRE al final el anyRequest
+            // All other API endpoints are publicly accessible
+            // anyRequest() must always be the last rule
             .anyRequest().permitAll()
         );
 
-    // Disable Form login
+    // Disable form-based login — APIs don't redirect to login pages
     http.formLogin(formLogin -> formLogin.disable());
 
-    // Disable CSRF
+    // Disable CSRF protection — not needed for stateless REST APIs
+    // CSRF attacks rely on session cookies, which we don't use here
     http.csrf(csrf -> csrf.disable());
 
-    // Activa Basic Auth (en lugar de disable)
+    // Enable HTTP Basic Authentication
+    // Postman sends credentials in the Authorization header:
+    // Authorization: Basic base64(username:password)
     http.httpBasic(Customizer.withDefaults());
 
-    // Stateless session
+    // Configure stateless session management
+    // The server won't create or store any HTTP session between requests
+    // Each request must authenticate independently
     http.sessionManagement(management -> 
         management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
