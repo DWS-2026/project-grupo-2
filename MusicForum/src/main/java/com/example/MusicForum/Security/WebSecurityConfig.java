@@ -37,50 +37,36 @@ public class WebSecurityConfig {
 
 
     @Bean
-	@Order(1)
-	public SecurityFilterChain apiFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
+@Order(1)
+public SecurityFilterChain apiFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
 
-		http.authenticationProvider(authProvider); // i need a userDetailService type to pass on to this method
+    http.authenticationProvider(authProvider);
 
-		http
-				.securityMatcher("/api/**");
-				//.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+    http.securityMatcher("/api/**");
 
-		http
-				.authorizeHttpRequests(authorize -> authorize
-						// PRIVATE ENDPOINTS
-						// Images
-						//.requestMatchers(HttpMethod.PUT, "/api/images/*/media").hasRole("USER")
-						//.requestMatchers(HttpMethod.DELETE, "/api/books/*/images/*").hasRole("USER")
-						// Books
-						//.requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("USER")
-						//.requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
-						//.requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
-						// Shops
-						//.requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-						//.requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-						//.requestMatchers(HttpMethod.DELETE, "/api/shops/**").hasRole("ADMIN")
-						// PUBLIC ENDPOINTS
-						.anyRequest().permitAll());
+    http
+        .authorizeHttpRequests(authorize -> authorize
+            // PRIMERO las reglas específicas
+            .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasRole("ADMIN")
+            // SIEMPRE al final el anyRequest
+            .anyRequest().permitAll()
+        );
 
-		// Disable Form login Authentication
-		http.formLogin(formLogin -> formLogin.disable());
+    // Disable Form login
+    http.formLogin(formLogin -> formLogin.disable());
 
-		// Disable CSRF protection (it is difficult to implement in REST APIs)
-		http.csrf(csrf -> csrf.disable());
+    // Disable CSRF
+    http.csrf(csrf -> csrf.disable());
 
-		// Disable Basic Authentication
-		http.httpBasic(httpBasic -> httpBasic.disable());
+    // Activa Basic Auth (en lugar de disable)
+    http.httpBasic(Customizer.withDefaults());
 
-		// Stateless session
-		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    // Stateless session
+    http.sessionManagement(management -> 
+        management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		// Add JWT Token filter
-		//http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),
-		//		UsernamePasswordAuthenticationFilter.class);
-
-		return http.build();
-	}
+    return http.build();
+}
 
 
 
