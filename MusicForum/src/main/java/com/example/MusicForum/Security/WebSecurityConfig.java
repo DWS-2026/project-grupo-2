@@ -14,7 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+import com.example.MusicForum.Security.jwt.AuthResponse;
+import com.example.MusicForum.Security.jwt.LoginRequest;
+import com.example.MusicForum.Security.jwt.UserLoginService;
+import com.example.MusicForum.Security.jwt.JwtRequestFilter;
+import com.example.MusicForum.Security.jwt.UnauthorizedHandlerJwt;
 
 @Configuration
 @EnableWebSecurity

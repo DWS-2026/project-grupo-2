@@ -27,7 +27,7 @@ public class UserService {
         if (userRepository.existsByEmail(user.getEmail())) {
         throw new RuntimeException("El email ya está en uso");
     }
-        // Encrypt the plain text password before saving
+        //Encrypt the plain text password before saving
         String encryptedPassword = passwordEncoder.encode(user.getEncodedPassword());
         user.setEncodedPassword(encryptedPassword);
 
@@ -36,7 +36,7 @@ public class UserService {
         roles.add("USER");
         user.setRoles(roles);
 
-        // Save the new user to the database
+        //Save the new user to the database
         userRepository.save(user);
     }
 
