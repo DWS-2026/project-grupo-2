@@ -3,6 +3,8 @@ package com.example.MusicForum.Model;
 import jakarta.validation.constraints.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UserDTO {
 
     private Long id;
@@ -16,6 +18,11 @@ public class UserDTO {
     private String email;
     private String avatar;
     private List<String> roles;
+
+    @NotBlank(message = "La contraseña no puede estar vacía")
+    @Size(min = 6, max = 64, message = "La contraseña debe tener al menos 6 caracteres")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) 
+    private String password;
 
     public UserDTO() {
     }
@@ -51,7 +58,14 @@ public class UserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getPassword(){
+        return password;
+    }
 
+    public void setPassword(String password){
+        this.password = password;
+    }
+    
     public String getAvatar() {
         return avatar;
     }

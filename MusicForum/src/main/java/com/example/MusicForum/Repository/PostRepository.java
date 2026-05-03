@@ -6,6 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.example.MusicForum.Model.*;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
@@ -23,4 +28,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     @Query(value = "DELETE FROM posts WHERE id = :postId", nativeQuery = true)
     void deletePostById(@Param("postId") Long postId);
+
+    //Pageable
+    Page<Post> findByUserId(Long id, Pageable pageable);
 }

@@ -7,7 +7,6 @@ import com.example.MusicForum.Repository.CommentRepository;
 import com.example.MusicForum.Repository.PostRepository;
 import com.example.MusicForum.Repository.UserRepository;
 import com.example.MusicForum.Service.UserService;
-import jakarta.servlet.http.HttpSession;
 
 import jakarta.transaction.Transactional;
 
