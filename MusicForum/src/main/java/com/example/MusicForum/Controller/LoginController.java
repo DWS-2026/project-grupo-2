@@ -37,12 +37,6 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/logout") // Logs out the user
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
-
     @GetMapping("/loginerror")
     public String loginerror(Model model) {
         model.addAttribute("errorl", "Usuario o contraseña incorrectos");

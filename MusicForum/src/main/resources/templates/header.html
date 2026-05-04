@@ -68,7 +68,10 @@
                     </li>
                     {{/admin}}
                     <li class="nav-item">
-                        <a class="btn btn-danger ms-2" href="/logout">Cerrar Sesión</a>
+                        <form action="/logout" method="post" class="d-inline">
+                            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                            <button type="submit" class="btn btn-danger ms-2">Cerrar Sesión</button>
+                        </form>
                     </li>
                     {{/loggedUser}}
 

@@ -20,6 +20,9 @@ import com.example.MusicForum.Security.jwt.UserLoginService;
 import com.example.MusicForum.Security.jwt.JwtRequestFilter;
 import com.example.MusicForum.Security.jwt.UnauthorizedHandlerJwt;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -133,5 +136,10 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
                 }));
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
