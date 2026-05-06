@@ -17,6 +17,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.Base64;
 
 import java.security.Principal;
 import java.util.List;
@@ -45,34 +47,29 @@ public class LoginController {
 
     @GetMapping("/register")
     public String showRegistrationForm() {
-        // Return the name of the HTML file (register.html)
+      
         return "register";
     }
 
     @PostMapping("/register")
-    public String processRegistration(User user, Model model, HttpServletRequest request, HttpServletResponse response) {
-
-
+    public String processRegistration(
+            User user, 
+            @RequestParam(value = "avatarFile", required = false) MultipartFile avatarFile, 
+            Model model) {
+        
         try {
-        userService.registerUser(user);
+            //User sets an avatar
+            if (avatarFile != null && !avatarFile.isEmpty()) {
+                String base64Image = Base64.getEncoder().encodeToString(avatarFile.getBytes());
+                user.setAvatar(base64Image);
+            }
 
-        List<GrantedAuthority> roles = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .collect(Collectors.toList());
-
-        UsernamePasswordAuthenticationToken auth =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), null, roles);
-
-        SecurityContextHolder.getContext().setAuthentication(auth);
-
-        new HttpSessionSecurityContextRepository()
-                .saveContext(SecurityContextHolder.getContext(), request, response);
-
-        return "redirect:/";
-
-        } catch (RuntimeException e) {
-        model.addAttribute("error", e.getMessage());
-        return "register";
+            userService.registerUser(user);
+            return "redirect:/login"; 
+            
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "register";
         }
     }
 }

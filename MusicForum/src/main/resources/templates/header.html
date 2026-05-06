@@ -64,12 +64,14 @@
                     <!-- If not exists or it´s false -->
                     {{^admin}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/user_profile/{{id}}">Mi Perfil</a>
+                        <a class="nav-link" href="/user_profile">Mi Perfil</a>
                     </li>
                     {{/admin}}
                     <li class="nav-item">
                         <form action="/logout" method="post" class="d-inline">
-                            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                            {{#_csrf}}
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                            {{/_csrf}}
                             <button type="submit" class="btn btn-danger ms-2">Cerrar Sesión</button>
                         </form>
                     </li>

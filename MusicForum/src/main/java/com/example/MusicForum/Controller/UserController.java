@@ -8,6 +8,7 @@ import com.example.MusicForum.Repository.PostRepository;
 import com.example.MusicForum.Repository.UserRepository;
 import com.example.MusicForum.Service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +57,40 @@ public class UserController {
         return "admin_panel";
     }
 
+    //NEW
+    @GetMapping("/user_profile") 
+    public String showMyProfile(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        // Buscamos al usuario logueado
+        // ✅ PON ESTO:
+        Optional<User> optLoggedUser = userRepository.findByUsername(principal.getName());
+        if (!optLoggedUser.isPresent()) {
+            // Si el usuario de la sesión ya no existe (porque lo acaba de cambiar), le mandamos al login
+            return "redirect:/login"; 
+        }
+        User loggedUser = optLoggedUser.get();
+        
+        model.addAttribute("user", loggedUser);
+        
+        return "user_profile";
+    }
+
     @GetMapping("/user_profile/{id}")
     public String showUserProfile(@PathVariable Long id, Model model, Principal principal) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             // Only the own user or an admin can view the profile
-            User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+           // ✅ PON ESTO:
+            Optional<User> optLoggedUser = userRepository.findByUsername(principal.getName());
+            if (!optLoggedUser.isPresent()) {
+                // Si el usuario de la sesión ya no existe (porque lo acaba de cambiar), le mandamos al login
+                return "redirect:/login"; 
+            }
+            User loggedUser = optLoggedUser.get();
+
             boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
             boolean isOwnProfile = loggedUser.getId().equals(id);
 
@@ -103,7 +132,7 @@ public class UserController {
             @RequestParam(required = false) String newPassword,
             @RequestParam(required = false) MultipartFile avatarFile,
             Principal principal,
-            Model model) {
+            Model model, HttpServletRequest request) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -142,9 +171,23 @@ public class UserController {
             }
         }
 
+        boolean credentialsChanged = !userToUpdate.getUsername().equals(username) || 
+                                     (newPassword != null && !newPassword.isEmpty());
+
         userService.updateUser(userToUpdate, username, email, newPassword);
 
+        //User has to re-login
+        if (credentialsChanged) {
+            try {
+                request.logout();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "redirect:/login"; 
+        }
+
         return "redirect:/user_profile/" + userToUpdate.getId();
+    
     }
 
     @GetMapping("/user_posts")

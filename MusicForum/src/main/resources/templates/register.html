@@ -50,7 +50,9 @@
 
 
             <!-- Token CSRF-->
-            <input type="hidden" name="_csrf" value="{{token}}">
+            {{#_csrf}}
+                <input type="hidden" name="_csrf" value="{{token}}">
+            {{/_csrf}}
 
 
             <!-- Submit -->
