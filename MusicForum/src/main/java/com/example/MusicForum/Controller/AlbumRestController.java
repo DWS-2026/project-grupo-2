@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.springframework.data.domain.Pageable;
+
 import com.example.MusicForum.Model.Album;
 import com.example.MusicForum.Model.AlbumDTO;
 import com.example.MusicForum.Model.Post;
@@ -40,8 +42,8 @@ public class AlbumRestController {
 
     
     @GetMapping("/")
-    public Collection<AlbumDTO> getAlbums() {
-        return toDTOs(albumRepository.findAll());
+    public Collection<AlbumDTO> getAlbums(Pageable pageable) {
+        return albumRepository.findAll(pageable).map(this::toDTO).getContent();
     }
 
     private AlbumDTO toDTO(Album album){

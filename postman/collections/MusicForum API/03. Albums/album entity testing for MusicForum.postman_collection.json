@@ -29,14 +29,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             ""
@@ -66,14 +63,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/1",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/1",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             "1"
@@ -103,14 +97,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/8",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/8",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             "8"
@@ -150,14 +141,11 @@
           }
         },
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             ""
@@ -172,14 +160,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/3",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/3",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             "3"
@@ -205,14 +190,11 @@
           ]
         },
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/3/image",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/3/image",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             "3",
@@ -237,14 +219,11 @@
           }
         },
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/3",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/3",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             "3"
@@ -259,14 +238,11 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/3",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/3",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             "3"
@@ -281,14 +257,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://localhost:8443/api/v1/albums/",
-          "protocol": "https",
+          "raw": "{{baseUrl}}api/v1/albums/",
           "host": [
-            "localhost"
+            "{{baseUrl}}api"
           ],
-          "port": "8443",
           "path": [
-            "api",
             "v1",
             "albums",
             ""

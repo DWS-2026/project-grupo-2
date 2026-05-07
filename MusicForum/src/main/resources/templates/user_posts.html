@@ -15,9 +15,9 @@
                 </div>
 
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold">{{title}}</h5>
+                    <h5 class="card-title fw-bold">{{{title}}}</h5>
                     <p class="card-text text-truncate" style="max-height: 3rem;">
-                        {{description}}
+                        {{{description}}}
                     </p>
 
                     <div class="mt-auto">
@@ -45,11 +45,11 @@
                     <small class="text-muted">
                         <i class="bi bi-person"></i> Autor:
                         <strong>
-                            {{#user}}{{username}}{{/user}}
+                            {{#user}}{{{username}}}{{/user}}
                         </strong>
                     </small>
                     <br>
-                    <small class="text-muted italic">{{date}}</small>
+                    <small class="text-muted italic">{{{date}}}</small>
                 </div>
             </div>
         </div>
