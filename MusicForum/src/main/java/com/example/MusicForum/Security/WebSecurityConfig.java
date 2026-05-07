@@ -47,7 +47,7 @@ public class WebSecurityConfig {
   @Bean
 @Order(1) // This chain is evaluated first, before the web filter chain
 public SecurityFilterChain apiFilterChain(HttpSecurity http, 
-        DaoAuthenticationProvider authProvider) throws Exception {
+        DaoAuthenticationProvider authProvider, JwtRequestFilter jwtRequestFilter) throws Exception {
 
     // Register the authentication provider that validates users against the database
     http.authenticationProvider(authProvider);
@@ -92,6 +92,9 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
     // Each request must authenticate independently
     http.sessionManagement(management -> 
         management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
 
     return http.build();
 }
