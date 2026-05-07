@@ -44,7 +44,6 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
-
   @Bean
 @Order(1) // This chain is evaluated first, before the web filter chain
 public SecurityFilterChain apiFilterChain(HttpSecurity http, 
@@ -70,7 +69,7 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
             .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll() // Login and Register
             .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()  //26. 
             // Only ADMIN role can perform DELETE requests on /api/v1/posts/**
-            .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").authenticated()
             // Only ADMIN should be able to edit anything from the album entity // comment these for testing
             .requestMatchers(HttpMethod.DELETE, "/api/v1/albums/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.POST, "/api/v1/albums/**").hasRole("ADMIN")
@@ -97,11 +96,10 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
     return http.build();
 }
 
-
-
     @Bean
     @Order(2)
-    public SecurityFilterChain webFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider) throws Exception {
+    public SecurityFilterChain webFilterChain(HttpSecurity http, DaoAuthenticationProvider authProvider)
+            throws Exception {
 
         // Use the injected authProvider
         http.authenticationProvider(authProvider);
@@ -151,7 +149,8 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }

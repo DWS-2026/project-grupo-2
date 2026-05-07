@@ -12,6 +12,8 @@ public class PostDTO {
     private boolean hasImage;
     private List<String> albumTitles;
     private int commentCount;
+    private List<Long> albumIds;
+
 
     // Constructor vacío
     public PostDTO() {}
@@ -40,4 +42,8 @@ public class PostDTO {
 
     public int getCommentCount() { return commentCount; }
     public void setCommentCount(int commentCount) { this.commentCount = commentCount; }
+
+
+    public List<Long> getAlbumIds() { return albumIds; }
+    public void setAlbumIds(List<Long> albumIds) { this.albumIds = albumIds; }
 }
