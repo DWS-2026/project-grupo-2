@@ -353,17 +353,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ### **Participación de Miembros en la Práctica 3**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - [Carlos Moreno Cano]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [early support for api management on albums. WIll need to add management for images on api to advance on this](https://github.com/DWS-2026/project-grupo-2/commit/3bc29044328257f7ebd22721fb756072504b996d)  | [MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumController.java](https://github.com/DWS-2026/project-grupo-2/commit/3bc29044328257f7ebd22721fb756072504b996d#diff-87fa007d516df43ab8ed7cad100dd2ecae22e3d2743c423b958997ad7b0a4c34)   |
+|2| [you can create albums and submit images through api now yayyyyy](https://github.com/DWS-2026/project-grupo-2/commit/fa74d1300b9b55bd1bcedc1379b40ae9c197b693)  | [MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumRestController.java](https://github.com/DWS-2026/project-grupo-2/commit/fa74d1300b9b55bd1bcedc1379b40ae9c197b693#diff-7ba7a571397590f63f88c633b8125b429f099190c5a38f836ba3d5ab8e5ddec5)   |
+|3| [added the path and dtos although they are not integrated rn and some methods that were missing from the album api](https://github.com/DWS-2026/project-grupo-2/commit/338b0f6143a284079cf0651241356a0e4177b038)  | [MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumRestController.java](https://github.com/DWS-2026/project-grupo-2/commit/338b0f6143a284079cf0651241356a0e4177b038#diff-7ba7a571397590f63f88c633b8125b429f099190c5a38f836ba3d5ab8e5ddec5)   |
+|4| [last touches to api + limiting sensitive actions to admin + postman collection](https://github.com/DWS-2026/project-grupo-2/commit/ed6aee79b63f70895e98774b6a9c9bb1e41ee743)  | [MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumRestController.java](https://github.com/DWS-2026/project-grupo-2/commit/ed6aee79b63f70895e98774b6a9c9bb1e41ee743#diff-7ba7a571397590f63f88c633b8125b429f099190c5a38f836ba3d5ab8e5ddec5)   |
+|5| [enriched text enabled on as many fields as i could find and not have the app crash + pagination + fixed one issue with the postman collection](https://github.com/DWS-2026/project-grupo-2/commit/65b3749719f62058db25e8fbd93aec420829d131)  | [MusicForum/src/main/java/com/example/MusicForum/Controller/AlbumRestController.java](https://github.com/DWS-2026/project-grupo-2/commit/65b3749719f62058db25e8fbd93aec420829d131#diff-7ba7a571397590f63f88c633b8125b429f099190c5a38f836ba3d5ab8e5ddec5)   |
 
 ---
 
