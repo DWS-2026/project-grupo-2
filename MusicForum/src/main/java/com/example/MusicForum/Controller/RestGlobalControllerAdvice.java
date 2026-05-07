@@ -57,7 +57,7 @@ public class RestGlobalControllerAdvice {
     //Handles server general errors (500)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneralError(Exception ex) {
-        // Imprimimos el error real en la consola de VS Code para que puedas depurar
+        
         ex.printStackTrace(); 
         
         Map<String, Object> response = new HashMap<>();

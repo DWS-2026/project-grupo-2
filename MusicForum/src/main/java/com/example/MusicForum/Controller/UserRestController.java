@@ -55,9 +55,10 @@ public class UserRestController {
     //List all users (equal to /user_listing)
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("")
-    public ResponseEntity<List<UserDTO>> getAllUsers(){
-        List<UserDTO> users = userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
-        return ResponseEntity.ok(users);
+    public ResponseEntity<Page<UserDTO>> getAllUsers(Pageable pageable) {
+        Page<UserDTO> usersPage = userRepository.findAll(pageable).map(UserDTO::new);
+        
+        return ResponseEntity.ok(usersPage);
     }
     
     //Users profile (equal to /user_profile/{id})
@@ -185,7 +186,7 @@ public class UserRestController {
 
             if (post.getAlbums() != null) {
                 List<String> albumTitles = post.getAlbums().stream()
-                        .map(album -> album.getTitle()) // Asumo que en la clase Album tienes un getTitle() o getName()
+                        .map(album -> album.getTitle()) 
                         .collect(Collectors.toList());
                 dto.setAlbumTitles(albumTitles);
             }

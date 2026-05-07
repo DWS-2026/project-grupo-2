@@ -6,8 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.example.MusicForum.Model.User;
+import com.example.MusicForum.Model.UserDTO;
 import com.example.MusicForum.Repository.UserRepository;
 
 @Service
@@ -50,5 +53,10 @@ public class UserService {
         }
         
         userRepository.save(existingUser);
+    }
+
+    //Pageable
+    public Page<UserDTO> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable).map(user -> new UserDTO(user));
     }
 }
