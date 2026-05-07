@@ -70,7 +70,10 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
             .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()  //26. 
             // Only ADMIN role can perform DELETE requests on /api/v1/posts/**
             .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasRole("ADMIN")
+            // Only ADMIN should be able to edit anything from the album entity // comment these for testing
             .requestMatchers(HttpMethod.DELETE, "/api/v1/albums/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/api/v1/albums/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/api/v1/albums/**").hasRole("ADMIN")
             // All other API endpoints are publicly accessible
             // anyRequest() must always be the last rule
             .anyRequest().authenticated()   //You must be logged in to use the rest of /api/v1
