@@ -66,7 +66,8 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
             //Public URLs
             .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll() 
             .requestMatchers(HttpMethod.GET, "/api/v1/albums/**").permitAll()
-            .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll() // Login and REegister
+            .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll() // Login and Register
+            .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()  //26. 
             // Only ADMIN role can perform DELETE requests on /api/v1/posts/**
             .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/v1/albums/**").hasRole("ADMIN")
