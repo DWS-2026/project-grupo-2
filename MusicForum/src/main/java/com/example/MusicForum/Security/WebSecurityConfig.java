@@ -66,10 +66,16 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
             //Public URLs
             .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll() 
             .requestMatchers(HttpMethod.GET, "/api/v1/albums/**").permitAll()
+            //.requestMatchers(HttpMethod.POST, "/api/v1/albums/**").permitAll()
+            //.requestMatchers(HttpMethod.DELETE, "/api/v1/albums/**").permitAll() // uncomment these for easier testing
+            //.requestMatchers(HttpMethod.PUT, "/api/v1/albums/**").permitAll()
             .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll() // Login and REegister
             // Only ADMIN role can perform DELETE requests on /api/v1/posts/**
             .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasRole("ADMIN")
+            // Only ADMIN should be able to edit anything from the album entity // comment these for testing
             .requestMatchers(HttpMethod.DELETE, "/api/v1/albums/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/api/v1/albums/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/api/v1/albums/**").hasRole("ADMIN")
             // All other API endpoints are publicly accessible
             // anyRequest() must always be the last rule
             .anyRequest().authenticated()   //You must be logged in to use the rest of /api/v1

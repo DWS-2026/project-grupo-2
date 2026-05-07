@@ -6,6 +6,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class AlbumRestController {
 
     
     @GetMapping("/")
-    public Collection<Album> getAlbums() {
-        return albumRepository.findAll();
+    public Collection<AlbumDTO> getAlbums() {
+        return toDTOs(albumRepository.findAll());
     }
 
     private AlbumDTO toDTO(Album album){
@@ -75,24 +76,20 @@ public class AlbumRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Album> getAlbum(@PathVariable long id) {
-        Optional<Album> op = albumRepository.findById(id);
-        if(op.isPresent()){
-            Album album = op.get();
-            return ResponseEntity.ok(album);
-        } else {
-            return ResponseEntity.notFound().build();
-        }   
+    public AlbumDTO getAlbum(@PathVariable long id) {
+        return toDTO(albumService.findById(id).orElseThrow());
     }
     @PostMapping("/")
-    public ResponseEntity<Album> postAlbum(@RequestBody Album album) {
-        albumRepository.save(album);
-        return ResponseEntity.accepted().build();
+    public ResponseEntity<AlbumDTO> postAlbum(@RequestBody AlbumDTO albumDTO) {
+        Album album = toDomain(albumDTO);
+        albumService.save(album);
+        
+        return ResponseEntity.accepted().body(toDTO(album));
     }
 
     @PostMapping("/{id}/image")
     public ResponseEntity<MultipartFile> postImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException{
-        Optional<Album> op = albumRepository.findById(id);
+        Optional<Album> op = albumService.findById(id);
 
         if(op.isPresent()){
             Album album = op.get();
@@ -106,13 +103,14 @@ public class AlbumRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Album> putAlbum(@PathVariable long id, @RequestBody Album album) {
+    public AlbumDTO putAlbum(@PathVariable long id, @RequestBody AlbumDTO albumDTO) {
         if(albumRepository.existsById(id)){
+            Album album = toDomain(albumDTO);
             album.setId(id);
             albumRepository.save(album);
-            return ResponseEntity.ok(album);
+            return toDTO(album);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NoSuchElementException();
         }
         
     }
