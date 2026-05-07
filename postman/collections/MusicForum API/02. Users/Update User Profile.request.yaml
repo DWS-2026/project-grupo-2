@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/users/2"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"userCambio\"\r
+
+    }"
+auth:
+  type: basic
+  credentials:
+    password: user123
+    username: user
+order: 3000
