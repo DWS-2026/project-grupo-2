@@ -85,8 +85,8 @@ public class AlbumRestController {
     public ResponseEntity<AlbumDTO> postAlbum(@RequestBody AlbumDTO albumDTO) {
         Album album = toDomain(albumDTO);
         albumService.save(album);
-        
-        return ResponseEntity.accepted().body(toDTO(album));
+        URI location = URI.create("/api/v1/albums/" + album.getId());
+        return ResponseEntity.created(location).body(toDTO(album));
     }
 
     @PostMapping("/{id}/image")
