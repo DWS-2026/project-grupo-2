@@ -9,6 +9,7 @@ public class UserDTO {
 
     private Long id;
 
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "El nombre de usuario no puede contener caracteres especiales")
     @NotBlank(message = "El nombre de usuario no puede estar vacío")
     @Size(min = 3, max = 30, message = "El nombre de usuario debe tener entre 3 y 30 caracteres")
     private String username;

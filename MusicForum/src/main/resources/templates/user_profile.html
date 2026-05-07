@@ -5,8 +5,10 @@
     <div class="card shadow p-4 mx-auto" style="max-width: 500px;">
         <div class="text-center">
             <h2 class="text-center mb-4 fw-bold">Mi perfil</h2>
-            <img src="{{#avatar}}data:image/jpeg;base64,{{avatar}}{{/avatar}}{{^avatar}}/images/avatar_image.jpg{{/avatar}}"
-                class="rounded-circle mb-3" alt="Avatar" style="width: 150px; height: 150px; object-fit: cover;">
+            <img src="{{#avatar}}/downloads/{{avatar}}{{/avatar}}{{^avatar}}/images/avatar_image.jpg{{/avatar}}"
+                class="rounded-circle mb-3" 
+                alt="Avatar" 
+                style="width: 150px; height: 150px; object-fit: cover;">
             <h3 class="fw-bold">{{{username}}}</h3>
             <p class="text-muted">{{email}}</p>
         </div>

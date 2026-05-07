@@ -1,11 +1,13 @@
 package com.example.MusicForum.Model;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class UserUpdateDTO {
 
     //Not required to update
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "El nombre de usuario no puede contener caracteres especiales")
     @Size(min = 3, max = 30, message = "El nombre de usuario debe tener entre 3 y 30 caracteres")
     private String username;
 

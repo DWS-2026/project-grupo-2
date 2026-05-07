@@ -8,6 +8,7 @@ import com.example.MusicForum.Security.jwt.LoginRequest;
 import com.example.MusicForum.Security.jwt.UserLoginService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +35,7 @@ public class LoginRestController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> register(@Valid @RequestBody UserDTO userDTO) {
         try {
         //DTO to entity
             User newUser = new User();

@@ -1,0 +1,21 @@
+$kind: http-request
+name: Upload Avatar
+url: "{{baseUrl}}/api/v1/users/2/avatar?="
+method: PUT
+queryParams:
+  "": ""
+body:
+  type: formdata
+  content:
+    - type: file
+      key: file
+      src:
+        - /C:/Users/loren/Pictures/Screenshots/Captura de pantalla 2026-05-07 162830.png
+      description: ""
+      disabled: false
+auth:
+  type: basic
+  credentials:
+    username: user
+    password: user123
+order: 3462225945691036

@@ -11,16 +11,24 @@ import com.example.MusicForum.Repository.UserRepository;
 import com.example.MusicForum.Service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import com.example.MusicForum.Utils.FileUtils;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -194,4 +202,45 @@ public class UserRestController {
         return ResponseEntity.ok(dtoPage); 
     }
 
+    //Point 15.
+    @PutMapping("/{id}/avatar")
+    public ResponseEntity<?> updateAvatar(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        try {
+            String saveFileName = FileUtils.saveFileSafe(file);
+            
+            //Search for user on data base
+            User user = userRepository.findById(id).orElseThrow();
+            
+            //Keep file name only
+            user.setAvatar(saveFileName);
+            userRepository.save(user);
+
+            return ResponseEntity.ok("Imagen subida correctamente: " + saveFileName);
+            
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error de seguridad: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}/avatar/downloads")
+    public ResponseEntity<Resource> getAvatar(@PathVariable Long id) {
+        try {
+            //Search for user's file name
+            User user = userRepository.findById(id).orElseThrow();
+            String filename = user.getAvatar();
+
+            Path file = Paths.get("uploads").resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }

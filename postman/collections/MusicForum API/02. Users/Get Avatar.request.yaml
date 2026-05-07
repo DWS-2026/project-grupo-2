@@ -1,10 +1,10 @@
 $kind: http-request
-name: Get User Profile
-url: "{{baseUrl}}/api/v1/users/2"
+name: Get Avatar
+url: "{{baseUrl}}/api/v1/users/2/avatar/downloads"
 method: GET
 auth:
   type: basic
   credentials:
     username: user
     password: user123
-order: 2000
+order: 3900133369771862
