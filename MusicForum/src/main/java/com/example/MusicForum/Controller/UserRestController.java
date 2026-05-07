@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserRestController {
     
     @Autowired
@@ -43,7 +44,8 @@ public class UserRestController {
     private PasswordEncoder passwordEncoder;
 
     //List all users (equal to /user_listing)
-    @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("")
     public ResponseEntity<List<UserDTO>> getAllUsers(){
         List<UserDTO> users = userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(users);
@@ -52,6 +54,10 @@ public class UserRestController {
     //Users profile (equal to /user_profile/{id})
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserProfile(@PathVariable Long id, Principal principal){
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // Error 401
+        }
+
         Optional<User> userOpt = userRepository.findById(id);
 
         if(userOpt.isEmpty()){
@@ -59,7 +65,11 @@ public class UserRestController {
         }
 
         User user = userOpt.get();
-        User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+        Optional<User> loggedUserOpt = userRepository.findByUsername(principal.getName());
+        if (loggedUserOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        User loggedUser = loggedUserOpt.get();
 
         //Only admin or the user it self
         boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
@@ -72,6 +82,7 @@ public class UserRestController {
 
         return ResponseEntity.ok(new UserDTO(user));  //Everything was ok
     }
+
 
     //Edit profile (equal to /edit_profile) using PUT to update
     @PutMapping("{id}")

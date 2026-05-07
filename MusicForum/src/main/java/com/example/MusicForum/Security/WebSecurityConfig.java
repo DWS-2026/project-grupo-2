@@ -22,9 +22,11 @@ import com.example.MusicForum.Security.jwt.UnauthorizedHandlerJwt;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class WebSecurityConfig {
 
     // 1. Password Encoder bean
@@ -51,25 +53,30 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
     // Register the authentication provider that validates users against the database
     http.authenticationProvider(authProvider);
 
-    // This chain only applies to requests starting with /api/**
+    // This chain only applies to requests starting with /api/v1**
     // All other requests fall through to the web filter chain (@Order 2)
-    http.securityMatcher("/api/**");
-
-    http
-        .authorizeHttpRequests(authorize -> authorize
-            // Only ADMIN role can perform DELETE requests on /api/posts/**
-            .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasRole("ADMIN")
-            // All other API endpoints are publicly accessible
-            // anyRequest() must always be the last rule
-            .anyRequest().permitAll()
-        );
-
-    // Disable form-based login — APIs don't redirect to login pages
-    http.formLogin(formLogin -> formLogin.disable());
+    http.securityMatcher("/api/v1/**");
 
     // Disable CSRF protection — not needed for stateless REST APIs
     // CSRF attacks rely on session cookies, which we don't use here
     http.csrf(csrf -> csrf.disable());
+
+    http
+        .authorizeHttpRequests(authorize -> authorize
+            //Public URLs
+            .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll() 
+            .requestMatchers(HttpMethod.GET, "/api/v1/albums/**").permitAll()
+            .requestMatchers("/api/v1/auth/login", "/api/v1/users/register").permitAll() // Login and REegister
+            // Only ADMIN role can perform DELETE requests on /api/v1/posts/**
+            .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/v1/albums/**").hasRole("ADMIN")
+            // All other API endpoints are publicly accessible
+            // anyRequest() must always be the last rule
+            .anyRequest().authenticated()   //You must be logged in to use the rest of /api/v1
+        );
+
+    // Disable form-based login — APIs don't redirect to login pages
+    http.formLogin(formLogin -> formLogin.disable());
 
     // Enable HTTP Basic Authentication
     // Postman sends credentials in the Authorization header:
