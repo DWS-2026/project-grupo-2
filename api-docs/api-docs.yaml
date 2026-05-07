@@ -65,6 +65,92 @@ paths:
           content:
             '*/*':
               schema: {}
+  /api/v1/users/{id}/avatar:
+    put:
+      tags:
+      - user-rest-controller
+      operationId: updateAvatar
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema: {}
+  /api/v1/posts/{id}:
+    get:
+      tags:
+      - post-rest-controller
+      operationId: getPost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PostDTO"
+    put:
+      tags:
+      - post-rest-controller
+      operationId: updatePost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PostDTO"
+    delete:
+      tags:
+      - post-rest-controller
+      operationId: deletePost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
   /api/v1/albums/{id}:
     get:
       tags:
@@ -83,7 +169,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/Album"
+                $ref: "#/components/schemas/AlbumDTO"
     put:
       tags:
       - album-rest-controller
@@ -99,7 +185,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Album"
+              $ref: "#/components/schemas/AlbumDTO"
         required: true
       responses:
         "200":
@@ -107,7 +193,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/Album"
+                $ref: "#/components/schemas/AlbumDTO"
     delete:
       tags:
       - album-rest-controller
@@ -126,6 +212,86 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/Album"
+  /api/v1/posts:
+    get:
+      tags:
+      - post-rest-controller
+      operationId: getAllPosts
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModel"
+    post:
+      tags:
+      - post-rest-controller
+      operationId: createPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PostDTO"
+  /api/v1/posts/{postId}/comments:
+    get:
+      tags:
+      - post-rest-controller
+      operationId: getComments
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CommentDTO"
+    post:
+      tags:
+      - post-rest-controller
+      operationId: createComment
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommentDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommentDTO"
   /api/v1/auth/register:
     post:
       tags:
@@ -227,6 +393,12 @@ paths:
       tags:
       - album-rest-controller
       operationId: getAlbums
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
       responses:
         "200":
           description: OK
@@ -235,7 +407,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Album"
+                  $ref: "#/components/schemas/AlbumDTO"
     post:
       tags:
       - album-rest-controller
@@ -244,7 +416,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Album"
+              $ref: "#/components/schemas/AlbumDTO"
         required: true
       responses:
         "200":
@@ -252,21 +424,25 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/Album"
+                $ref: "#/components/schemas/AlbumDTO"
   /api/v1/users:
     get:
       tags:
       - user-rest-controller
       operationId: getAllUsers
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
       responses:
         "200":
           description: OK
           content:
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/UserDTO"
+                $ref: "#/components/schemas/PagedModel"
   /api/v1/users/{id}/posts:
     get:
       tags:
@@ -290,28 +466,14 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/PagePostDTO"
-  /api/posts:
+                $ref: "#/components/schemas/PagedModel"
+  /api/v1/users/{id}/avatar/downloads:
     get:
       tags:
-      - post-rest-controller
-      operationId: getAllPosts
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PostDTO"
-  /api/posts/{postId}/comments:
-    get:
-      tags:
-      - post-rest-controller
-      operationId: getComments
+      - user-rest-controller
+      operationId: getAvatar
       parameters:
-      - name: postId
+      - name: id
         in: path
         required: true
         schema:
@@ -323,10 +485,9 @@ paths:
           content:
             '*/*':
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CommentDTO"
-  /api/posts/{postId}/comments/{commentId}:
+                type: string
+                format: binary
+  /api/v1/posts/{postId}/comments/{commentId}:
     get:
       tags:
       - post-rest-controller
@@ -371,39 +532,6 @@ paths:
       responses:
         "200":
           description: OK
-  /api/posts/{id}:
-    get:
-      tags:
-      - post-rest-controller
-      operationId: getPost
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/PostDTO"
-    delete:
-      tags:
-      - post-rest-controller
-      operationId: deletePost
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: OK
 components:
   schemas:
     UserUpdateDTO:
@@ -413,6 +541,7 @@ components:
           type: string
           maxLength: 30
           minLength: 3
+          pattern: "^[a-zA-Z0-9]+$"
         email:
           type: string
         avatar:
@@ -421,7 +550,35 @@ components:
           type: string
           maxLength: 64
           minLength: 6
-    Album:
+    PostDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        authorUsername:
+          type: string
+        hasImage:
+          type: boolean
+        albumTitles:
+          type: array
+          items:
+            type: string
+        commentCount:
+          type: integer
+          format: int32
+        albumIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    AlbumDTO:
       type: object
       properties:
         id:
@@ -437,6 +594,19 @@ components:
           type: array
           items:
             type: string
+    CommentDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        comment:
+          type: string
+        authorUsername:
+          type: string
+        postId:
+          type: integer
+          format: int64
     UserDTO:
       type: object
       properties:
@@ -447,6 +617,7 @@ components:
           type: string
           maxLength: 30
           minLength: 3
+          pattern: "^[a-zA-Z0-9]+$"
         email:
           type: string
         avatar:
@@ -498,57 +669,30 @@ components:
           type: array
           items:
             type: string
-    PagePostDTO:
+    PageMetadata:
       type: object
       properties:
-        totalPages:
+        size:
           type: integer
-          format: int32
+          format: int64
+        number:
+          type: integer
+          format: int64
         totalElements:
           type: integer
           format: int64
-        size:
-          type: integer
-          format: int32
-        content:
-          type: array
-          items:
-            $ref: "#/components/schemas/PostDTO"
-        number:
-          type: integer
-          format: int32
-        sort:
-          $ref: "#/components/schemas/Sortnull"
-        numberOfElements:
-          type: integer
-          format: int32
-        first:
-          type: boolean
-        last:
-          type: boolean
-        pageable:
-          $ref: "#/components/schemas/Pageablenull"
-        empty:
-          type: boolean
-    Pageablenull:
-      type: object
-      properties:
-        offset:
+        totalPages:
           type: integer
           format: int64
-        sort:
-          $ref: "#/components/schemas/Sortnull"
-        paged:
-          type: boolean
-        pageSize:
-          type: integer
-          format: int32
-        pageNumber:
-          type: integer
-          format: int32
-        unpaged:
-          type: boolean
-    PostDTO:
+    PagedModel:
+      type: object
+      properties:
+        content:
+          type: array
+          items: {}
+        page:
+          $ref: "#/components/schemas/PageMetadata"
+    Album:
       type: object
       properties:
         id:
@@ -556,40 +700,11 @@ components:
           format: int64
         title:
           type: string
-        description:
-          type: string
         date:
           type: string
-        authorUsername:
+        artist:
           type: string
-        hasImage:
-          type: boolean
-        albumTitles:
+        songs:
           type: array
           items:
             type: string
-        commentCount:
-          type: integer
-          format: int32
-    Sortnull:
-      type: object
-      properties:
-        empty:
-          type: boolean
-        sorted:
-          type: boolean
-        unsorted:
-          type: boolean
-    CommentDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        comment:
-          type: string
-        authorUsername:
-          type: string
-        postId:
-          type: integer
-          format: int64
