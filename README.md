@@ -367,17 +367,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - [Lorena López Gallego Casilda]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Migración UserController a la API REST e implementación mapeo DTO](https://github.com/DWS-2026/dws-2026-project-base/commit/c3de09b780d5d506cfe2bc3b2a715654403aa63c)  | [UserRestController.java](https://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/UserRestController.java)   |
+|2| [Pasar a LoginRestController](https://github.com/DWS-2026/dws-2026-project-base/commit/efb0e2c9b93933405565f5cdc6a00c8331c3ca14)  | [LoginRestController.java](https://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/LoginRestController.java)   |
+|3| [RestGlobalControllerAdvice y algunos errores seguridad](https://github.com/DWS-2026/dws-2026-project-base/commit/43bec0e86d5b31b2f9373ec3e12bccdac36f0820)  | [RestGlobalController.java](ttps://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/RestGlobalControllerAdvice.java)   |
+|4| [Añadida la carpeta jwt y dependencias necesarias en pom.xml](https://github.com/DWS-2026/dws-2026-project-base/commit/baa55253c5213a264bfde32f9dd9f82635e1e1f7)  | [Archivo4]()   |
+|5| [Añadir UserUpdateDTO y pulir entidad user](https://github.com/DWS-2026/dws-2026-project-base/commit/16a84141be9feb20f628df93bf28fbae940ba90c)  | [UserUpdateDTO.java](ttps://github.com/DWS-2026/project-grupo-2/blob/main/MusicForum/src/main/java/com/example/MusicForum/Controller/UserUpdateDTO.java)   |
 
 ---
 
