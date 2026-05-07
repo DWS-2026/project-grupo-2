@@ -4,6 +4,7 @@ import com.example.MusicForum.Model.Post;
 import com.example.MusicForum.Model.PostDTO;
 import com.example.MusicForum.Model.User;
 import com.example.MusicForum.Model.UserDTO;
+import com.example.MusicForum.Model.UserUpdateDTO;
 import com.example.MusicForum.Repository.CommentRepository;
 import com.example.MusicForum.Repository.PostRepository;
 import com.example.MusicForum.Repository.UserRepository;
@@ -85,8 +86,8 @@ public class UserRestController {
 
 
     //Edit profile (equal to /edit_profile) using PUT to update
-    @PutMapping("{id}")
-    public ResponseEntity<?> updateProfile(@PathVariable Long id, @Valid @RequestBody UserDTO userUpdates, Principal principal){
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProfile(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO, Principal principal){
         User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
 
         //Only admin or the user it self
@@ -97,23 +98,31 @@ public class UserRestController {
         User userToUpdate = userRepository.findById(id).orElseThrow();
 
         //Check unique email and username
-        if(!userToUpdate.getUsername().equals(userUpdates.getUsername()) && userRepository.findByUsername(userUpdates.getUsername()).isPresent()){
-            return ResponseEntity.badRequest().body("El nombre de usuario ya existe");
+        if(userUpdateDTO.getUsername() != null && !userToUpdate.getUsername().equals(userUpdateDTO.getUsername())){
+            if(userRepository.findByUsername(userUpdateDTO.getUsername()).isPresent()){
+                return ResponseEntity.badRequest().body("El nombre de usuario ya existe");
+            }
+            userToUpdate.setUsername(userUpdateDTO.getUsername());
         }
 
-        if(!userToUpdate.getEmail().equals(userUpdates.getEmail()) && userRepository.existsByEmail(userUpdates.getEmail())){
-            return ResponseEntity.badRequest().body("El email ya está registrado");
+        if(userUpdateDTO.getEmail() != null && !userToUpdate.getEmail().equals(userUpdateDTO.getEmail())){
+            if(userRepository.existsByEmail(userUpdateDTO.getEmail())){
+                return ResponseEntity.badRequest().body("El email ya está registrado");
+            }
+            userToUpdate.setEmail(userUpdateDTO.getEmail());
         }
 
-        //Update 
-        userToUpdate.setUsername(userUpdates.getUsername());
-        userToUpdate.setEmail(userUpdates.getEmail());
-
-        if(userUpdates.getAvatar() != null){
-            userToUpdate.setAvatar(userUpdates.getAvatar());
+        //Avatar
+        if(userUpdateDTO.getAvatar() != null){
+            userToUpdate.setAvatar(userUpdateDTO.getAvatar());
         }
 
-        userService.updateUser(userToUpdate, userUpdates.getUsername(), userUpdates.getEmail(), userUpdates.getPassword());
+        if (userUpdateDTO.getPassword() != null && !userUpdateDTO.getPassword().isBlank()) {
+            userToUpdate.setEncodedPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
+        }
+
+        userRepository.save(userToUpdate);
+    
         return ResponseEntity.ok(new UserDTO(userToUpdate));
     }
 

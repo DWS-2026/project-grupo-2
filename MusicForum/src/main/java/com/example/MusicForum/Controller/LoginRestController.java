@@ -1,5 +1,6 @@
 package com.example.MusicForum.Controller;
 
+import com.example.MusicForum.Model.UserDTO;
 import com.example.MusicForum.Model.User;
 import com.example.MusicForum.Service.UserService;
 import com.example.MusicForum.Security.jwt.AuthResponse;
@@ -9,6 +10,7 @@ import com.example.MusicForum.Security.jwt.UserLoginService;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ public class LoginRestController {
     private UserService userService;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserLoginService userLoginService;          //Teachers' folder
 
     @PostMapping("/login")
@@ -29,12 +34,24 @@ public class LoginRestController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
+    public ResponseEntity<?> register(@RequestBody UserDTO userDTO) {
         try {
-            userService.registerUser(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado correctamente");      //Created without errors
+        //DTO to entity
+            User newUser = new User();
+            newUser.setUsername(userDTO.getUsername());
+            newUser.setEmail(userDTO.getEmail());
+            newUser.setEncodedPassword(passwordEncoder.encode(userDTO.getPassword()));
+            
+            if (userDTO.getAvatar() != null) {
+                newUser.setAvatar(userDTO.getAvatar());
+            }
+            
+            userService.registerUser(newUser);
+        
+            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado correctamente");
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());        //404 error
+        
+            return ResponseEntity.badRequest().body(e.getMessage()); //error 404
         }
     }
 

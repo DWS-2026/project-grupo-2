@@ -2,6 +2,7 @@ package com.example.MusicForum.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
@@ -32,5 +33,18 @@ public class RestGlobalControllerAdvice {
         response.put("message", "An unexpected error occurred");
         
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    //validation errors
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, Object> errors = new HashMap<>();
+        errors.put("status", HttpStatus.BAD_REQUEST.value());
+        
+        String errorMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+        errors.put("error", "Validation Error");
+        errors.put("message", errorMessage);
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
