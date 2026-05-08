@@ -324,7 +324,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 ## 🛠 **Práctica 3: Incorporación de una API REST a la aplicación web, análisis de vulnerabilidades y contramedidas**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=x91MPoITQ3I)**
+📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=i3mE_TP-Uxg)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Documentación de la API REST**
