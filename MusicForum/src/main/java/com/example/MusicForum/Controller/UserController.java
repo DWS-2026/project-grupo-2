@@ -7,11 +7,21 @@ import com.example.MusicForum.Repository.CommentRepository;
 import com.example.MusicForum.Repository.PostRepository;
 import com.example.MusicForum.Repository.UserRepository;
 import com.example.MusicForum.Service.UserService;
+import com.example.MusicForum.Utils.FileUtils;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+
+import java.security.Principal;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder; // Necessary for registration
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,11 +74,9 @@ public class UserController {
             return "redirect:/login";
         }
 
-        // Buscamos al usuario logueado
-        // ✅ PON ESTO:
         Optional<User> optLoggedUser = userRepository.findByUsername(principal.getName());
         if (!optLoggedUser.isPresent()) {
-            // Si el usuario de la sesión ya no existe (porque lo acaba de cambiar), le mandamos al login
+            
             return "redirect:/login"; 
         }
         User loggedUser = optLoggedUser.get();
@@ -82,11 +90,10 @@ public class UserController {
     public String showUserProfile(@PathVariable Long id, Model model, Principal principal) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
-            // Only the own user or an admin can view the profile
-           // ✅ PON ESTO:
+            //Only the own user or an admin can view the profile
+    
             Optional<User> optLoggedUser = userRepository.findByUsername(principal.getName());
             if (!optLoggedUser.isPresent()) {
-                // Si el usuario de la sesión ya no existe (porque lo acaba de cambiar), le mandamos al login
                 return "redirect:/login"; 
             }
             User loggedUser = optLoggedUser.get();
@@ -141,6 +148,8 @@ public class UserController {
         User userToUpdate = userRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        boolean usernameChanged = !userToUpdate.getUsername().equals(username);
+
         // Check uniqueness if username changed
         if (!userToUpdate.getUsername().equals(username) && userRepository.findByUsername(username).isPresent()) {
             model.addAttribute("error", "El nombre de usuario ya existe");
@@ -161,18 +170,17 @@ public class UserController {
         // Avatar update
         if (avatarFile != null && !avatarFile.isEmpty()) {
             try {
-                String base64Image = Base64.getEncoder().encodeToString(avatarFile.getBytes());
-                userToUpdate.setAvatar(base64Image);
-            } catch (IOException e) {
+                String fileName = FileUtils.saveFileSafe(avatarFile);
+                userToUpdate.setAvatar(fileName);
+            } catch (Exception e) {
                 e.printStackTrace();
-                model.addAttribute("error", "Error al procesar la imagen del avatar");
+                model.addAttribute("error", "Error de seguridad: " + e.getMessage());
                 model.addAttribute("user", userToUpdate);
                 return "edit_profile";
             }
         }
 
-        boolean credentialsChanged = !userToUpdate.getUsername().equals(username) || 
-                                     (newPassword != null && !newPassword.isEmpty());
+        boolean credentialsChanged = usernameChanged || (newPassword != null && !newPassword.isEmpty());
 
         userService.updateUser(userToUpdate, username, email, newPassword);
 
@@ -189,6 +197,8 @@ public class UserController {
         return "redirect:/user_profile/" + userToUpdate.getId();
     
     }
+
+
 
     @GetMapping("/user_posts")
     public String showUserPosts(Principal principal, Model model) {
@@ -211,4 +221,47 @@ public class UserController {
                 .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
         return "user_posts";
     }
+
+    @GetMapping("/{id}/avatar")
+    @ResponseBody
+    public ResponseEntity<Resource> getWebAvatar(@PathVariable Long id, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        //Check permits
+        User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+        boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+        boolean isOwner = loggedUser.getId().equals(id);
+
+        //403 Forbidden
+        if (!isAdmin && !isOwner) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        try {
+            User targetUser = userRepository.findById(id).orElseThrow();
+            String filename = targetUser.getAvatar();
+
+            if (filename == null || filename.isBlank()) {
+                return ResponseEntity.status(HttpStatus.FOUND)
+                        .header(HttpHeaders.LOCATION, "/images/avatar_image.jpg")
+                        .build();
+            }
+
+            //File security
+            Resource file = FileUtils.loadFileSafe(filename);
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(file);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FOUND)
+                        .header(HttpHeaders.LOCATION, "/images/avatar_image.jpg")
+                        .build();
+        }
+    }
+
 }
+

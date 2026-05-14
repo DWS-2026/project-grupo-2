@@ -1,11 +1,15 @@
 package com.example.MusicForum.Utils;
 
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 
 public class FileUtils {
 
@@ -34,4 +38,25 @@ public class FileUtils {
 
         return originalFileName;
     }
+
+    public static Resource loadFileSafe(String filename) throws Exception {
+        
+        //Clean path
+        Path filePath = BASE_DIRECTORY.resolve(filename).normalize().toAbsolutePath();
+
+        //(Path Traversal) to read
+        if (!filePath.startsWith(BASE_DIRECTORY)) {
+            throw new Exception("Intento de salir de la carpeta permitida al leer.");
+        }
+
+        //Load file
+        Resource resource = new UrlResource(filePath.toUri());
+        
+        if (resource.exists() && resource.isReadable()) {
+            return resource;
+        } else {
+            throw new Exception("El archivo no existe o no se puede leer.");
+        }
+    }
+
 }

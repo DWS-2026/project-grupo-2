@@ -33,6 +33,8 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -224,24 +226,30 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}/avatar/downloads")
-    public ResponseEntity<Resource> getAvatar(@PathVariable Long id) {
+    public ResponseEntity<?> getAvatar(@PathVariable Long id) {
         try {
-            //Search for user's file name
-            User user = userRepository.findById(id).orElseThrow();
+            User user = userRepository.findById(id)
+                    .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
+            
             String filename = user.getAvatar();
 
-            Path file = Paths.get("uploads").resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .body(resource);
-            } else {
+            if (filename == null || filename.isBlank()) {
                 return ResponseEntity.notFound().build();
             }
+
+            Resource resource = FileUtils.loadFileSafe(filename);
+
+            return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG) 
+                .body(resource);
+
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("status", 404, "error", "Not Found", "message", e.getMessage()));
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
+            //Path Traversal detected
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("status", 400, "error", "Security Error", "message", e.getMessage()));
         }
     }
 }

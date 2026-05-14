@@ -79,6 +79,35 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
             .anyRequest().authenticated()   //You must be logged in to use the rest of /api/v1
         );
 
+    http.sessionManagement(management -> 
+    management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+    //401 and 403 exceptions without login
+    http.exceptionHandling(handling -> handling
+        .authenticationEntryPoint((request, response, authException) -> {
+            //Error 401(No logued / No token)
+            response.setContentType("application/json;charset=UTF-8");
+            response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\n" +
+                    "  \"status\": 401,\n" +
+                    "  \"error\": \"Unauthorized\",\n" +
+                    "  \"message\": \"Usuario no encontrado\"\n" +
+                    "}");
+        })
+        .accessDeniedHandler((request, response, accessDeniedException) -> {
+            //No admin role 403
+            response.setContentType("application/json;charset=UTF-8");
+            response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write("{\n" +
+                    "  \"status\": 403,\n" +
+                    "  \"error\": \"Forbidden\",\n" +
+                    "  \"message\": \"No tienes permisos para realizar esta acción\"\n" +
+                    "}");
+        })
+    );
+
     // Disable form-based login — APIs don't redirect to login pages
     http.formLogin(formLogin -> formLogin.disable());
 
