@@ -49,9 +49,9 @@ public class LoginRestController {
                 newUser.setAvatar(userDTO.getAvatar());
             }
             
-            userService.registerUser(newUser);
+            User savedUser = userService.registerUser(newUser);
         
-            URI location = URI.create("/api/v1/users/" + newUser.getId());
+            URI location = URI.create("/api/v1/users/" + savedUser.getId());
             return ResponseEntity.created(location).body("Usuario registrado correctamente");
         } catch (RuntimeException e) {
         

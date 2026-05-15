@@ -22,7 +22,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(User user) {
+    public User registerUser(User user) {
 
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
         throw new RuntimeException("El nombre de usuario ya está en uso");
@@ -40,7 +40,7 @@ public class UserService {
         user.setRoles(roles);
 
         //Save the new user to the database
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     //Update user profile

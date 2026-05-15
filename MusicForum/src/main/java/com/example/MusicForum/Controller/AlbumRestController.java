@@ -80,7 +80,7 @@ public class AlbumRestController {
         return toDTO(albumService.findById(id).orElseThrow());
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<AlbumDTO> postAlbum(@RequestBody AlbumDTO albumDTO) {
         Album album = toDomain(albumDTO);
         albumService.save(album);
