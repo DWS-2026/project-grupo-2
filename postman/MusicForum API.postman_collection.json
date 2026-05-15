@@ -836,7 +836,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": ""
+      "value": "https://localhost:8443"
     }
   ]
 }

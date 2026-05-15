@@ -425,6 +425,26 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/AlbumDTO"
+  /{id}/avatar:
+    get:
+      tags:
+      - user-controller
+      operationId: getWebAvatar
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
   /api/v1/users:
     get:
       tags:
@@ -465,8 +485,7 @@ paths:
           description: OK
           content:
             '*/*':
-              schema:
-                $ref: "#/components/schemas/PagedModel"
+              schema: {}
   /api/v1/users/{id}/avatar/downloads:
     get:
       tags:
@@ -484,9 +503,7 @@ paths:
           description: OK
           content:
             '*/*':
-              schema:
-                type: string
-                format: binary
+              schema: {}
   /api/v1/posts/{postId}/comments/{commentId}:
     get:
       tags:
