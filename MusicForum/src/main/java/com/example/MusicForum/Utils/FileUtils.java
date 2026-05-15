@@ -17,8 +17,7 @@ public class FileUtils {
 
     public static String saveFileSafe(MultipartFile file) throws Exception {
         //Keep original name
-        String originalFileName = Objects.requireNonNull(file.getOriginalFilename());
-        
+        String originalFileName = Paths.get(Objects.requireNonNull(file.getOriginalFilename())).getFileName().toString(); // ← quit all path, only leaves the name
         //Clean path
         Path destinationPath = BASE_DIRECTORY.resolve(originalFileName).normalize();
 

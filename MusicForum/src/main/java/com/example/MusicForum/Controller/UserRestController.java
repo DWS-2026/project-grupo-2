@@ -247,7 +247,9 @@ public class UserRestController {
             return ResponseEntity.ok("Imagen subida correctamente: " + saveFileName);
             
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error de seguridad: " + e.getMessage());
+            //before it exposed the path ->return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error de seguridad: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error de seguridad al procesar el fichero.");
+
         }
     }
 

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.MusicForum.Model.Album;
@@ -30,7 +30,6 @@ import com.example.MusicForum.Repository.AlbumRepository;
 import com.example.MusicForum.Service.AlbumService;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("/api/v1/albums")
 public class AlbumRestController {
@@ -39,29 +38,28 @@ public class AlbumRestController {
     @Autowired
     private AlbumService albumService;
 
-
-    
-    @GetMapping("/")
-    public Collection<AlbumDTO> getAlbums(Pageable pageable) {
-        return albumRepository.findAll(pageable).map(this::toDTO).getContent();
+    @GetMapping("")
+    public ResponseEntity<Page<AlbumDTO>> getAlbums(Pageable pageable) {
+        return ResponseEntity.ok(albumRepository.findAll(pageable).map(this::toDTO));
     }
 
-    private AlbumDTO toDTO(Album album){
+    private AlbumDTO toDTO(Album album) {
         return new AlbumDTO(album.getId(), album.getTitle(), album.getDate(), album.getArtist(), album.getSongs());
 
     }
 
-    private List<AlbumDTO> toDTOs(Collection<Album> albums){
+    private List<AlbumDTO> toDTOs(Collection<Album> albums) {
         return albums.stream().map(this::toDTO).toList();
     }
-    private Album toDomain(AlbumDTO albumDTO){
-        return new Album(albumDTO.title(), albumDTO.songs(),  albumDTO.date(), albumDTO.artist());
+
+    private Album toDomain(AlbumDTO albumDTO) {
+        return new Album(albumDTO.title(), albumDTO.songs(), albumDTO.date(), albumDTO.artist());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Album> deleteAlbum(@PathVariable long id){
+    public ResponseEntity<Album> deleteAlbum(@PathVariable long id) {
         Optional<Album> op = albumRepository.findById(id);
-        if(op.isPresent()){
+        if (op.isPresent()) {
             Album album = op.get();
 
             // Remove album from all posts before deleting to avoid breaking them
@@ -71,7 +69,7 @@ public class AlbumRestController {
 
             album.getPosts().clear();
             albumRepository.deleteById(id);
-            return ResponseEntity.accepted().build();
+            return ResponseEntity.noContent().build(); // instead of .accepted()
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -81,6 +79,7 @@ public class AlbumRestController {
     public AlbumDTO getAlbum(@PathVariable long id) {
         return toDTO(albumService.findById(id).orElseThrow());
     }
+
     @PostMapping("/")
     public ResponseEntity<AlbumDTO> postAlbum(@RequestBody AlbumDTO albumDTO) {
         Album album = toDomain(albumDTO);
@@ -90,31 +89,30 @@ public class AlbumRestController {
     }
 
     @PostMapping("/{id}/image")
-    public ResponseEntity<MultipartFile> postImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException{
+    public ResponseEntity<MultipartFile> postImage(@PathVariable long id, @RequestParam MultipartFile imageFile)
+            throws IOException {
         Optional<Album> op = albumService.findById(id);
 
-        if(op.isPresent()){
+        if (op.isPresent()) {
             Album album = op.get();
             albumService.save(album, imageFile);
             return ResponseEntity.ok(imageFile);
         } else {
             return ResponseEntity.badRequest().build();
         }
-        
-        
+
     }
 
     @PutMapping("/{id}")
-    public AlbumDTO putAlbum(@PathVariable long id, @RequestBody AlbumDTO albumDTO) {
-        if(albumRepository.existsById(id)){
-            Album album = toDomain(albumDTO);
-            album.setId(id);
-            albumRepository.save(album);
-            return toDTO(album);
-        } else {
-            throw new NoSuchElementException();
-        }
-        
+    public ResponseEntity<AlbumDTO> putAlbum(@PathVariable long id, @RequestBody AlbumDTO albumDTO) {
+    if(albumRepository.existsById(id)){
+        Album album = toDomain(albumDTO);
+        album.setId(id);
+        albumRepository.save(album);
+        return ResponseEntity.ok(toDTO(album));
+    } else {
+        return ResponseEntity.notFound().build();
     }
-    
+}
+
 }

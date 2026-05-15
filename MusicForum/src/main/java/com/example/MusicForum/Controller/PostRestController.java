@@ -318,7 +318,9 @@ public class PostRestController {
 
         // Update fields
         post.setTitle(postDTO.getTitle());
-        post.setDescription(postDTO.getDescription());
+        //post.setDescription(postDTO.getDescription()); <- wasnt sanitized
+        post.setDescription(htmlSanitizer.sanitize(postDTO.getDescription())); //correct
+
 
         // Update albums if albumIds are provided
         if (postDTO.getAlbumIds() != null) {

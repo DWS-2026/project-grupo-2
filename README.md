@@ -382,7 +382,7 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - [Óscar Rodríguez Pérez]**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 

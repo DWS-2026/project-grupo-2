@@ -116,7 +116,7 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
     // Enable HTTP Basic Authentication
     // Postman sends credentials in the Authorization header:
     // Authorization: Basic base64(username:password)
-    http.httpBasic(Customizer.withDefaults());
+    //http.httpBasic(Customizer.withDefaults());
 
     // Configure stateless session management
     // The server won't create or store any HTTP session between requests

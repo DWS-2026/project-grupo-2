@@ -10,6 +10,8 @@ import com.example.MusicForum.Security.jwt.UserLoginService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
@@ -49,7 +51,8 @@ public class LoginRestController {
             
             userService.registerUser(newUser);
         
-            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado correctamente");
+            URI location = URI.create("/api/v1/users/" + newUser.getId());
+            return ResponseEntity.created(location).body("Usuario registrado correctamente");
         } catch (RuntimeException e) {
         
             return ResponseEntity.badRequest().body(e.getMessage()); //error 404
