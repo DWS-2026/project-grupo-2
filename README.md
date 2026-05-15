@@ -325,6 +325,7 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ### **Vídeo de Demostración**
 📹 **[Enlace al vídeo en YouTube](https://www.youtube.com/watch?v=i3mE_TP-Uxg)**
+📹 **[Enlace al vídeo en YouTube (Reentrega)](https://youtu.be/1H6DqZ8_oJ0)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Documentación de la API REST**
