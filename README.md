@@ -392,6 +392,6 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 |2| [Postman collection added update and delete for posts and comments](https://github.com/DWS-2026/project-grupo-2/commit/e675ac8d8609c573887d16c6a85e898f5982225e)  | [Archivo2](URL_archivo_2)   |
 |3| [commented web security config](https://github.com/DWS-2026/project-grupo-2/commit/faf5e7c59b0fac99d11cb5ad80614ea3e7d9a912)  | [Archivo3](URL_archivo_3)   |
 |4| [implemented  Get and Delete  for Posts and Comments in API. Added Post and Comment RestController and their DTO. Modified WebSecurityConfig](https://github.com/DWS-2026/project-grupo-2/commit/c11ff4b8e189db79d7e76e78f5080474e2759cda)  | [Archivo4](URL_archivo_4)   |
-|5| [Video](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|5| [Fix security vulnerabilities and improve REST API compliance](https://github.com/DWS-2026/project-grupo-2/commit/6a114592b6f2605fbb1386092396a30458d67bce)  | [Archivo5](URL_archivo_5)   |
 
 ---
