@@ -102,26 +102,60 @@ public class PostController {
 
     @Transactional
     @PostMapping("/post/{id}/delete")
-    public String deletePost(@PathVariable long id) {
-        if (postRepository.existsById(id)) {
+    public String deletePost(@PathVariable long id, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        Optional<Post> op = postRepository.findById(id);
+        if (op.isPresent()) {
+            Post postToDelete = op.get();
+
+            User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+
+            boolean isAuthor = postToDelete.getUser() != null && postToDelete.getUser().getId().equals(loggedUser.getId());
+            boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+
+            if (!isAuthor && !isAdmin) {
+                return "redirect:/access_denied";
+            }
+
             postRepository.deleteAlbumRelations(id);
             postRepository.deleteComments(id);
             postRepository.deletePostById(id);
             return "redirect:/post_listing";
         }
+        
         return "error";
     }
 
     @GetMapping("/editpost/{id}")
-    public String editPost(Model model, @PathVariable long id) {
+    public String editPost(Model model, @PathVariable long id, Principal principal) {
+        
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
         Optional<Post> op = postRepository.findById(id);
         if (op.isPresent()) {
             Post post = op.get();
+
+            User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+
+            boolean isAuthor = post.getUser() != null && post.getUser().getId().equals(loggedUser.getId());
+            boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+
+            if (!isAuthor && !isAdmin) {
+                return "redirect:/access_denied";
+            }
+
             List<Album> availableAlbums = albumRepository.findAll();
             availableAlbums.removeAll(post.getAlbums());
+            
             model.addAttribute("post", post);
             model.addAttribute("postId", post.getId());
             model.addAttribute("allAlbums", availableAlbums);
+            
             return "edit_post";
         } else {
             return "post_not_found";
@@ -148,10 +182,25 @@ public class PostController {
 
     @PostMapping("/editpost/{id}")
     public String editPostPost(@PathVariable long id, Post editedPost,
-            @RequestParam("imageFile") MultipartFile imageFile) throws SQLException, IOException {
+            @RequestParam("imageFile") MultipartFile imageFile, Principal principal) throws SQLException, IOException {
+        
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
         Optional<Post> op = postRepository.findById(id);
         if (op.isPresent()) {
             Post existing = op.get();
+
+            User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+
+            boolean isAuthor = existing.getUser() != null && existing.getUser().getId().equals(loggedUser.getId());
+            boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+
+            if (!isAuthor && !isAdmin) {
+                return "redirect:/access_denied"; 
+            }
+
             existing.setTitle(editedPost.getTitle());
             existing.setDescription(editedPost.getDescription());
             if (imageFile != null && !imageFile.isEmpty()) {

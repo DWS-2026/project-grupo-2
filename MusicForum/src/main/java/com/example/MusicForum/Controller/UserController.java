@@ -198,15 +198,6 @@ public class UserController {
     
     }
 
-
-
-    @GetMapping("/user_posts")
-    public String showUserPosts(Principal principal, Model model) {
-        userRepository.findByUsername(principal.getName())
-                .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
-        return "user_posts";
-    }
-
     // In panel admin. User listing
     @GetMapping("/user_listing")
     public String showUserListing(Model model) {
@@ -216,9 +207,23 @@ public class UserController {
     }
 
     @GetMapping("/user_posts/{id}")
-    public String showUserPosts(@PathVariable Long id, Model model) {
+    public String showUserPosts(@PathVariable Long id, Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+
+        boolean isOwner = loggedUser.getId().equals(id);
+        boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+
+        if (!isOwner && !isAdmin) {
+            return "redirect:/access_denied"; 
+        }
+
         userRepository.findById(id)
                 .ifPresent(user -> model.addAttribute("posts", user.getPosts()));
+        
         return "user_posts";
     }
 

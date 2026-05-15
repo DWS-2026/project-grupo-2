@@ -1,9 +1,0 @@
-$kind: http-request
-url: "{{baseUrl}}/api/v1/users/2"
-method: DELETE
-auth:
-  type: basic
-  credentials:
-    password: user123
-    username: user
-order: 4000

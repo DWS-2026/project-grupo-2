@@ -89,7 +89,6 @@ public class UserRestController {
 
         if(!isAdmin && !isOwnsProfile){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();  //Error 403
-
         }
 
         return ResponseEntity.ok(new UserDTO(user));  //Everything was ok
@@ -166,14 +165,28 @@ public class UserRestController {
 
     //Get users posts (equal to /user_posts/{id})
     @GetMapping("/{id}/posts")
-    public ResponseEntity<Page<PostDTO>> getUserPosts(@PathVariable Long id, Pageable pageable){
+    public ResponseEntity<?> getUserPosts(@PathVariable Long id, Pageable pageable, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+
+        boolean isOwner = loggedUser.getId().equals(id);
+        boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+
+        if (!isOwner && !isAdmin) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();   //403
+        }
+
         if (!userRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         
         Page<Post> postsPage = postRepository.findByUserId(id, pageable);
-        //Post->PostDTO manually 
-        Page<PostDTO> dtoPage = postsPage.map(post ->{
+        
+        // Post -> PostDTO manually 
+        Page<PostDTO> dtoPage = postsPage.map(post -> {
             PostDTO dto = new PostDTO();
             dto.setId(post.getId());
             dto.setTitle(post.getTitle());
@@ -207,8 +220,21 @@ public class UserRestController {
 
     //Point 15.
     @PutMapping("/{id}/avatar")
-    public ResponseEntity<?> updateAvatar(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> updateAvatar(@PathVariable Long id, @RequestParam("file") MultipartFile file, Principal principal) {
         try {
+            if (principal == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Debes iniciar sesión.");
+            }
+
+            User loggedUser = userRepository.findByUsername(principal.getName()).orElseThrow();
+            boolean isOwner = loggedUser.getId().equals(id);
+            boolean isAdmin = loggedUser.getRoles().contains("ADMIN");
+
+            if (!isOwner && !isAdmin) {
+                //403 Forbidden
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tienes permiso para cambiar esta foto de perfil.");
+            }
+
             String saveFileName = FileUtils.saveFileSafe(file);
             
             //Search for user on data base

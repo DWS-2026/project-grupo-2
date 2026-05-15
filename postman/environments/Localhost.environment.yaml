@@ -1,4 +1,0 @@
-name: Localhost
-values:
-  - key: baseUrl
-    value: 'https://localhost:8443'

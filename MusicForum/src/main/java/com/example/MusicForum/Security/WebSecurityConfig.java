@@ -68,7 +68,9 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
             
             .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register").permitAll() // Login and Register
             .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()  //26. 
-            // Only ADMIN role can perform DELETE requests on /api/v1/posts/**
+            // Only ADMIN role or the user it self can perform DELETE requests on /api/v1/posts/**
+            .requestMatchers(HttpMethod.POST, "/api/v1/posts/**").authenticated()
+            .requestMatchers(HttpMethod.PUT, "/api/v1/posts/**").authenticated()
             .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").authenticated()
             // Only ADMIN should be able to edit anything from the album entity // comment these for testing
             .requestMatchers(HttpMethod.DELETE, "/api/v1/albums/**").hasRole("ADMIN")
@@ -140,25 +142,23 @@ public SecurityFilterChain apiFilterChain(HttpSecurity http,
                 .authorizeHttpRequests(authorize -> authorize
                         // Public Pages
                         .requestMatchers("/", "/error", "/login", "/register", "/loginerror", "/css/**", "/js/**",
-                                "/images/**")
+                                "/images/**", "/error.html/**", "/footer.html/**", "/header.html/**", "/access_denied")
                         .permitAll()
-                        .requestMatchers("/first/**", "/album_listing/**", "/album_view/**").permitAll()
-                        .requestMatchers("/error.html/**", "/footer.html/**", "/header.html/**").permitAll()
-                        .requestMatchers("/post_listing", "/post_listing/**").permitAll()
-                        .requestMatchers("/post_view", "/post_view/**", "/post/**").permitAll()
-                        .requestMatchers("/posts/**").permitAll()
-                        .requestMatchers("/access_denied").permitAll()
 
+                        //Only GET
+                        .requestMatchers(HttpMethod.GET, "/first/**", "/album_listing/**", "/album_view/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/post_listing", "/post_listing/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/post_view", "/post_view/**", "/post/**", "/posts/**").permitAll()
                         // Private Pages (USER)
-                        .requestMatchers("/edit_profile", "/edit_post", "/new_comment", "/new_post", "/user_profile/**")
-                        .hasRole("USER")
+                        .requestMatchers("/edit_profile", "/edit_post", "/new_comment", "/new_post", "/user_profile/**", "user_posts/**")
+                        .hasAnyRole("USER", "ADMIN")
 
-                        // Admin Pages
+                        // Admin Page
                         .requestMatchers("/user_listing", "/admin_panel", "/albumModal", "/albumCreate", "/user/**")
                         .hasRole("ADMIN")
 
                         // Any other request
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/loginerror")
