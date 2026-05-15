@@ -10,6 +10,7 @@ import com.example.MusicForum.Model.Post;
 import com.example.MusicForum.Repository.CommentRepository;
 import com.example.MusicForum.Repository.PostRepository;
 import com.example.MusicForum.Service.PostService;
+import com.example.MusicForum.Utils.HtmlSanitizer;
 
 import jakarta.transaction.Transactional;
 
@@ -34,6 +35,8 @@ import org.springframework.data.domain.Pageable;
 @RestController
 @RequestMapping("/api/v1/posts")
 public class PostRestController {
+    @Autowired
+    private HtmlSanitizer htmlSanitizer;
 
     @Autowired
     private PostRepository postRepository;
@@ -54,7 +57,7 @@ public class PostRestController {
         PostDTO dto = new PostDTO();
         dto.setId(post.getId());
         dto.setTitle(post.getTitle());
-        dto.setDescription(post.getDescription());
+        dto.setDescription(htmlSanitizer.sanitize(post.getDescription()));
         dto.setDate(post.getDate());
 
         // Instead of returning the full User object (which would cause serialization
@@ -230,7 +233,7 @@ public class PostRestController {
         // Build the new Post entity from the DTO fields.
         Post post = new Post();
         post.setTitle(postDTO.getTitle());
-        post.setDescription(postDTO.getDescription());
+        post.setDescription(htmlSanitizer.sanitize(postDTO.getDescription()));
         post.setUser(author);
 
         // Set the creation date automatically on the server side.

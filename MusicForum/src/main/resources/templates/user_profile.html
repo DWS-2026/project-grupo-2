@@ -9,17 +9,17 @@
                 class="rounded-circle mb-3" 
                 alt="Avatar" 
                 style="width: 150px; height: 150px; object-fit: cover;">
-            <h3 class="fw-bold">{{{username}}}</h3>
+            <h3 class="fw-bold">{{username}}</h3>
             <p class="text-muted">{{email}}</p>
         </div>
 
         <hr>
 
         <h5 class="fw-bold">Mis datos</h5>
-        <p><strong>Usuario:</strong> {{{username}}}</p>
-        <p><strong>Email:</strong> {{{email}}}</p>
-        <p><strong>Rol:</strong> {{{userRole}}}</p>
-        <p><strong>Miembro desde:</strong> {{{formattedCreatedAt}}}</p>
+        <p><strong>Usuario:</strong> {{username}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <p><strong>Rol:</strong> {{userRole}}</p>
+        <p><strong>Miembro desde:</strong> {{formattedCreatedAt}}</p>
 
         <div class="d-flex gap-2 mt-3">
             <a href="/user_posts/{{id}}" class="btn btn-dark w-50">Ver Posts</a>

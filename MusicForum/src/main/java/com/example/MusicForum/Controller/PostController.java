@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.MusicForum.Model.Album;
 import com.example.MusicForum.Service.*;
+import com.example.MusicForum.Utils.HtmlSanitizer;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -34,6 +35,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class PostController {
+    @Autowired
+    private HtmlSanitizer htmlSanitizer;
 
     @Autowired
     private PostRepository postRepository;
@@ -71,6 +74,7 @@ public class PostController {
         post.setDate(LocalDate.now().toString());
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         post.setUser(user);
+        post.setDescription(htmlSanitizer.sanitize(post.getDescription()));
         postService.save(post, imageFile);
         return "redirect:/post_listing";
     }
@@ -202,7 +206,7 @@ public class PostController {
             }
 
             existing.setTitle(editedPost.getTitle());
-            existing.setDescription(editedPost.getDescription());
+            existing.setDescription(htmlSanitizer.sanitize(editedPost.getDescription()));
             if (imageFile != null && !imageFile.isEmpty()) {
                 postService.save(existing, imageFile);
             } else {
